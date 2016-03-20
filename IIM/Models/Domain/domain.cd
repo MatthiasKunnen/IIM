@@ -1,32 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="IIM.Models.Domain.Curricular" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Curricular.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IIM.Models.Domain.Firm" Collapsed="true">
-    <Position X="0.5" Y="2.5" Width="1.5" />
+    <Position X="0.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAAgAAAAAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Firm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IIM.Models.Domain.Material">
-    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="0.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AEQCAAAAAQAgAAAAAAAIAASAgAAABAAAAMAAAAAAAAA=</HashCode>
+      <HashCode>AAQCAAAAAQAgAAAAAAAIAAQAgAAABAAAAIAAAAIAAAA=</HashCode>
       <FileName>Models\Domain\Material.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Visibility" />
       <Property Name="Firm" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="TargetGroups" />
       <Property Name="Curriculars" />
+      <Property Name="TargetGroups" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="IIM.Models.Domain.TargetGroup" Collapsed="true">
@@ -36,11 +35,75 @@
       <FileName>Models\Domain\TargetGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="IIM.Models.Domain.Visibility" Collapsed="true">
-    <Position X="0.5" Y="3.75" Width="1.5" />
+  <Class Name="IIM.Models.Domain.User">
+    <Position X="14.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAIAAAAAAAAAAAAAAAAgAAQAAAAAAAAg=</HashCode>
+      <FileName>Models\Domain\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IIM.Models.Domain.MaterialIdentifier">
+    <Position X="7.75" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\MaterialIdentifier.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Material" />
+      <Property Name="Visibility" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IIM.Models.Domain.Reservation">
+    <Position X="11" Y="2.75" Width="2.75" />
+    <AssociationLine Name="Details" Type="IIM.Models.Domain.ReservationDetails" FixedToPoint="true">
+      <Path>
+        <Point X="12.25" Y="2.75" />
+        <Point X="12.25" Y="2.046" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAADAAAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\Domain\Reservation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Details" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="IIM.Models.Domain.ReservationDetails">
+    <Position X="11" Y="0.75" Width="2.75" />
+    <AssociationLine Name="Reservation" Type="IIM.Models.Domain.Reservation" FixedToPoint="true">
+      <Path>
+        <Point X="13.375" Y="2.046" />
+        <Point X="13.375" Y="2.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Models\Domain\ReservationDetails.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Reservation" />
+      <Property Name="MaterialIdentifier" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="IIM.Models.Domain.Visibility">
+    <Position X="7.75" Y="2.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Models\Domain\Visibility.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="IIM.Models.Domain.Type">
+    <Position X="14.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Type.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
