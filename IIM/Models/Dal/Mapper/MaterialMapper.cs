@@ -14,7 +14,7 @@ namespace IIM.Models.DAL.Mapper
             //Table
             ToTable("Material");
             HasKey(m => m.Id);
-            HasMany(m => m.TargetGroups).WithOptional().Map(m => m.MapKey("Id")).WillCascadeOnDelete(false);
+            HasMany(m => m.TargetGroups).WithRequired().Map(m => m.MapKey("Id")).WillCascadeOnDelete(false);
             HasMany(m => m.Curriculars).WithOptional().Map(m => m.MapKey("Id"));
         }
     }

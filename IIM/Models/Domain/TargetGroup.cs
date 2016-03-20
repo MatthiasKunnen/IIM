@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace IIM.Models.Domain
 {
@@ -13,6 +14,7 @@ namespace IIM.Models.Domain
         #endregion
 
         #region Properties
+        [Key]
         public int Id { get; }
 
         public string Name { get; set; }

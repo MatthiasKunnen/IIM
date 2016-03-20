@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace IIM.Models.Domain
 {
@@ -20,7 +21,7 @@ namespace IIM.Models.Domain
 
         public string ArticleNr { get; set; }
 
-        public int Id { get; }
+        public int Id { get; set;}
 
         public string Encoding { get; set; }
 
@@ -47,8 +48,6 @@ namespace IIM.Models.Domain
             this.Name = name;
             this.Amount = amount;
         }
-
-
         #endregion
 
         #region Actions
