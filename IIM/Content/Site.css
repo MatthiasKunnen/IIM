@@ -22,3 +22,114 @@ select,
 textarea {
     max-width: 280px;
 }
+
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400,700);
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@import "compass/css3";
+
+* {
+  margin:0;
+  padding:0;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400,700);
+
+/*html, body {
+  height: 100%;
+}
+
+body {
+  text-align:center;
+  background-color: #5d4660;
+  @include filter-gradient(#5d4660, #f7eec7, vertical);
+  $experimental-support-for-svg: true;
+  @include background-image(linear-gradient(top, #5d4660    0%,#f7eec7 100%));
+  font-family: 'Droid Sans', sans-serif;
+}*/
+
+.wrap {
+  width:800px;
+  margin:0 auto;
+  text-align:left;
+  color:#989A8F;
+}
+
+.table {
+  background-color:#ffffff; 
+  height:325px;
+  width:100%;
+  margin-top:50px;  
+}
+
+.materialList {
+  float:left;
+  width:199px;
+  text-align:center;
+  border-left:1px solid #DDDCD8;
+  list-style:none;
+}
+
+.top {
+  background-color:#EAE9E4;
+  height:75px;
+  h1 {
+    padding-top:20px;
+  }
+}
+
+.circle {
+  width:60px;
+  height:60px;
+  border-radius:60px;
+  font-size:20px;
+  color:#fff;
+  line-height:60px;
+  text-align:center;
+  background:#989A8F;
+  margin-left:70px;
+  margin-top:10px;
+}
+
+.bottom {
+margin-top:50px;
+  p {
+     font-size:13px;
+     font-family: 'Droid Serif', sans-serif;
+     padding:5px;
+    span {
+     font-weight:bold; 
+    }
+  }
+}
+
+.sign {
+  margin-top:50px;
+    .button {
+   border: 1px solid #989A8F;
+   padding: 10px 40px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   color: #989A8F;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+    font-size:17px;
+   }
+}
+
+.purple {
+  background-color:#5D4660;   
+}
+
+.white {
+ color:#FFFFFF; 
+}
+
+.pink {
+  background-color:#BC9B94;
+}
