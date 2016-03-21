@@ -2,18 +2,21 @@
 {
     public class User
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public string Email { get; set; }
+        public string Email {
+            get { return Email; }
+            set {  }
+        }
 
-        public string Faculty { get; set; }
+        public string Faculty { get; private set; }
 
-        public string FirstName { get; set; }
+        public string FirstName { get; private set; }
 
-        public string LastName { get; set; }
+        public string LastName { get; private set; }
 
         public string TelNumber { get; set; }
 
-        public Type Type { get; set; }
+        public Type Type { get; private set; }
     }
 }

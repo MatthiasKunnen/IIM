@@ -14,9 +14,8 @@ namespace IIM.Models.DAL.Mapper
             //Table
             ToTable("TargetGroup");
 
-            Property(t => t.Name).IsRequired();
-            Property(t => t.Id).IsRequired();
-            HasKey(t => t.Name);
+           HasKey(t => t.Id);
+           Property(t => t.Name).IsRequired();
         }
     }
 }

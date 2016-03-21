@@ -2,10 +2,13 @@
 {
     public class MaterialIdentifier
     {
-        public string Place { get; set; }
 
-        public Visibility Visibility { get; set; }
+        public int Id { get; private set; }
 
-        public Material Material { get; set; }
+        public string Place { get; private set; }
+
+        public Visibility Visibility { get; private set; }
+
+        public Material Material { get; private set; }
     }
 }

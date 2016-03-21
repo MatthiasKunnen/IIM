@@ -5,16 +5,70 @@ namespace IIM.Models.Domain
 {
     public class Reservation
     {
-        public int Id { get; set; }
+        public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, User user)
+        {
+            Details = new List<ReservationDetails>();
+            CreationDate = creationDate;
+            StartDate = startDate;
+            EndDate = endDate;
+            User = user;
+        }
 
-        public DateTime CreationDate { get; set; }
+        public int Id { get; private set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime CreationDate { get; private set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime StartDate
+        {
+            get { return StartDate; }
+            set
+            {
+                if (value.Date > DateTime.Today)
+                {
+                    StartDate = value;
+                }
+                else
+                {
+                    throw new ArgumentException("De startdatum van een reservatie moet later zijn dan vanddag.");
+                }
+            }
+        }
 
-        public User User { get; set; }
 
-        public List<ReservationDetails> Details { get; set; }
+        public DateTime EndDate
+        {
+            get { return EndDate; }
+            private set
+            {
+                if (StartDate.AddDays(7) >= value)
+                {
+                    EndDate = value;
+                }
+            }
+        }
+
+        public User User { get; private set; }
+
+        public List<ReservationDetails> Details { get; }
+
+        public void AddDetail(ReservationDetails details)
+        {
+            Details.Add(details);
+        }
+
+        public void AddAllDetails(List<ReservationDetails> details)
+        {
+            Details.AddRange(details);
+        }
+
+        public void RemoveDetail(ReservationDetails detail)
+        {
+            Details.Remove(detail);
+        }
+
+        public void RemoveAllDetails(List<ReservationDetails> details)
+        {
+            details.ForEach(d => details.Remove(d));
+        }
     }
 }

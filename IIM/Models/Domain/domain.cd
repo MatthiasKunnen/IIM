@@ -52,20 +52,20 @@
       <FileName>Models\Domain\MaterialIdentifier.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Material" />
       <Property Name="Visibility" />
+      <Property Name="Material" />
     </ShowAsAssociation>
   </Class>
   <Class Name="IIM.Models.Domain.Reservation">
-    <Position X="11" Y="2.75" Width="2.75" />
+    <Position X="11" Y="3.25" Width="2.75" />
     <AssociationLine Name="Details" Type="IIM.Models.Domain.ReservationDetails" FixedToPoint="true">
       <Path>
-        <Point X="12.25" Y="2.75" />
-        <Point X="12.25" Y="2.046" />
+        <Point X="12.25" Y="3.25" />
+        <Point X="12.25" Y="2.498" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>QAADAAAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>SAADAAAAAAAFAAAAAAAAAAAgAAACAAABAAAAAEAAAAA=</HashCode>
       <FileName>Models\Domain\Reservation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -79,8 +79,8 @@
     <Position X="11" Y="0.75" Width="2.75" />
     <AssociationLine Name="Reservation" Type="IIM.Models.Domain.Reservation" FixedToPoint="true">
       <Path>
-        <Point X="13.375" Y="2.046" />
-        <Point X="13.375" Y="2.75" />
+        <Point X="13.375" Y="2.497" />
+        <Point X="13.375" Y="3.25" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>

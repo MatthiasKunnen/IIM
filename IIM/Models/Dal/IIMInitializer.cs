@@ -13,32 +13,32 @@ namespace IIM.Models.DAL
         {
             try
             {
-                var opleiding = new Curricular() { Name = "Opleiding" };
-                var targetGroup = new TargetGroup() { Name = "Studenten" };
-                var wereldbol = new Material()
-                {
-                    Id = 1,
-                    Name = "Wereldbol",
-                    ArticleNr = "WB12",
-                    Curriculars = new List<Curricular>() { opleiding },
-                    Description = "Wereldbol wordt voor de lessen aardrijkskunde gebruikt",
-                    Price = 11.50M,
-                    Firm = new Firm() { Name = "Atlas" },
-                    TargetGroups = new List<TargetGroup>() { targetGroup }
-                };
-                var voetbal = new Material()
-                {
-                    Id = 2,
-                    Name = "Voetbal",
-                    ArticleNr = "10BAL41",
-                    Curriculars = new List<Curricular>() { opleiding },
-                    Description = "Voetbal wordt gebruikt om de kinderen bezig te houden",
-                    Price = 6.99M,
-                    Firm = new Firm() { Name = "Bals&Co" },
-                    TargetGroups = new List<TargetGroup>() { targetGroup }
-                };
-                context.Materials.Add(wereldbol);
-                context.Materials.Add(voetbal);
+                //var opleiding = new Curricular() { Name = "Opleiding" };
+                //var targetGroup = new TargetGroup() { Name = "Studenten" };
+                //var wereldbol = new Material()
+                //{
+                //    Id = 1,
+                //    Name = "Wereldbol",
+                //    ArticleNr = "WB12",
+                //    Curriculars = new List<Curricular>() { opleiding },
+                //    Description = "Wereldbol wordt voor de lessen aardrijkskunde gebruikt",
+                //    Price = 11.50M,
+                //    Firm = new Firm() { Name = "Atlas" },
+                //    TargetGroups = new List<TargetGroup>() { targetGroup }
+                //};
+                //var voetbal = new Material()
+                //{
+                //    Id = 2,
+                //    Name = "Voetbal",
+                //    ArticleNr = "10BAL41",
+                //    Curriculars = new List<Curricular>() { opleiding },
+                //    Description = "Voetbal wordt gebruikt om de kinderen bezig te houden",
+                //    Price = 6.99M,
+                //    Firm = new Firm() { Name = "Bals&Co" },
+                //    TargetGroups = new List<TargetGroup>() { targetGroup }
+                //};
+                //context.Materials.Add(wereldbol);
+                //context.Materials.Add(voetbal);
 
                 context.SaveChanges();
             }

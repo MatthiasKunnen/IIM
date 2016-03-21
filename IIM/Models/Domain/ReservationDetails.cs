@@ -4,12 +4,20 @@ namespace IIM.Models.Domain
 {
     public class ReservationDetails
     {
-        public DateTime BroughtBackDate { get; set; }
+        public ReservationDetails(Reservation reservation, MaterialIdentifier identifier)
+        {
+            Reservation = reservation;
+            reservation.AddDetail(this);
+            MaterialIdentifier = identifier;
+        }
 
-        public DateTime PickUpDate { get; set; }
+        public int Id { get; private set; }
+        public DateTime BroughtBackDate { get; private set; }
 
-        public Reservation Reservation { get; set; }
+        public DateTime PickUpDate { get; private set; }
 
-        public MaterialIdentifier MaterialIdentifier { get; set; }
+        public Reservation Reservation { get; private set; }
+
+        public MaterialIdentifier MaterialIdentifier { get; private set; }
     }
 }

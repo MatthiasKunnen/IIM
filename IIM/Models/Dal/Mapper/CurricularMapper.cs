@@ -12,11 +12,12 @@ namespace IIM.Models.DAL.Mapper
         public CurricularMapper()
         {
             //Table
-            ToTable("Curricular");
+            ToTable("CURRICULAR");
 
-            Property(c => c.Id).IsRequired();
+            HasKey(c => c.Id);
             Property(c => c.Name).IsRequired();
-            HasKey(c => c.Name);
+            
+            
         }
     }
 }

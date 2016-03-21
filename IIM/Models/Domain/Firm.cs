@@ -1,6 +1,8 @@
-﻿namespace IIM.Models.Domain
+﻿using System.Data.SqlTypes;
+
+namespace IIM.Models.Domain
 {
-    public class Firm
+    public class Firm 
     {
         public int Id { get; set; }
 
