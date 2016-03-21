@@ -1,3 +1,6 @@
+using IIM.Models.DAL;
+using IIM.Models.Domain;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(IIM.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(IIM.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +64,9 @@ namespace IIM.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IMaterialRepository>().To<MaterialRepository>().InRequestScope();
+            kernel.Bind<IReservationRepository>().To<ReservationRepository>().InRequestScope();
+            kernel.Bind<IIMContext>().ToSelf().InRequestScope();
         }        
     }
 }
