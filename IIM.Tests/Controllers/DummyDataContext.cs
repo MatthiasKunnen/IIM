@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using IIM.Models.Domain;
 
 namespace IIM.Tests.Controllers
@@ -14,18 +10,17 @@ namespace IIM.Tests.Controllers
         public IQueryable<Curricular> Curriculars { get; set; }
         public DummyDataContext()
         {
-            Curricular lo = new Curricular() { Name = "Lichaamelijke opvoeding" };
-            Curricular analyse = new Curricular() { Name = "Analyse" };
+            var lo = new Curricular() { Name = "Lichaamelijke opvoeding" };
+            var analyse = new Curricular() { Name = "Analyse" };
             Curriculars = (new Curricular[] { lo, analyse }).ToList().AsQueryable();
-            TargetGroup studentenEersteGraad = new TargetGroup() { Name = "Studenten 1ste graad" };
-            TargetGroup studentenTweedeGraad = new TargetGroup() { Name = "Studenten 2de graad" };
+            var studentenEersteGraad = new TargetGroup() { Name = "Studenten 1ste graad" };
+            var studentenTweedeGraad = new TargetGroup() { Name = "Studenten 2de graad" };
             TargetGroups= (new TargetGroup[] {studentenEersteGraad, studentenTweedeGraad}).ToList().AsQueryable();
             //Materiaal die volledig in orde is.
-            Material wereldbol = new Material()
+            var wereldbol = new Material()
             {
                 Id = 1,
                 Name = "Wereldbol",
-                Amount = 3,
                 ArticleNr = "WB12",
                 Curriculars = Curriculars.ToList(),
                 Description = "Wereldbol wordt voor de lessen aardrijkskunde gebruikt",
@@ -34,11 +29,10 @@ namespace IIM.Tests.Controllers
                 TargetGroups = TargetGroups.ToList()
             };
             //Materiaal zonder curriculars
-            Material voetbal = new Material()
+            var voetbal = new Material()
             {
                 Id = 2,
                 Name = "Voetbal",
-                Amount = 2,
                 ArticleNr = "10BAL41",
                 Curriculars = null,
                 Description = "Voetbal wordt gebruikt om de kinderen bezig te houden",
@@ -47,8 +41,6 @@ namespace IIM.Tests.Controllers
                 TargetGroups = TargetGroups.ToList()
             };
             Materials = (new Material[] { wereldbol, voetbal }).ToList().AsQueryable();
-            
-           
         }
     }
 }

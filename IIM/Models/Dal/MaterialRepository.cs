@@ -9,24 +9,24 @@ namespace IIM.Models.DAL
 {
     public class MaterialRepository:IMaterialRepository
     {
-        private IIMContext context;
-        private DbSet<Material> materials;
+        private IIMContext _context;
+        private DbSet<Material> _materials;
         public MaterialRepository(IIMContext context)
         {
-            this.context = context;
-            materials = context.Materials;
+            this._context = context;
+            _materials = context.Materials;
         }
         public Material FindByName(string name)
         {
-            return materials.SingleOrDefault(m => m.Name == name);
+            return _materials.SingleOrDefault(m => m.Name == name);
         }
         public IQueryable<Material> FindAll()
         {
-            return materials;
+            return _materials;
         }
         public void SaveChanges()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
         
     }
