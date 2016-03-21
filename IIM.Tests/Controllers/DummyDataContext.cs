@@ -5,7 +5,7 @@ namespace IIM.Tests.Controllers
 {
     class DummyDataContext
     {
-        public IQueryable<Material> Materials {get; set; }
+        public IQueryable<Material> Materials { get; set; }
         public IQueryable<TargetGroup> TargetGroups { get; set; }
         public IQueryable<Curricular> Curriculars { get; set; }
         public DummyDataContext()
@@ -15,7 +15,7 @@ namespace IIM.Tests.Controllers
             Curriculars = (new Curricular[] { lo, analyse }).ToList().AsQueryable();
             var studentenEersteGraad = new TargetGroup() { Name = "Studenten 1ste graad" };
             var studentenTweedeGraad = new TargetGroup() { Name = "Studenten 2de graad" };
-            TargetGroups= (new TargetGroup[] {studentenEersteGraad, studentenTweedeGraad}).ToList().AsQueryable();
+            TargetGroups = (new TargetGroup[] { studentenEersteGraad, studentenTweedeGraad }).ToList().AsQueryable();
             //Materiaal die volledig in orde is.
             var wereldbol = new Material()
             {

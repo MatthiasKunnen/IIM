@@ -9,11 +9,11 @@ using System.Web.Mvc;
 
 namespace IIM.Controllers
 {
-    public class StoreController : Controller
+    public class InventoryController : Controller
     {
         private IMaterialRepository _materialRepository;
-        public StoreController() { }
-        public StoreController(IMaterialRepository repository)
+        public InventoryController() { }
+        public InventoryController(IMaterialRepository repository)
         {
             this._materialRepository = repository;
         }

@@ -16,7 +16,7 @@ namespace IIM.Models.DAL
         public IIMContext() : base("IIM")
         {
         }
-        public System.Data.Entity.DbSet<Material> Materials { get; set; }
+        public DbSet<Material> Materials { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

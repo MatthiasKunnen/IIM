@@ -11,7 +11,7 @@ namespace IIM.Tests.Controllers
     [TestClass]
     class StoreControllerTest
     {
-        private StoreController _controller;
+        private InventoryController _controller;
         private Mock<IMaterialRepository> _materialRepository;
 
         [TestInitialize]
@@ -20,7 +20,7 @@ namespace IIM.Tests.Controllers
             DummyDataContext context = new DummyDataContext();
             _materialRepository = new Mock<IMaterialRepository>();
             _materialRepository.Setup(m => m.FindAll()).Returns(context.Materials);
-            _controller = new StoreController(_materialRepository.Object);
+            _controller = new InventoryController(_materialRepository.Object);
         }
 
         [TestMethod]
