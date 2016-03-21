@@ -11,12 +11,14 @@ using System.Web.Mvc;
 
 namespace IIM.Models.DAL
 {
-    public class IIMContext:IdentityDbContext<ApplicationUser>
+    public class IIMContext : IdentityDbContext<ApplicationUser>
     {
         public IIMContext() : base("IIM")
         {
         }
         public DbSet<Material> Materials { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
