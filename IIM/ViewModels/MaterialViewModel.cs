@@ -8,13 +8,20 @@ namespace IIM.ViewModels
 {
     public class MaterialViewModel
     {
+        private string _photoUrl;
+
         public string ArticleNr { get; set; }
         public List<Curricular> Curriculars { get; set; }
         public string Description { get; set; }
+        public int Id { get; set; }
         public string Image { get; set; }
         public Firm Firm { get; set; }
         public string Name { get; set; }
-        public string PhotoUrl { get; set; }
+        public string PhotoUrl
+        {
+            get { return _photoUrl; }
+            set { _photoUrl = value ?? "~/Content/photo-coming-soon.jpg"; }
+        }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
         public decimal Price { get; set; }
