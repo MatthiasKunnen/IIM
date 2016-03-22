@@ -11,15 +11,15 @@ namespace IIM.Models.DAL.Mapper
     {
         public ReservationMapper()
         {
-            ToTable("RESERVATION");
+            ToTable("Reservation");
 
             HasKey(r => r.Id);
 
-            Property(r => r.CreationDate).IsRequired().HasColumnType("TIMESTAMP");
-            Property(r => r.StartDate).IsRequired().HasColumnType("TIMESTAMP");
-            Property(r => r.EndDate).IsRequired().HasColumnType("TIMESTAMP");
+            Property(r => r.CreationDate).IsRequired().HasColumnType("datetime");
+            Property(r => r.StartDate).IsRequired().HasColumnType("datetime");
+            Property(r => r.EndDate).IsRequired().HasColumnType("datetime");
 
-            HasOptional(r => r.User).WithMany().Map(r => r.MapKey("USER_ID"));
+            HasRequired(r => r.User).WithMany().Map(r => r.MapKey("UserId"));
         }
     }
 }

@@ -13,13 +13,12 @@ namespace IIM.Models.DAL.Mapper
         {
             ToTable("user");
 
-            Property(u => u.Email).IsOptional();
-            Property(u => u.Faculty).IsOptional();
-            Property(u => u.FirstName).IsOptional();
-            Property(u => u.LastName).IsOptional();
-            Property(u => u.TelNumber).IsOptional();
-            Property(u => u.Type).IsOptional();
-
+            Property(u => u.Email).IsRequired();
+            Property(u => u.Faculty);
+            Property(u => u.FirstName);
+            Property(u => u.LastName);
+            Property(u => u.TelNumber);
+            Property(u => u.Type).IsRequired();
         }
     }
 }

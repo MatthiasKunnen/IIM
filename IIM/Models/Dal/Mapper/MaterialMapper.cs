@@ -11,8 +11,7 @@ namespace IIM.Models.DAL.Mapper
     {
         public MaterialMapper()
         {
-            //Table
-            ToTable("MATERIAL");
+            ToTable("Material");
             HasKey(m => m.Id);
             Property(m => m.ArticleNr).IsRequired();
             Property(m => m.Name).IsRequired();
@@ -20,22 +19,21 @@ namespace IIM.Models.DAL.Mapper
             Property(m => m.Encoding).IsOptional();
             Property(m => m.Price).IsOptional();
 
-            HasOptional(m => m.Firm).WithMany().Map(m=> m.MapKey("FIRM_ID")).WillCascadeOnDelete(false);
+            HasOptional(m => m.Firm).WithMany().Map(m => m.MapKey("FirmId")).WillCascadeOnDelete(false);
 
             HasMany(m => m.Curriculars).WithMany().Map(m =>
             {
-                m.MapLeftKey("MATERIAL_ID");
-                m.MapRightKey("CURRICULAR_ID");
-                m.ToTable("MATERIAL_CURRICULAR");
-            });
-            HasMany(m => m.TargetGroups).WithMany().Map(m => {
-                m.MapLeftKey("MATERIAL_ID");
-                m.MapRightKey("TARGETGROUPS_ID");
-                m.ToTable("MATERIAL_TARGETGROUP");
+                m.MapLeftKey("MaterialId");
+                m.MapRightKey("CurricularId");
+                m.ToTable("MaterialCurricular");
             });
 
-
-
+            HasMany(m => m.TargetGroups).WithMany().Map(m =>
+            {
+                m.MapLeftKey("MaterialId");
+                m.MapRightKey("TargetgroupId");
+                m.ToTable("MaterialTargetgroup");
+            });
         }
     }
 }

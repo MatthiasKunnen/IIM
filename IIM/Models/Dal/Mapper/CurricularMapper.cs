@@ -11,13 +11,9 @@ namespace IIM.Models.DAL.Mapper
     {
         public CurricularMapper()
         {
-            //Table
-            ToTable("CURRICULAR");
-
+            ToTable("Curricular");
             HasKey(c => c.Id);
             Property(c => c.Name).IsRequired();
-            
-            
         }
     }
 }

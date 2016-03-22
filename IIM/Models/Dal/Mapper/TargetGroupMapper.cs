@@ -11,11 +11,10 @@ namespace IIM.Models.DAL.Mapper
     {
         public TargetGroupMapper()
         {
-            //Table
             ToTable("TargetGroup");
 
-           HasKey(t => t.Id);
-           Property(t => t.Name).IsRequired();
+            HasKey(t => t.Id);
+            Property(t => t.Name).IsRequired();
         }
     }
 }
