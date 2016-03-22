@@ -13,7 +13,7 @@ namespace IIM.Models.DAL.Mapper
             Property(m => m.Place).IsRequired();
             Property(m => m.Visibility).IsRequired();
 
-            HasRequired(m => m.Material).WithMany().Map(m => m.MapKey("InfoId"));
+            HasRequired(m => m.Material);
         }
     }
 }

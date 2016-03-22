@@ -30,6 +30,8 @@ namespace IIM.Models.DAL.Mapper
                 m.MapRightKey("TargetgroupId");
                 m.ToTable("MaterialTargetgroup");
             });
+
+            HasMany<MaterialIdentifier>(m => m.Identifiers).WithRequired(mi => mi.Material);
         }
     }
 }
