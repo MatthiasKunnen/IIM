@@ -14,9 +14,9 @@ namespace IIM.Models.DAL.Mapper
             ToTable("user");
 
             Property(u => u.Email).IsRequired();
-            Property(u => u.Faculty);
-            Property(u => u.FirstName);
-            Property(u => u.LastName);
+            Property(u => u.Faculty).IsRequired();
+            Property(u => u.FirstName).IsRequired();
+            Property(u => u.LastName).IsRequired();
             Property(u => u.TelNumber);
             Property(u => u.Type).IsRequired();
         }
