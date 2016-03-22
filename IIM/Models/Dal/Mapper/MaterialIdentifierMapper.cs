@@ -14,10 +14,10 @@ namespace IIM.Models.DAL.Mapper
             ToTable("MaterialIdentifier");
             HasKey(m => m.Id);
 
-            Property(m => m.Place).IsOptional();
-            Property(m => m.Visibility).IsOptional();
+            Property(m => m.Place).IsRequired();
+            Property(m => m.Visibility).IsRequired();
 
-            HasOptional(m => m.Material).WithMany().Map(m => m.MapKey("InfoId"));
+            HasRequired(m => m.Material).WithMany().Map(m => m.MapKey("InfoId"));
         }
     }
 }
