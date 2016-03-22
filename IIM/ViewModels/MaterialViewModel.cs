@@ -9,28 +9,26 @@ namespace IIM.ViewModels
 {
     public class MaterialViewModel
     {
-        //public int Id { get; private set; }
-        public string Name { get;  set; }
-        public string Description { get;  set; }
-        public int Amount { get;  set; }
-        public string ArticleNr { get;  set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Amount { get; set; }
+        public string ArticleNr { get; set; }
         [DisplayFormat(DataFormatString = "{0:c}")]
-        public decimal Price { get;  set; }
-        public Firm Firm { get;  set; }
-        public List<TargetGroup> TargetGroups { get;  set; }
-        public List<Curricular> Curriculars { get;  set; }
+        public decimal Price { get; set; }
+        public Firm Firm { get; set; }
+        public List<TargetGroup> TargetGroups { get; set; }
+        public List<Curricular> Curriculars { get; set; }
         public MaterialViewModel() { }
-        /*public MaterialViewModels(Material m)
+
+        public MaterialViewModel(Material m)
         {
             this.Name = m.Name;
             this.Description = m.Description;
-            this.Amount = m.Amount;
             this.ArticleNr = m.ArticleNr;
             this.Price = m.Price;
             this.Firm = m.Firm;
             this.TargetGroups = m.TargetGroups;
             this.Curriculars = m.Curriculars;
-        }*/
+        }
     }
-   
 }
