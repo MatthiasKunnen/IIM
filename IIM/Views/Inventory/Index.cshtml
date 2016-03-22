@@ -16,7 +16,7 @@
                     <div class="top">
                         <h1>@Html.DisplayFor(modelItem => item.Name)</h1>
                         <div>
-                            <img class="circle" src="~/Content/wereldbol.png" alt="@Html.DisplayFor(modelItem => item.Name)"/>
+                            <img class="circle" src="@Html.DisplayFor(modelItem => item.PhotoUrl ?? "~/Content/photo-coming-soon.jpg")" alt="@Html.DisplayFor(modelItem => item.Name)" />
                         </div>
                     </div>
                     <div class="bottom">
