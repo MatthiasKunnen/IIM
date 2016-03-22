@@ -7,7 +7,7 @@ using System.Web;
 
 namespace IIM.Models.DAL
 {
-    public class MaterialRepository:IMaterialRepository
+    public class MaterialRepository : IMaterialRepository
     {
         private IIMContext _context;
         private DbSet<Material> _materials;
@@ -18,7 +18,7 @@ namespace IIM.Models.DAL
         }
         public Material FindByName(string name)
         {
-            return _materials.SingleOrDefault(m => m.Name == name);
+            return _materials.SingleOrDefault(m => m.Name.Equals(name));
         }
         public IQueryable<Material> FindAll()
         {
@@ -28,6 +28,6 @@ namespace IIM.Models.DAL
         {
             _context.SaveChanges();
         }
-        
+
     }
 }
