@@ -219,6 +219,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\ReservationDetailsMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\ReservationMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\UserMapper.cs" />
+    <Compile Include="Models\DAL\ReservationRepository.cs" />
+    <Compile Include="Models\Domain\IReservationRepository.cs" />
+    <Compile Include="Models\Domain\IUserRepository.cs" />
     <Compile Include="Models\Domain\MaterialIdentifier.cs" />
     <Compile Include="Models\DAL\IIMContext.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
@@ -247,6 +254,14 @@
     <Compile Include="ViewModels\MaterialViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DefaultConnection.mdf" />
+    <Content Include="App_Data\DefaultConnection_log.ldf">
+      <DependentUpon>DefaultConnection.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\IIM.mdf" />
+    <Content Include="App_Data\IIM_log.ldf">
+      <DependentUpon>IIM.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\wereldbol.png" />
@@ -310,9 +325,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

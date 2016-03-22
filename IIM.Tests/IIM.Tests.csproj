@@ -98,7 +98,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IIM\IIM2.csproj">
+    <ProjectReference Include="..\IIM\IIM.csproj">
       <Project>{A2B9D9C1-5960-44CC-A5CD-2749D6DA8DEA}</Project>
       <Name>IIM2</Name>
     </ProjectReference>
