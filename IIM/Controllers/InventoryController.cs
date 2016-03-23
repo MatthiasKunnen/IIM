@@ -15,9 +15,9 @@ namespace IIM.Controllers
         }
 
         // GET
-        public ActionResult Index(string searchName, string searchCurricular)
+        public ActionResult Index(string searchName)
         {
-            if (!String.IsNullOrEmpty(searchName) && String.IsNullOrEmpty(searchCurricular))
+            if (!String.IsNullOrEmpty(searchName) )
             {
                 return View(_materialRepository
                 .FindAll()
@@ -28,27 +28,7 @@ namespace IIM.Controllers
                 .Select(m => new MaterialViewModel(m))
                 .ToList());
             }
-            if (String.IsNullOrEmpty(searchName) && !String.IsNullOrEmpty(searchCurricular))
-            {
-                return View(_materialRepository
-                .FindAll()
-                
-                .OrderBy(m => m.Name)
-                .ToList()
-                .Select(m => new MaterialViewModel(m))
-                .ToList());
-            }
-            if (!String.IsNullOrEmpty(searchName) && !String.IsNullOrEmpty(searchCurricular))
-            {
-                return View(_materialRepository
-                .FindAll()
-                .Where(m => m.Name.Contains(searchName) ||
-                            m.Description.Contains(searchName))
-                .OrderBy(m => m.Name)
-                .ToList()
-                .Select(m => new MaterialViewModel(m))
-                .ToList());
-            }
+          
 
             return View(_materialRepository
                 .FindAll()
