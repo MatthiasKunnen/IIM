@@ -6,7 +6,17 @@
     ViewBag.Active = "Inventory";
 }
 
-<h2>Materialen</h2>
+<h2>Materialen</h2><br/>
+
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="text" name="SearchName" placeholder="Zoeken op Naam">
+        <input type="text" name="SearchCurricular" placeholder="Zoeken op Lessen">
+
+        <input type="submit" value="Search" />
+    </p>
+}
 
 <div class="clearfix">
     @foreach (var item in Model)
