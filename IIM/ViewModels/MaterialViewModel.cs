@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using IIM.Models.Domain;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace IIM.ViewModels
 {
     public class MaterialViewModel
     {
         private string _photoUrl;
+        private ViewDataDictionary viewData;
 
         public string ArticleNr { get; set; }
         public List<Curricular> Curriculars { get; set; }
@@ -40,6 +42,11 @@ namespace IIM.ViewModels
             PhotoUrl = m.PhotoUrl;
             Price = m.Price;
             TargetGroups = m.TargetGroups;
+        }
+
+        public MaterialViewModel(ViewDataDictionary viewData)
+        {
+            this.viewData = viewData;
         }
     }
 }

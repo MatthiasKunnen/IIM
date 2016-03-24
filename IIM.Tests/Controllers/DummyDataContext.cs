@@ -41,7 +41,7 @@ namespace IIM.Tests.Controllers
             //    Firm = new Firm() { Name = "Bals&Co" },
             //    TargetGroups = TargetGroups.ToList()
             //};
-            Materials = (new Material[] { new Material(), new Material() }).ToList().AsQueryable();
+            
 
         }
     }
