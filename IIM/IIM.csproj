@@ -218,6 +218,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
     <Compile Include="Models\DAL\Mapper\ReservationDetailsMapper.cs" />
     <Compile Include="Models\DAL\Mapper\ReservationMapper.cs" />
@@ -227,7 +228,6 @@
     <Compile Include="Models\Domain\IUserRepository.cs" />
     <Compile Include="Models\Domain\MaterialIdentifier.cs" />
     <Compile Include="Models\DAL\IIMContext.cs" />
-    <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CurricularMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialMapper.cs" />
     <Compile Include="Models\DAL\Mapper\TargetGroupMapper.cs" />
@@ -321,6 +321,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Inventory\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

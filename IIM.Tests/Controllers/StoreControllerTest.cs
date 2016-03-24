@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace IIM.Tests.Controllers
 {
     [TestClass]
-    class StoreControllerTest
+    public class StoreControllerTest
     {
         private InventoryController _controller;
         private Mock<IMaterialRepository> _materialRepository;
@@ -30,5 +30,6 @@ namespace IIM.Tests.Controllers
             IList<MaterialViewModel> materials = result.ViewData.Model as List<MaterialViewModel>;
             Assert.AreEqual(2, materials.Count);
         }
+       
     }
 }

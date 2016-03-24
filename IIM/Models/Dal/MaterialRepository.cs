@@ -24,6 +24,10 @@ namespace IIM.Models.DAL
         {
             return _materials;
         }
+        public Material FindById(int id)
+        {
+            return _materials.SingleOrDefault(m=>m.Id== id);
+        }
         public void SaveChanges()
         {
             _context.SaveChanges();

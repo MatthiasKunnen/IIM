@@ -26,7 +26,7 @@
                     <img src="@Url.Content(item.PhotoUrl)" class="img-rounded" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
                 </div>
                 <div class="col-sm-5">
-                    <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                    <h4>@Html.ActionLink(item.Name,"Detail", new {id= item.Id})</h4>
                     @*
                         @using (Html.BeginForm("Add", "Cart", new { id = item.Id}))
                         {

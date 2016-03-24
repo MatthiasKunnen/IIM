@@ -30,7 +30,9 @@ namespace IIM.ViewModels
         public MaterialViewModel(Material m)
         {
             ArticleNr = m.ArticleNr;
+            Id = m.Id;
             Curriculars = m.Curriculars;
+            Firm = m.Firm;
             Description = m.Description;
             Image = m.Encoding;
             Firm = m.Firm;
