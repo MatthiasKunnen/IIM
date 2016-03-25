@@ -40,7 +40,6 @@ namespace IIM.Models.DAL
                 };
                 context.Materials.Add(wereldbol);
                 context.Materials.Add(voetbal);
-
                 context.SaveChanges();
             }
             catch (DbEntityValidationException e)

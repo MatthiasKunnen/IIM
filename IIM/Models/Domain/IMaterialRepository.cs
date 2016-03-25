@@ -6,6 +6,7 @@ namespace IIM.Models.Domain
     {
         Material FindByName(string name);
         IQueryable<Material> FindAll();
+        Material FindById(int id);
         void SaveChanges();
     }
 }

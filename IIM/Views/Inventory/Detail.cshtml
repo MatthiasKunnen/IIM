@@ -1,0 +1,71 @@
+﻿@model IIM.ViewModels.MaterialViewModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+<div class="col-md-8 col-sm-1 material">
+    <div>
+        <div class="col-sm-9">
+            <img src="@Url.Content(Model.PhotoUrl)" class="img-rounded center-block" alt="Foto van @Html.DisplayFor(modelItem => Model.Name)" />
+        </div>
+        <div class="col-sm-9">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ArticleNr)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ArticleNr)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Firm)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Firm.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+
+            </dl>
+            @*
+                @using (Html.BeginForm("Add", "Cart", new { id = item.Id}))
+                {
+            *@
+            <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-shopping-cart"></span> Add to cart
+            </button>
+            @*}*@
+            <p>
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+
+    </div>
+   
+</div>
+

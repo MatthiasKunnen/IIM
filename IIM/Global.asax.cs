@@ -19,7 +19,7 @@ namespace IIM
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             IIMContext db = new IIMContext();
-            //db.Database.Initialize(true);
+           // db.Database.Initialize(true);
         }
     }
 }
