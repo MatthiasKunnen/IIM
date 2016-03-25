@@ -42,7 +42,24 @@
                 <dd>
                     @Html.DisplayFor(model => model.Firm.Name)
                 </dd>
-
+                <dt>
+                    @Html.DisplayNameFor(model => model.Curriculars)
+                </dt>
+                @foreach (var item in Model.Curriculars)
+                {
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.TargetGroups)
+                </dt>
+                @foreach (var item in Model.TargetGroups)
+                {
+                    <dd>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </dd>
+                }
                 <dt>
                     @Html.DisplayNameFor(model => model.Price)
                 </dt>

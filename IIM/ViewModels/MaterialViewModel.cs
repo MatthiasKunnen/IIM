@@ -11,13 +11,19 @@ namespace IIM.ViewModels
     {
         private string _photoUrl;
         private ViewDataDictionary viewData;
+        [Display(Name = "Artikelnummer")]
 
         public string ArticleNr { get; set; }
+        [Display(Name= "Opleidingsonderdelen")]
         public List<Curricular> Curriculars { get; set; }
+        [Display(Name = "Beschrijving")]
         public string Description { get; set; }
         public int Id { get; set; }
+
         public string Image { get; set; }
+        [Display(Name = "Firma")]
         public Firm Firm { get; set; }
+        [Display(Name = "Naam")]
         public string Name { get; set; }
         public string PhotoUrl
         {
@@ -26,7 +32,9 @@ namespace IIM.ViewModels
         }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
+        [Display(Name = "Prijs")]
         public decimal Price { get; set; }
+        [Display(Name = "Doelgroepen")]
         public List<TargetGroup> TargetGroups { get; set; }
 
         public MaterialViewModel(Material m)

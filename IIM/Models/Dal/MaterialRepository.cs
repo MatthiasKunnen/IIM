@@ -18,7 +18,7 @@ namespace IIM.Models.DAL
         }
         public Material FindByName(string name)
         {
-            return _materials.SingleOrDefault(m => m.Name.Equals(name));
+            return _materials.Include(m=>m.Curriculars).Include(m=>m.Firm).Include(m=>m.TargetGroups).SingleOrDefault(m => m.Name.Equals(name));
         }
         public IQueryable<Material> FindAll()
         {
