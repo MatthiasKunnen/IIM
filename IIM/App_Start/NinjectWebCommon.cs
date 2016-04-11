@@ -66,6 +66,7 @@ namespace IIM.App_Start
         {
             kernel.Bind<IMaterialRepository>().To<MaterialRepository>().InRequestScope();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>().InRequestScope();
+            kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             kernel.Bind<IIMContext>().ToSelf().InRequestScope();
         }        
     }
