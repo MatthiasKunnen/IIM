@@ -14,8 +14,8 @@ namespace IIM.Models.DAL.Mapper
             Property(r => r.CreationDate).IsRequired().HasColumnType("datetime");
             Property(r => r.StartDate).IsRequired().HasColumnType("datetime");
             Property(r => r.EndDate).IsRequired().HasColumnType("datetime");
-
-            HasRequired(r => r.User).WithMany().Map(r => r.MapKey("UserId"));
+                        
+            //HasRequired(r => r.User).WithMany().Map(r => r.MapKey("UserId"));
         }
     }
 }

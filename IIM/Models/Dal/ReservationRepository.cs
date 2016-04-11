@@ -17,21 +17,15 @@ namespace IIM.Models.DAL
             this._context = context;
             _reservationSet = context.Reservations;
         }
-        public Reservation FindByName(string name)
-        {
-            return null;
-        }
-
+        
         public IQueryable<Reservation> FindByUser(User user)
         {
-            //return _reservationSet.Where(r => r.User == user).Select();
-            return null;
+            return _reservationSet.Where(r => r.User == user).AsQueryable();
         }
-
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

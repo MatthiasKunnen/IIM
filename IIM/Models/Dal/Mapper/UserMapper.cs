@@ -8,6 +8,7 @@ namespace IIM.Models.DAL.Mapper
         public UserMapper()
         {
             ToTable("user");
+            HasKey(u => u.Id);
 
             Property(u => u.Email).IsRequired();
             Property(u => u.Faculty).IsRequired();
@@ -15,6 +16,9 @@ namespace IIM.Models.DAL.Mapper
             Property(u => u.LastName).IsRequired();
             Property(u => u.TelNumber);
             Property(u => u.Type).IsRequired();
+
+            HasOptional(u => u.WishList).WithRequired().Map(m => m.MapKey("CartId"));
+            HasMany(u => u.Reservations).WithRequired().Map(m=> m.MapKey("UserId"));
         }
     }
 }
