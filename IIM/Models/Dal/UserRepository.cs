@@ -27,6 +27,10 @@ namespace IIM.Models.DAL
             return _userSet.Where(u => u.FirstName == name).First();
         }
 
+        public User FindByName(string name)
+        {
+            throw new NotImplementedException();
+        }
 
         public void SaveChanges()
         {
