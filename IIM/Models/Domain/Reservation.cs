@@ -34,7 +34,6 @@ namespace IIM.Models.Domain
             }
         }
 
-
         public DateTime EndDate
         {
             get { return EndDate; }
@@ -69,6 +68,20 @@ namespace IIM.Models.Domain
         public void RemoveAllDetails(List<ReservationDetails> details)
         {
             details.ForEach(d => details.Remove(d));
+        }
+
+        //WIP
+        public void AddCart(Cart cart)
+        {
+            List<MaterialIdentifier> identifiers = new List<MaterialIdentifier>();
+
+            foreach (Material m in cart.Materials.Keys)
+            {
+                identifiers.AddRange(m.GetAvailableIdentifiers(StartDate, EndDate, cart.Materials[m]));
+            }
+
+            AddAllDetails(identifiers.ConvertAll<ReservationDetails>(m => new ReservationDetails(this, m)));
+
         }
     }
 }

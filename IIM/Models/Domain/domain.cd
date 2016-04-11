@@ -17,7 +17,7 @@
   <Class Name="IIM.Models.Domain.Material">
     <Position X="4.5" Y="0.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAQAgAAAAAAAIAAQAgAAABAAAAIAAAAIAAAA=</HashCode>
+      <HashCode>AAQCAAAAAQAgAAAAgAAIAAQAgAAABAAAAIAAAIIAAAA=</HashCode>
       <FileName>Models\Domain\Material.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -38,7 +38,7 @@
   <Class Name="IIM.Models.Domain.User">
     <Position X="14.5" Y="2.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAACAAAIAAAAAAAAAAAAAAAAgAAQAAAAAAAAg=</HashCode>
+      <HashCode>AAACAEAAACAAAIgAAAAAAAAAAAAAAAgAAQAAAAAAAAg=</HashCode>
       <FileName>Models\Domain\User.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -48,7 +48,7 @@
   <Class Name="IIM.Models.Domain.MaterialIdentifier">
     <Position X="7.75" Y="0.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\MaterialIdentifier.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -58,14 +58,8 @@
   </Class>
   <Class Name="IIM.Models.Domain.Reservation">
     <Position X="11" Y="3.25" Width="2.75" />
-    <AssociationLine Name="Details" Type="IIM.Models.Domain.ReservationDetails" FixedToPoint="true">
-      <Path>
-        <Point X="12.25" Y="3.25" />
-        <Point X="12.25" Y="2.498" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>SAADAAAAAAAFAAAAAAAAAAAgAAACAAABAAAAAEAAAAA=</HashCode>
+      <HashCode>SCADAAAAAAAFAAAAAAAAAAAgAAACAAABAAAAAEAAAAA=</HashCode>
       <FileName>Models\Domain\Reservation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -77,14 +71,8 @@
   </Class>
   <Class Name="IIM.Models.Domain.ReservationDetails">
     <Position X="11" Y="0.75" Width="2.75" />
-    <AssociationLine Name="Reservation" Type="IIM.Models.Domain.Reservation" FixedToPoint="true">
-      <Path>
-        <Point X="13.375" Y="2.497" />
-        <Point X="13.375" Y="3.25" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <HashCode>AAACCAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Models\Domain\ReservationDetails.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -92,8 +80,24 @@
       <Property Name="MaterialIdentifier" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="IIM.Models.Domain.Cart">
+    <Position X="14.5" Y="6.5" Width="2.75" />
+    <AssociationLine Name="Owner" Type="IIM.Models.Domain.User" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="15.875" Y="6.5" />
+        <Point X="15.875" Y="4.507" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QEAAAACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Models\Domain\Cart.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Owner" />
+    </ShowAsAssociation>
+  </Class>
   <Enum Name="IIM.Models.Domain.Visibility">
-    <Position X="7.75" Y="2.5" Width="1.75" />
+    <Position X="8.25" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Models\Domain\Visibility.cs</FileName>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IIM.Models.Domain
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         User FindByName(string name);
         IQueryable<User> FindAll();
