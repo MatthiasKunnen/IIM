@@ -10,16 +10,22 @@ namespace IIM.Controllers
 {
     public class CartController : Controller
     {
-        IUserRepository _userRepository;
+        private IUserRepository _userRepository;
+        private IReservationRepository _reservationRepository;
 
-        public CartController(IUserRepository users)
+        public CartController(IUserRepository users, IReservationRepository reservations)
         {
             _userRepository = users;
+            _reservationRepository = reservations;
         }
         // GET: Cart
         public ActionResult Index()
         {
+           
+
+
             return View();
         }
+
     }
 }
