@@ -19,7 +19,7 @@
 
         public string LastName { get; private set; }
 
-        public string TelNumber { get; set; }
+        public string TelNumber { get; private set; }
 
         public Type Type { get; private set; }
 
