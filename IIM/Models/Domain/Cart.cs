@@ -8,15 +8,8 @@ namespace IIM.Models.Domain
     public class Cart
     {
         public int Id { get; private set; }
-
-        /*
-        public String Name{get; set{ Name = value;}}
-            */
-
         public Dictionary<Material, int> Materials { get; private set; }
-
         public DateTime CreationDate { get; private set; }
-
         public void AddMaterial(Material material, int amount)
         {
             if (Materials.ContainsKey(material))
@@ -29,7 +22,6 @@ namespace IIM.Models.Domain
             }
 
         }
-
         public void RemoveMaterial(Material material, int amount)
         {
             if (Materials.ContainsKey(material))
