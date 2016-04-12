@@ -75,9 +75,9 @@ namespace IIM.Models.Domain
         {
             List<MaterialIdentifier> identifiers = new List<MaterialIdentifier>();
 
-            foreach (Material m in cart.Materials.Keys)
+            foreach (Material m in cart.Materials)
             {
-                identifiers.AddRange(reservationRepository.GetAvailableIdentifiers(this.StartDate,this.EndDate,cart.Materials[m],m));
+                //identifiers.AddRange(reservationRepository.GetAvailableIdentifiers(this.StartDate,this.EndDate,cart.Materials[m],m));
             }
 
             AddAllDetails(identifiers.ConvertAll<ReservationDetails>(m => new ReservationDetails(this, m)));

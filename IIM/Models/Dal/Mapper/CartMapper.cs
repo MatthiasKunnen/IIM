@@ -15,8 +15,14 @@ namespace IIM.Models.DAL.Mapper
             HasKey(c => c.Id);
 
             Property(c => c.CreationDate).IsRequired();
-            
-            
+
+            HasMany(c => c.Materials).WithMany().Map(m =>
+            {
+                m.ToTable("CARTMATERIAL");
+                m.MapLeftKey("CartId");
+                m.MapRightKey("MaterialId");
+            });
+
         }
     }
 }
