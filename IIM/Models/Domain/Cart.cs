@@ -12,6 +12,7 @@ namespace IIM.Models.Domain
         public DateTime CreationDate { get; private set; }
         public void AddMaterial(Material material)
         {
+            
             Materials.Add(material);
 
         }

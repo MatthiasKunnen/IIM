@@ -21,6 +21,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @PossiblyActiveListItem("Home", "Index", "Inventory")
+                    @Html.ActionLink("Mijn verlanglijstje", "Index", "Cart");
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
