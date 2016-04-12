@@ -13,7 +13,7 @@ namespace IIM.Models.DAL.Mapper
             Property(m => m.PickUpDate).IsOptional().HasColumnType("datetime");
 
             HasRequired(r => r.MaterialIdentifier).WithMany().Map(r => r.MapKey("MaterialIdentifierId"));
-            HasRequired(r => r.Reservation).WithMany().Map(r => r.MapKey("ReservationId"));
+            HasRequired(r => r.Reservation);
         }
     }
 }
