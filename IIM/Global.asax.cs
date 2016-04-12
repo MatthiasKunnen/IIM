@@ -1,6 +1,7 @@
 ﻿using IIM.Models.DAL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,8 +19,9 @@ namespace IIM
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            Database.SetInitializer(new IIMInitializer());
             IIMContext db = new IIMContext();
-           // db.Database.Initialize(true);
+            db.Database.Initialize(true);
         }
     }
 }
