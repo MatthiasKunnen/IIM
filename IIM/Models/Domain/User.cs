@@ -25,7 +25,7 @@
 
         public Cart WishList { get; private set; }
 
-        public List<Reservation> Reservations { get; private set; }
+        public virtual List<Reservation> Reservations { get; private set; }
 
         public void AddReservation(Reservation r)
         {
