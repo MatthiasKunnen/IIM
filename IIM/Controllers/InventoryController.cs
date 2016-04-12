@@ -37,6 +37,17 @@ namespace IIM.Controllers
                 .ToList());
         }
 
+        [HttpPost]
+        public ActionResult AddMaterialToWishList(MaterialViewModel material)
+        {
+            User u = new User();
+            
+            Material m = _materialRepository.FindById(material.Id);
+            u.WishList.AddMaterial(m);
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Detail(int id)
         {
            
@@ -45,5 +56,7 @@ namespace IIM.Controllers
                 return HttpNotFound();
             return View(new MaterialViewModel(material));
         }
+
+        
     }
 }
