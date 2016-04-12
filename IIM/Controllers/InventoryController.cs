@@ -1,7 +1,6 @@
 ﻿using System;
 using IIM.Models.Domain;
 using IIM.ViewModels;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
