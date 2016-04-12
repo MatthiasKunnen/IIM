@@ -17,10 +17,45 @@ namespace IIM.Models.DAL
             this._context = context;
             _reservationSet = context.Reservations;
         }
-        
+
         public IQueryable<Reservation> FindByUser(User user)
         {
             return _reservationSet.Where(r => r.User == user).AsQueryable();
+        }
+
+        public IQueryable<Reservation> FindByDate(DateTime Start, DateTime End)
+        {
+            return _reservationSet.Where(r => r.StartDate <= End && r.EndDate >= Start);
+        }
+
+        public List<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate, int count, Material material)
+        {
+            IEnumerable<MaterialIdentifier> theAvailableIdentifiers = GetAvailablableIdentifiers(startDate,endDate,material);
+
+            if (theAvailableIdentifiers.Count() >= count)
+            {
+                return theAvailableIdentifiers.Take(count).ToList();
+            }
+            else
+            {
+                return theAvailableIdentifiers.ToList();
+            }
+        }
+
+        public int GetAmountOfAvailableIdentifiers(DateTime startDate, DateTime endDate, int count, Material material)
+        {
+            return GetAvailablableIdentifiers(startDate,endDate,material).Count();
+        }
+
+        private IEnumerable<MaterialIdentifier> GetAvailablableIdentifiers(DateTime startDate, DateTime endDate, Material material)
+        {
+            IEnumerable<Reservation> theReservations = FindByDate(startDate, endDate);
+
+            IEnumerable<MaterialIdentifier> theUsedIdentfiers = theReservations.SelectMany(r => r.Details.Select(d => d.MaterialIdentifier).ToList().Where(m => m.Material == material));
+
+            IEnumerable<MaterialIdentifier> theAvailableIdentifiers = material.Identifiers.Except(theUsedIdentfiers);
+
+            return theAvailableIdentifiers;
         }
 
         public void SaveChanges()

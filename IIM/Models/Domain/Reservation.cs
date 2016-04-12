@@ -71,13 +71,13 @@ namespace IIM.Models.Domain
         }
 
         //WIP
-        public void AddCart(Cart cart)
+        public void AddCart(Cart cart, IReservationRepository reservationRepository)
         {
             List<MaterialIdentifier> identifiers = new List<MaterialIdentifier>();
 
             foreach (Material m in cart.Materials.Keys)
             {
-                identifiers.AddRange(m.GetAvailableIdentifiers(StartDate, EndDate, cart.Materials[m]));
+                identifiers.AddRange(reservationRepository.GetAvailableIdentifiers(this.StartDate,this.EndDate,cart.Materials[m],m));
             }
 
             AddAllDetails(identifiers.ConvertAll<ReservationDetails>(m => new ReservationDetails(this, m)));

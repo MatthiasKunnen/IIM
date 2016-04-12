@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using IIM.Models.DAL;
+using Ninject.Infrastructure.Language;
 
 namespace IIM.Models.Domain
 {
@@ -16,13 +19,6 @@ namespace IIM.Models.Domain
         public string PhotoUrl => this.Id == 0 || this.Encoding == null ? null : $"https://iim.blob.core.windows.net/images/{this.Id}.{this.Encoding}";
         public decimal Price { get; private set; }
         public virtual List<TargetGroup> TargetGroups { get; private set; }
-
-        internal List<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate, int count)
-        {
-            
-
-            throw new NotImplementedException();//logica die identifiers terug geeft die niet in gebruik zijn gedurende de opgegeven periode 
-            //we gaan dit moeten afhandelen in de controller hier hebben we geen overzicht van alle bestaande reservaties
-        }
+        
     }
 }

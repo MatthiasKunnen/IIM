@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace IIM.Models.Domain
 {
-    interface IReservationRepository
+    public interface IReservationRepository
     {
         IQueryable<Reservation> FindByUser(User user);
+
+        List<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate, int count,Material material);
         void SaveChanges();
     }
 }
