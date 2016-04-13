@@ -5,6 +5,7 @@ namespace IIM.Models.Domain
 {
     public class Reservation
     {
+        private DateTime _startDateTime;
         public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, User user)
         {
             Details = new List<ReservationDetails>();
@@ -20,31 +21,21 @@ namespace IIM.Models.Domain
 
         public DateTime StartDate
         {
-            get { return StartDate; }
-            set
+            get { return _startDateTime; }
+            private set
             {
                 if (value.Date > DateTime.Today)
                 {
-                    StartDate = value;
+                    _startDateTime = value;
                 }
                 else
                 {
-                    throw new ArgumentException("De startdatum van een reservatie moet later zijn dan vanddag.");
+                    throw new ArgumentException("De startdatum van een reservatie moet later zijn dan vandaag.");
                 }
             }
         }
 
-        public DateTime EndDate
-        {
-            get { return EndDate; }
-            private set
-            {
-                if (StartDate.AddDays(7) >= value)
-                {
-                    EndDate = value;
-                }
-            }
-        }
+        public DateTime EndDate { get; private set; }
 
         public User User { get; private set; }
 
