@@ -225,9 +225,18 @@
     <Compile Include="Controllers\HoGentLoginManager.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Helpers\Account.cs" />
     <Compile Include="Migrations\201604131652109_Initial.cs" />
     <Compile Include="Migrations\201604131652109_Initial.Designer.cs">
       <DependentUpon>201604131652109_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604131721449_MigratedToApplicationUser.cs" />
+    <Compile Include="Migrations\201604131721449_MigratedToApplicationUser.Designer.cs">
+      <DependentUpon>201604131721449_MigratedToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604131742190_MigratingToApplicationUserContinued.cs" />
+    <Compile Include="Migrations\201604131742190_MigratingToApplicationUserContinued.Designer.cs">
+      <DependentUpon>201604131742190_MigratingToApplicationUserContinued.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
@@ -261,7 +270,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Models\Domain\Visibility.cs" />
     <Compile Include="Models\Domain\TargetGroup.cs" />
-    <Compile Include="Models\Domain\User.cs" />
     <Compile Include="Models\Domain\Type.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
@@ -352,6 +360,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604131652109_Initial.resx">
       <DependentUpon>201604131652109_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604131721449_MigratedToApplicationUser.resx">
+      <DependentUpon>201604131721449_MigratedToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604131742190_MigratingToApplicationUserContinued.resx">
+      <DependentUpon>201604131742190_MigratingToApplicationUserContinued.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

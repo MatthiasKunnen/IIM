@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IIM.Helpers;
 using WebGrease.Css.Extensions;
 
 namespace IIM.Controllers
@@ -24,10 +25,7 @@ namespace IIM.Controllers
         }
         public ActionResult Index()
         {
-            var cart = new Cart();
-            _materialRepository.FindAll().ForEach(m => cart.Materials.Add(m));
-            
-            return View(cart.Materials
+            return View(Account.GetUser().WishList.Materials
                 .Select(m => new MaterialViewModel(m))
                 .ToList());
         }
@@ -37,9 +35,12 @@ namespace IIM.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpPost]
         public ActionResult Add(int id)
         {
-            throw new NotImplementedException();
+            var user = Account.GetUser();
+            user.WishList.AddMaterial(_materialRepository.FindById(id));
+            return RedirectToAction("Index", "Inventory");
         }
     }
 }

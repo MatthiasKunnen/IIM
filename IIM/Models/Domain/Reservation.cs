@@ -6,7 +6,7 @@ namespace IIM.Models.Domain
     public class Reservation
     {
         private DateTime _startDateTime;
-        public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, User user)
+        public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, ApplicationUser user)
         {
             Details = new List<ReservationDetails>();
             CreationDate = creationDate;
@@ -37,7 +37,7 @@ namespace IIM.Models.Domain
 
         public DateTime EndDate { get; private set; }
 
-        public User User { get; private set; }
+        public ApplicationUser User { get; private set; }
 
         public List<ReservationDetails> Details { get; }
 

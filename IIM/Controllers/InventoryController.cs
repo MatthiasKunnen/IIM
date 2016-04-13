@@ -3,6 +3,7 @@ using IIM.Models.Domain;
 using IIM.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
+using IIM.Models;
 
 namespace IIM.Controllers
 {
@@ -37,26 +38,12 @@ namespace IIM.Controllers
                 .ToList());
         }
 
-        [HttpPost]
-        public ActionResult AddMaterialToWishList(MaterialViewModel material)
-        {
-            User u = new User();
-            
-            Material m = _materialRepository.FindById(material.Id);
-            u.WishList.AddMaterial(m);
-
-            return RedirectToAction("Index");
-        }
-
         public ActionResult Detail(int id)
         {
-           
             Material material = _materialRepository.FindById(id);
             if (material == null)
                 return HttpNotFound();
             return View(new MaterialViewModel(material));
         }
-
-        
     }
 }

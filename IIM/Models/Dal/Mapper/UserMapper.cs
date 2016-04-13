@@ -3,18 +3,15 @@ using IIM.Models.Domain;
 
 namespace IIM.Models.DAL.Mapper
 {
-    public class UserMapper : EntityTypeConfiguration<User>
+    public class UserMapper : EntityTypeConfiguration<ApplicationUser>
     {
         public UserMapper()
         {
-            ToTable("user");
-            HasKey(u => u.Id);
+            ToTable("User");
 
-            Property(u => u.Email).IsRequired();
             Property(u => u.Faculty).IsRequired();
             Property(u => u.FirstName).IsRequired();
             Property(u => u.LastName).IsRequired();
-            Property(u => u.TelNumber);
             Property(u => u.Type).IsRequired();
 
             HasOptional(u => u.WishList).WithRequired().Map(m => m.MapKey("CartId"));
