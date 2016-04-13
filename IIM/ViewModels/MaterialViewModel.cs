@@ -19,7 +19,7 @@ namespace IIM.ViewModels
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
         public int Id { get; set; }
-        [Display(Name = "")]
+
         public string Image { get; set; }
         [Display(Name = "Firma")]
         public Firm Firm { get; set; }
@@ -31,7 +31,7 @@ namespace IIM.ViewModels
             set { _photoUrl = value ?? "~/Content/photo-coming-soon.jpg"; }
         }
 
-        [DisplayFormat(DataFormatString = " €{0:0.00}")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
         [Display(Name = "Prijs")]
         public decimal Price { get; set; }
         [Display(Name = "Doelgroepen")]

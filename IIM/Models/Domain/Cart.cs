@@ -23,13 +23,9 @@ namespace IIM.Models.Domain
         {
             Materials.Remove(material);
         }
-<<<<<<< HEAD
         public Cart()
         {
             CreationDate = DateTime.Now;
         }
-=======
-        
->>>>>>> 9f451aff4606cd6edb317b5c6be6deb0b7885fe7
     }
 }
