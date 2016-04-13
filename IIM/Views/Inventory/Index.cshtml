@@ -2,7 +2,7 @@
 @model IEnumerable<MaterialViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inventaris";
     ViewBag.Active = "Inventory";
 }
 
@@ -11,8 +11,7 @@
 @using (Html.BeginForm())
 {
     <p>
-        <input type="text" name="SearchName" placeholder="Zoeken op Naam">
-
+        <input type="text" name="SearchName" placeholder="Zoeken op naam">
         <input type="submit" value="Search" />
     </p>
 }
