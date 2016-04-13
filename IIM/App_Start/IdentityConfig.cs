@@ -44,7 +44,7 @@ namespace IIM
 
         public override Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
         {
-            return HoGentLoginManager.CheckPassword(user.Email, password);
+            return user.IsLocal ? base.CheckPasswordAsync(user, password) : HoGentLoginManager.CheckPassword(user.Email, password);
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 

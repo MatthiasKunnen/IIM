@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201604130404058_RemovedTelNumber.Designer.cs">
       <DependentUpon>201604130404058_RemovedTelNumber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.cs" />
+    <Compile Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.Designer.cs">
+      <DependentUpon>201604130456291_AddedApplicationUserPropertyIsLocal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604130404058_RemovedTelNumber.resx">
       <DependentUpon>201604130404058_RemovedTelNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.resx">
+      <DependentUpon>201604130456291_AddedApplicationUserPropertyIsLocal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

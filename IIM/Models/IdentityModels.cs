@@ -14,6 +14,7 @@ namespace IIM.Models
         public string Faculty { get; set; }
         public string Type { get; set; }
         public string Base64Photo { get; set; }
+        public bool IsLocal { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
