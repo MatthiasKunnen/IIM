@@ -109,4 +109,24 @@ namespace IIM.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class UserViewModel
+    {
+        public string Base64Photo { get; set; }
+        public string Email { get; set; }
+        public string Faculty { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Type { get; set; }
+
+        public UserViewModel(ApplicationUser user)
+        {
+            Base64Photo = user.Base64Photo;
+            Email = user.Email;
+            Faculty = user.Faculty;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Type = user.Type;
+        }
+    }
 }

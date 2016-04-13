@@ -341,6 +341,7 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\Detail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <None Include="Views\Account\RealUserName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604130349599_Initial.resx">

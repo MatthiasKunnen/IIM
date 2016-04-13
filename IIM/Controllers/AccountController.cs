@@ -62,6 +62,15 @@ namespace IIM.Controllers
             return View();
         }
 
+        public PartialViewResult RealUserName()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                
+                return PartialView(new UserViewModel((UserManager.FindByName(User.Identity.Name))));
+            }
+            return PartialView();
+        }
         //
         // POST: /Account/Login
         [HttpPost]
