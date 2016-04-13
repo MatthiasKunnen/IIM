@@ -224,6 +224,11 @@
     <Compile Include="Controllers\HoGentLoginManager.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Migrations\201604130349599_Initial.cs" />
+    <Compile Include="Migrations\201604130349599_Initial.Designer.cs">
+      <DependentUpon>201604130349599_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
@@ -333,7 +338,11 @@
     <Content Include="Views\Inventory\Detail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604130349599_Initial.resx">
+      <DependentUpon>201604130349599_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

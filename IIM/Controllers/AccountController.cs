@@ -93,7 +93,16 @@ namespace IIM.Controllers
                         if (hogentUser.HasValue)
                         {
                             var hogentIdentity = hogentUser.Value;
-                            var applicationUser = new ApplicationUser() {UserName = hogentIdentity.Email, Email = hogentIdentity.Email };
+                            var applicationUser = new ApplicationUser()
+                            {
+                                Base64Photo = hogentIdentity.Base64Foto,
+                                Email = hogentIdentity.Email,
+                                Faculty = hogentIdentity.Faculteit,
+                                FirstName = hogentIdentity.Voornaam,
+                                LastName = hogentIdentity.Naam,
+                                Type = hogentIdentity.Type,
+                                UserName = hogentIdentity.Email
+                            };
                             var identityCreationResult = UserManager.Create(applicationUser, model.Password);
                             if (!identityCreationResult.Succeeded)
                                 throw new ApplicationException(identityCreationResult.Errors.ToString());
