@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebGrease.Css.Extensions;
 
 namespace IIM.Controllers
 {
@@ -21,19 +22,14 @@ namespace IIM.Controllers
             _reservationRepository = reservations;
             _materialRepository = materials;
         }
-        // GET: Cart
         public ActionResult Index()
         {
-            User u = new User();
-            u.WishList.AddMaterial(_materialRepository.FindById(1));
-            u.WishList.AddMaterial(_materialRepository.FindById(2));
-
-
-
-            return View(u.WishList.Materials
+            var cart = new Cart();
+            _materialRepository.FindAll().ForEach(m => cart.Materials.Add(m));
+            
+            return View(cart.Materials
                 .Select(m => new MaterialViewModel(m))
                 .ToList());
         }
-
     }
 }

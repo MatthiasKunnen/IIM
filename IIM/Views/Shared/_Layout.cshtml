@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - IIM</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -21,7 +21,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @PossiblyActiveListItem("Home", "Index", "Inventory")
-                    @Html.ActionLink("Mijn verlanglijstje", "Index", "Cart");
+                    @PossiblyActiveListItem("Winkelwagen", "Index", "Cart")
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
