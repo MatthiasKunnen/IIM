@@ -36,5 +36,10 @@ namespace IIM.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public ActionResult Add(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
