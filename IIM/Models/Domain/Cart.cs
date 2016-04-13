@@ -24,5 +24,6 @@ namespace IIM.Models.Domain
         {
             Materials.Remove(material);
         }
+        
     }
 }

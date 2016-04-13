@@ -38,13 +38,20 @@ namespace IIM.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMaterialToWishList(MaterialViewModel material)
+        public ActionResult AddMaterialToWishList(int id)
         {
             User u = new User();
-            
-            Material m = _materialRepository.FindById(material.Id);
-            u.WishList.AddMaterial(m);
 
+            
+            Material m = _materialRepository.FindById(id);
+
+            if (m != null)
+            {
+
+                u.WishList.AddMaterial(m);
+                TempData["message"] = m.Name + " werd toegevoegd aan je verlanglijst!";
+
+            }
             return RedirectToAction("Index");
         }
 

@@ -19,7 +19,7 @@ namespace IIM.ViewModels
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
         public int Id { get; set; }
-
+        [Display(Name = "")]
         public string Image { get; set; }
         [Display(Name = "Firma")]
         public Firm Firm { get; set; }
