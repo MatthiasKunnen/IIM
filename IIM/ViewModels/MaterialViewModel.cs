@@ -10,7 +10,6 @@ namespace IIM.ViewModels
     public class MaterialViewModel
     {
         private string _photoUrl;
-        private ViewDataDictionary viewData;
         [Display(Name = "Artikelnummer")]
 
         public string ArticleNr { get; set; }
@@ -50,11 +49,6 @@ namespace IIM.ViewModels
             PhotoUrl = m.PhotoUrl;
             Price = m.Price;
             TargetGroups = m.TargetGroups;
-        }
-
-        public MaterialViewModel(ViewDataDictionary viewData)
-        {
-            this.viewData = viewData;
         }
     }
 }
