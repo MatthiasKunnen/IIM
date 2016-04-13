@@ -31,5 +31,10 @@ namespace IIM.Controllers
                 .Select(m => new MaterialViewModel(m))
                 .ToList());
         }
+
+        public ActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
