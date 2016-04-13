@@ -38,6 +38,27 @@ namespace IIM.Controllers
                 .ToList());
         }
 
+<<<<<<< HEAD
+=======
+        [HttpPost]
+        public ActionResult AddMaterialToWishList(int id)
+        {
+            User u = new User();
+
+            
+            Material m = _materialRepository.FindById(id);
+
+            if (m != null)
+            {
+
+                u.WishList.AddMaterial(m);
+                TempData["message"] = m.Name + " werd toegevoegd aan je verlanglijst!";
+
+            }
+            return RedirectToAction("Index");
+        }
+
+>>>>>>> 9f451aff4606cd6edb317b5c6be6deb0b7885fe7
         public ActionResult Detail(int id)
         {
             Material material = _materialRepository.FindById(id);

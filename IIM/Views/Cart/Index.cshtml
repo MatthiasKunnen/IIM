@@ -7,40 +7,49 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Creëer een nieuwe winkelwagen", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th />
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="clearfix">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.ActionLink("Remove", "Delete", new { id = item.Id })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Acties
+            </th>
         </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 15%;">
+                    <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style="width: 75%; height: auto;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
+                </td>
+                <td>
+                    
+                    <h4>@Html.ActionLink(item.Name, "Detail", "Inventory", new { id = item.Id },null)</h4>
+                </td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart", new { id = item.Id }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> verwijder</button>
+                    }
+                </td>
+
+                
+            </tr>
+        }
+    </table>
+    
+    <p>De eerstvolgende dag waarvoor u een reservatie kunt maken is @ViewBag.Startdatum</p>
+    @using (Html.BeginForm("Index", "Reservation"))
+    {
+        <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-shopping-cart  "></span> Reserveer
+        </button>
     }
+<<<<<<< HEAD
 </table>
 
 <p>U kan nu een reservatie maken vanaf @ViewBag.Startdatum</p>
@@ -50,3 +59,6 @@
         <span class="glyphicon glyphicon-shopping-  "></span>Reserveer
     </button>
 }
+=======
+</div>
+>>>>>>> 9f451aff4606cd6edb317b5c6be6deb0b7885fe7
