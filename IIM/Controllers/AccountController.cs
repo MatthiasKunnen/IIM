@@ -62,6 +62,15 @@ namespace IIM.Controllers
             return View();
         }
 
+        public PartialViewResult RealUserName()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                
+                return PartialView(new UserViewModel((UserManager.FindByName(User.Identity.Name))));
+            }
+            return PartialView();
+        }
         //
         // POST: /Account/Login
         [HttpPost]
@@ -86,6 +95,40 @@ namespace IIM.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    var user = await UserManager.FindByEmailAsync(model.Email);
+                    if (user == null)
+                    {
+                        var hogentUser = HoGentLoginManager.Login(model.Email, model.Password).Result;
+                        if (hogentUser.HasValue)
+                        {
+                            var hogentIdentity = hogentUser.Value;
+                            var applicationUser = new ApplicationUser()
+                            {
+                                Base64Photo = hogentIdentity.Base64Foto,
+                                Email = hogentIdentity.Email,
+                                Faculty = hogentIdentity.Faculteit,
+                                FirstName = hogentIdentity.Voornaam,
+                                LastName = hogentIdentity.Naam,
+                                Type = hogentIdentity.Type,
+                                UserName = hogentIdentity.Email
+                            };
+                            var identityCreationResult = UserManager.Create(applicationUser, model.Password);
+                            if (!identityCreationResult.Succeeded)
+                                throw new ApplicationException(identityCreationResult.Errors.ToString());
+                            result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+                            switch (result)
+                            {
+                                case SignInStatus.Success:
+                                    return RedirectToLocal(returnUrl);
+                                case SignInStatus.LockedOut:
+                                    return View("Lockout");
+                                case SignInStatus.RequiresVerification:
+                                    return RedirectToAction("SendCode",
+                                        new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                            }
+                        }
+                    }
+                    goto default;
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
@@ -140,6 +183,7 @@ namespace IIM.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            return NoRegistering();
             return View();
         }
 
@@ -150,6 +194,7 @@ namespace IIM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            return NoRegistering();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -164,13 +209,21 @@ namespace IIM.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Inventory");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private ActionResult NoRegistering()
+        {
+            TempData["HttpErrorCode"] = 505;
+            TempData["Title"] = "Actie niet beschikbaar";
+            TempData["Message"] = "Registreren is niet mogelijk. Meld u aan met uw HoGent inloggegevens.";
+            return RedirectToAction("Index", "Error");
         }
 
         //
@@ -393,7 +446,7 @@ namespace IIM.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Inventory");
         }
 
         //
@@ -435,11 +488,11 @@ namespace IIM.Controllers
             result.Errors.ForEach(error => ModelState.AddModelError("", error));
         }
 
-        private ActionResult RedirectToLocal(string returnUrl) => Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Home");
+        private ActionResult RedirectToLocal(string returnUrl) => Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Inventory");
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri): this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
             {
             }
 

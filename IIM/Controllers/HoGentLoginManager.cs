@@ -24,7 +24,7 @@ namespace IIM.Controllers
             var sha256 = new SHA256Managed();
             var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
             password = ByteArrayToString(bytes);
-
+            
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44300/");
@@ -38,6 +38,11 @@ namespace IIM.Controllers
                 }
             }
             return null;
+        }
+
+        public static async Task<bool> CheckPassword(string userId, string password)
+        {
+            return (await Login(userId, password)).HasValue;
         }
 
         private static string ByteArrayToString(IReadOnlyCollection<byte> ba)

@@ -221,8 +221,23 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HoGentLoginManager.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Migrations\201604130349599_Initial.cs" />
+    <Compile Include="Migrations\201604130349599_Initial.Designer.cs">
+      <DependentUpon>201604130349599_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604130404058_RemovedTelNumber.cs" />
+    <Compile Include="Migrations\201604130404058_RemovedTelNumber.Designer.cs">
+      <DependentUpon>201604130404058_RemovedTelNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.cs" />
+    <Compile Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.Designer.cs">
+      <DependentUpon>201604130456291_AddedApplicationUserPropertyIsLocal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
@@ -330,9 +345,20 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\Detail.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <None Include="Views\Account\RealUserName.cshtml" />
+    <None Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Cart\" />
+    <EmbeddedResource Include="Migrations\201604130349599_Initial.resx">
+      <DependentUpon>201604130349599_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604130404058_RemovedTelNumber.resx">
+      <DependentUpon>201604130404058_RemovedTelNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.resx">
+      <DependentUpon>201604130456291_AddedApplicationUserPropertyIsLocal.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -342,6 +368,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

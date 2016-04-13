@@ -2,7 +2,7 @@
 @model IEnumerable<MaterialViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inventaris";
     ViewBag.Active = "Inventory";
 }
 
@@ -11,33 +11,83 @@
 @using (Html.BeginForm())
 {
     <p>
-        <input type="text" name="SearchName" placeholder="Zoeken op Naam">
-
+        <input type="text" name="SearchName" placeholder="Zoeken op naam">
         <input type="submit" value="Search" />
     </p>
 }
 
 <div class="clearfix">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 col-sm-1 material">
-            <div class="clearfix">
-                <div class="col-sm-7">
-                    <img src="@Url.Content(item.PhotoUrl)" class="img-rounded" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+
+            <th>
+                Acties
+            </th>
+            <th/>
+        </tr>
+@foreach (var item in Model)
+{
+    <tr>
+        <td style="width: 15%;">
+            <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style="width: 75%; height: auto;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
+        </td>
+        <td>
+            <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        
+        <td>
+            @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
+            @*
+        @using (Html.BeginForm("Add", "Cart", new { id = item.Id}))
+        {
+            *@
+            
+            <button type="submit" class="btn btn-default">
+                <span class="glyphicon glyphicon-shopping-  "></span> Voeg toe aan <br/>verlanglijst
+            </button>
+            @*}*@
+        </td>
+    </tr>
+}
+
+    </table>
+
+
+
+
+
+
+        @*@foreach (var item in Model)
+        {
+            <div class="col-md-12 col-sm-1 material">
+                <div class="clearfix">
+                    <div class="col-sm-7">
+                        <img src="@Url.Content(item.PhotoUrl)" class="img-rounded" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
+                    </div>
+                    <div class="col-sm-5">
+                        
+                    </div>
                 </div>
-                <div class="col-sm-5">
-                    <h4>@Html.ActionLink(item.Name,"Detail", new {id= item.Id})</h4>
-                    @*
-                        @using (Html.BeginForm("Add", "Cart", new { id = item.Id}))
-                        {
-                    *@
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-shopping-cart"></span> Add to cart
-                    </button>
-                    @*}*@
-                </div>
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
             </div>
-            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-        </div>
-    }
+        }*@
 </div>
