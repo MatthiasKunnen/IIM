@@ -15,7 +15,7 @@ namespace IIM.Controllers
     {
         private IUserRepository _userRepository;
         private IReservationRepository _reservationRepository;
-        private IMaterialRepository _materialRepository;
+        private readonly IMaterialRepository _materialRepository;
 
         public CartController(IUserRepository users, IReservationRepository reservations, IMaterialRepository materials)
         {
@@ -25,19 +25,27 @@ namespace IIM.Controllers
         }
         public ActionResult Index()
         {
-            return View(Account.GetUser().WishList.Materials
-                .Select(m => new MaterialViewModel(m))
-                .ToList());
+            return View(Account.GetUser().WishList.Materials.Select(m=>new MaterialViewModel(m)));
         }
 
         public ActionResult Delete(int id)
         {
-            throw new NotImplementedException();
+            var materialsInCart = Account.GetUser().WishList.Materials;
+            var materialToDelete = materialsInCart.First(m => m.Id == id);
+            if (materialToDelete != null && materialsInCart.Remove(materialToDelete))
+            {
+                TempData["success"] = $"{materialToDelete.Name} werd verwijderd uit de winkelwagen.";
+            }
+            else
+            {
+                TempData["error"] = $"Het item kon niet uit de winkelwagen verwijderd worden.";
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Add(int id)
-        {
+        { 
             var user = Account.GetUser();
             user.WishList.AddMaterial(_materialRepository.FindById(id));
             return RedirectToAction("Index", "Inventory");

@@ -42,3 +42,11 @@
         </tr>
     }
 </table>
+
+<p>U kan nu een reservatie maken vanaf @ViewBag.Startdatum</p>
+@using (Html.BeginForm("Index", "Reservation"))
+{
+    <button type="submit" class="btn btn-default">
+        <span class="glyphicon glyphicon-shopping-  "></span>Reserveer
+    </button>
+}
