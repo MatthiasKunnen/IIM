@@ -13,7 +13,6 @@ namespace IIM.Models
         public string FirstName { get; set; }
         public string Faculty { get; set; }
         public string Type { get; set; }
-        public string TelNumber { get; set; }
         public string Base64Photo { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
