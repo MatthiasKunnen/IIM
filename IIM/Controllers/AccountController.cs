@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IIM.Models;
+using IIM.ViewModels;
 using WebGrease.Css.Extensions;
 
 namespace IIM.Controllers
