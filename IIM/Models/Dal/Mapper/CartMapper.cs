@@ -18,7 +18,7 @@ namespace IIM.Models.DAL.Mapper
 
             HasMany(c => c.Materials).WithMany().Map(m =>
             {
-                m.ToTable("CARTMATERIAL");
+                m.ToTable("CartMaterial");
                 m.MapLeftKey("CartId");
                 m.MapRightKey("MaterialId");
             });
