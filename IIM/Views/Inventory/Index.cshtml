@@ -6,7 +6,7 @@
     ViewBag.Active = "Inventory";
 }
 
-<h2>Materialen</h2><br/>
+<h2>Materialen</h2><br />
 
 @using (Html.BeginForm())
 {
@@ -17,7 +17,6 @@
 }
 
 <div class="clearfix">
-
     <table class="table">
         <tr>
             <th>
@@ -36,58 +35,34 @@
             <th>
                 Acties
             </th>
-            <th/>
+            <th />
         </tr>
-@foreach (var item in Model)
-{
-    <tr>
-        <td style="width: 15%;">
-            <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style="width: 75%; height: auto;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
-        </td>
-        <td>
-            <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        
-        <td>
-            @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
-            @*
-        @using (Html.BeginForm("Add", "Cart", new { id = item.Id}))
+        @foreach (var item in Model)
         {
-            *@
-            
-            <button type="submit" class="btn btn-default">
-                <span class="glyphicon glyphicon-shopping-  "></span> Voeg toe aan <br/>verlanglijst
-            </button>
-            @*}*@
-        </td>
-    </tr>
-}
+            <tr>
+                <td>
+                    <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style=" max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
+                </td>
+                <td>
+                    <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
 
+                    @using (Html.BeginForm("Add", "Cart", new { id = item.Id }))
+                    {
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
     </table>
-
-
-
-
-
-
-        @*@foreach (var item in Model)
-        {
-            <div class="col-md-12 col-sm-1 material">
-                <div class="clearfix">
-                    <div class="col-sm-7">
-                        <img src="@Url.Content(item.PhotoUrl)" class="img-rounded" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
-                    </div>
-                    <div class="col-sm-5">
-                        
-                    </div>
-                </div>
-                <p>@Html.DisplayFor(modelItem => item.Description)</p>
-            </div>
-        }*@
 </div>
