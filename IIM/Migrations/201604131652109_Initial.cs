@@ -74,14 +74,11 @@ namespace IIM.Migrations
                         CreationDate = c.DateTime(nullable: false),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
-                        UserId = c.Int(nullable: false),
-                        User_Id1 = c.Int(),
+                        User_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.user", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.user", t => t.User_Id1)
-                .Index(t => t.UserId)
-                .Index(t => t.User_Id1);
+                .ForeignKey("dbo.user", t => t.User_Id, cascadeDelete: true)
+                .Index(t => t.User_Id);
             
             CreateTable(
                 "dbo.ReservationDetail",
@@ -157,8 +154,8 @@ namespace IIM.Migrations
                         FirstName = c.String(),
                         Faculty = c.String(),
                         Type = c.String(),
-                        TelNumber = c.String(),
                         Base64Photo = c.String(),
+                        IsLocal = c.Boolean(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -246,11 +243,10 @@ namespace IIM.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Reservation", "User_Id1", "dbo.user");
             DropForeignKey("dbo.Cart", "CartId", "dbo.user");
             DropForeignKey("dbo.CartMaterial", "MaterialId", "dbo.Material");
             DropForeignKey("dbo.CartMaterial", "CartId", "dbo.Cart");
-            DropForeignKey("dbo.Reservation", "UserId", "dbo.user");
+            DropForeignKey("dbo.Reservation", "User_Id", "dbo.user");
             DropForeignKey("dbo.ReservationDetail", "Reservation_Id", "dbo.Reservation");
             DropForeignKey("dbo.ReservationDetail", "MaterialIdentifierId", "dbo.MaterialIdentifier");
             DropForeignKey("dbo.MaterialTargetgroup", "TargetgroupId", "dbo.TargetGroup");
@@ -274,8 +270,7 @@ namespace IIM.Migrations
             DropIndex("dbo.Cart", new[] { "CartId" });
             DropIndex("dbo.ReservationDetail", new[] { "Reservation_Id" });
             DropIndex("dbo.ReservationDetail", new[] { "MaterialIdentifierId" });
-            DropIndex("dbo.Reservation", new[] { "User_Id1" });
-            DropIndex("dbo.Reservation", new[] { "UserId" });
+            DropIndex("dbo.Reservation", new[] { "User_Id" });
             DropIndex("dbo.MaterialIdentifier", new[] { "Material_Id" });
             DropIndex("dbo.Material", new[] { "FirmId" });
             DropTable("dbo.CartMaterial");

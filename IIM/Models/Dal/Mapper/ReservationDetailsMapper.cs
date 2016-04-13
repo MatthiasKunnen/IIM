@@ -8,6 +8,7 @@ namespace IIM.Models.DAL.Mapper
         public ReservationDetailsMapper()
         {
             ToTable("ReservationDetail");
+
             HasKey(r => r.Id);
             Property(m => m.BroughtBackDate).IsOptional().HasColumnType("datetime");
             Property(m => m.PickUpDate).IsOptional().HasColumnType("datetime");
