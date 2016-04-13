@@ -1,4 +1,4 @@
-﻿using IIM.Models.Domain;
+﻿ using IIM.Models.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -29,7 +29,12 @@ namespace IIM.Models.DAL
 
         public User FindByName(string name)
         {
-            throw new NotImplementedException();
+            return _userSet.Where(u => u.LastName == name).First();
+        }
+
+        public User FindById(int id)
+        {
+            return _userSet.Find(id);
         }
 
         public void SaveChanges()

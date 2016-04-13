@@ -5,6 +5,7 @@ using IIM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using WebGrease.Css.Extensions;
@@ -16,6 +17,7 @@ namespace IIM.Controllers
         private IUserRepository _userRepository;
         private IReservationRepository _reservationRepository;
         private IMaterialRepository _materialRepository;
+        private Cart cart = new Cart();
 
         public CartController(IUserRepository users, IReservationRepository reservations, IMaterialRepository materials)
         {
@@ -25,7 +27,7 @@ namespace IIM.Controllers
         }
         public ActionResult Index()
         {
-            var cart = new Cart();
+             
             _materialRepository.FindAll().ForEach(m => cart.Materials.Add(m));
 
             //Dit is de minimale startdatum dat een reservatie kan gemaakt worden 
@@ -40,24 +42,29 @@ namespace IIM.Controllers
 
         public ActionResult RemoveFromCart(int id, Cart cart)
         {
-            //werkt maar doordat hij terugkeert naar Index wordt het weer gevuld natuurlijk
+            //werkt maar doordat hij terugkeert naar Index wordt het weer gevuld natuurlijk + user moet nog upgedate worden
             Material material = _materialRepository.FindById(id);
+            if (material == null)
+                return HttpNotFound();
             cart.RemoveMaterial(material);
-            TempData["message"] = material.Name + " werd verwijderd uit je mandje";
+            TempData["message"] = String.Format("{0} werd verwijderd", material.Name);
             return RedirectToAction("Index");
-        }
+            }
 
     }
     public static class DateTimeExtensions
     {
         public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
         {
+
             int diff = dt.DayOfWeek - startOfWeek;
             if (diff < 0)
             {
                 diff += 7;
             }
             return dt.AddDays(-1 * diff).Date;
+            
         }
+
     }
 }
