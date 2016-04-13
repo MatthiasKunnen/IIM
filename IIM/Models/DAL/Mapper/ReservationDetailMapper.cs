@@ -3,9 +3,9 @@ using IIM.Models.Domain;
 
 namespace IIM.Models.DAL.Mapper
 {
-    public class ReservationDetailsMapper : EntityTypeConfiguration<ReservationDetails>
+    public class ReservationDetailMapper : EntityTypeConfiguration<ReservationDetail>
     {
-        public ReservationDetailsMapper()
+        public ReservationDetailMapper()
         {
             ToTable("ReservationDetail");
 

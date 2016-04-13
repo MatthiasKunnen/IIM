@@ -8,7 +8,7 @@ namespace IIM.Models.Domain
         private DateTime _startDateTime;
         public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, ApplicationUser user)
         {
-            Details = new List<ReservationDetails>();
+            Details = new List<ReservationDetail>();
             CreationDate = creationDate;
             StartDate = startDate;
             EndDate = endDate;
@@ -39,24 +39,24 @@ namespace IIM.Models.Domain
 
         public ApplicationUser User { get; private set; }
 
-        public List<ReservationDetails> Details { get; }
+        public List<ReservationDetail> Details { get; }
 
-        public void AddDetail(ReservationDetails details)
+        public void AddDetail(ReservationDetail detail)
         {
-            Details.Add(details);
+            Details.Add(detail);
         }
 
-        public void AddAllDetails(List<ReservationDetails> details)
+        public void AddAllDetails(List<ReservationDetail> details)
         {
             Details.AddRange(details);
         }
 
-        public void RemoveDetail(ReservationDetails detail)
+        public void RemoveDetail(ReservationDetail detail)
         {
             Details.Remove(detail);
         }
 
-        public void RemoveAllDetails(List<ReservationDetails> details)
+        public void RemoveAllDetails(List<ReservationDetail> details)
         {
             details.ForEach(d => details.Remove(d));
         }
@@ -71,7 +71,7 @@ namespace IIM.Models.Domain
                 //identifiers.AddRange(reservationRepository.GetAvailableIdentifiers(this.StartDate,this.EndDate,cart.Materials[m],m));
             }
 
-            AddAllDetails(identifiers.ConvertAll<ReservationDetails>(m => new ReservationDetails(this, m)));
+            AddAllDetails(identifiers.ConvertAll<ReservationDetail>(m => new ReservationDetail(this, m)));
 
         }
     }

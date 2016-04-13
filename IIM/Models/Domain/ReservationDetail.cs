@@ -2,9 +2,9 @@
 
 namespace IIM.Models.Domain
 {
-    public class ReservationDetails
+    public class ReservationDetail
     {
-        public ReservationDetails(Reservation reservation, MaterialIdentifier identifier)
+        public ReservationDetail(Reservation reservation, MaterialIdentifier identifier)
         {
             Reservation = reservation;
             reservation.AddDetail(this);

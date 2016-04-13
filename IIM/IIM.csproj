@@ -242,7 +242,7 @@
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
-    <Compile Include="Models\DAL\Mapper\ReservationDetailsMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\ReservationDetailMapper.cs" />
     <Compile Include="Models\DAL\Mapper\ReservationMapper.cs" />
     <Compile Include="Models\DAL\Mapper\UserMapper.cs" />
     <Compile Include="Models\DAL\ReservationRepository.cs" />
@@ -266,7 +266,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Domain\Reservation.cs" />
-    <Compile Include="Models\Domain\ReservationDetails.cs" />
+    <Compile Include="Models\Domain\ReservationDetail.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\Domain\Visibility.cs" />
     <Compile Include="Models\Domain\TargetGroup.cs" />
