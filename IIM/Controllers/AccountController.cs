@@ -198,7 +198,7 @@ namespace IIM.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Inventory");
                 }
                 AddErrors(result);
             }
@@ -427,7 +427,7 @@ namespace IIM.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Inventory");
         }
 
         //
@@ -469,7 +469,7 @@ namespace IIM.Controllers
             result.Errors.ForEach(error => ModelState.AddModelError("", error));
         }
 
-        private ActionResult RedirectToLocal(string returnUrl) => Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Home");
+        private ActionResult RedirectToLocal(string returnUrl) => Url.IsLocalUrl(returnUrl) ? (ActionResult)Redirect(returnUrl) : RedirectToAction("Index", "Inventory");
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
