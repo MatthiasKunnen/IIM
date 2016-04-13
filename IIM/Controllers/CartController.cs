@@ -11,6 +11,7 @@ using WebGrease.Css.Extensions;
 
 namespace IIM.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private IUserRepository _userRepository;
