@@ -86,6 +86,31 @@ namespace IIM.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    var user = await UserManager.FindByEmailAsync(model.Email);
+                    if (user == null)
+                    {
+                        var hogentUser = HoGentLoginManager.Login(model.Email, model.Password).Result;
+                        if (hogentUser.HasValue)
+                        {
+                            var hogentIdentity = hogentUser.Value;
+                            var applicationUser = new ApplicationUser() {UserName = hogentIdentity.Email, Email = hogentIdentity.Email };
+                            var identityCreationResult = UserManager.Create(applicationUser, model.Password);
+                            if (!identityCreationResult.Succeeded)
+                                throw new ApplicationException(identityCreationResult.Errors.ToString());
+                            result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+                            switch (result)
+                            {
+                                case SignInStatus.Success:
+                                    return RedirectToLocal(returnUrl);
+                                case SignInStatus.LockedOut:
+                                    return View("Lockout");
+                                case SignInStatus.RequiresVerification:
+                                    return RedirectToAction("SendCode",
+                                        new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                            }
+                        }
+                    }
+                    goto default;
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
@@ -439,7 +464,7 @@ namespace IIM.Controllers
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {
-            public ChallengeResult(string provider, string redirectUri): this(provider, redirectUri, null)
+            public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
             {
             }
 
