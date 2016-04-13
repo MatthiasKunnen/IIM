@@ -213,36 +213,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\App_Start\BundleConfig.cs" />
-    <Compile Include="App_Data\App_Start\FilterConfig.cs" />
-    <Compile Include="App_Data\App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Data\App_Start\NinjectWebCommon.cs" />
-    <Compile Include="App_Data\App_Start\RouteConfig.cs" />
-    <Compile Include="App_Data\App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HoGentLoginManager.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
-    <Compile Include="Controllers\ReservationController.cs" />
-    <Compile Include="Migrations\201604130349599_Initial.cs" />
-    <Compile Include="Migrations\201604130349599_Initial.Designer.cs">
-      <DependentUpon>201604130349599_Initial.cs</DependentUpon>
+    <Compile Include="Helpers\Account.cs" />
+    <Compile Include="Migrations\201604131652109_Initial.cs" />
+    <Compile Include="Migrations\201604131652109_Initial.Designer.cs">
+      <DependentUpon>201604131652109_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604130404058_RemovedTelNumber.cs" />
-    <Compile Include="Migrations\201604130404058_RemovedTelNumber.Designer.cs">
-      <DependentUpon>201604130404058_RemovedTelNumber.cs</DependentUpon>
+    <Compile Include="Migrations\201604131721449_MigratedToApplicationUser.cs" />
+    <Compile Include="Migrations\201604131721449_MigratedToApplicationUser.Designer.cs">
+      <DependentUpon>201604131721449_MigratedToApplicationUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.cs" />
-    <Compile Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.Designer.cs">
-      <DependentUpon>201604130456291_AddedApplicationUserPropertyIsLocal.cs</DependentUpon>
+    <Compile Include="Migrations\201604131742190_MigratingToApplicationUserContinued.cs" />
+    <Compile Include="Migrations\201604131742190_MigratingToApplicationUserContinued.Designer.cs">
+      <DependentUpon>201604131742190_MigratingToApplicationUserContinued.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
-    <Compile Include="Models\DAL\Mapper\ReservationDetailsMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\ReservationDetailMapper.cs" />
     <Compile Include="Models\DAL\Mapper\ReservationMapper.cs" />
     <Compile Include="Models\DAL\Mapper\UserMapper.cs" />
     <Compile Include="Models\DAL\ReservationRepository.cs" />
@@ -266,11 +266,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Domain\Reservation.cs" />
-    <Compile Include="Models\Domain\ReservationDetails.cs" />
+    <Compile Include="Models\Domain\ReservationDetail.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\Domain\Visibility.cs" />
     <Compile Include="Models\Domain\TargetGroup.cs" />
-    <Compile Include="Models\Domain\User.cs" />
     <Compile Include="Models\Domain\Type.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
@@ -288,39 +287,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\photo-coming-soon.jpg" />
-    <Content Include="Content\themes\base\accordion.css" />
-    <Content Include="Content\themes\base\all.css" />
-    <Content Include="Content\themes\base\autocomplete.css" />
-    <Content Include="Content\themes\base\base.css" />
-    <Content Include="Content\themes\base\button.css" />
-    <Content Include="Content\themes\base\core.css" />
-    <Content Include="Content\themes\base\datepicker.css" />
-    <Content Include="Content\themes\base\dialog.css" />
-    <Content Include="Content\themes\base\draggable.css" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\menu.css" />
-    <Content Include="Content\themes\base\progressbar.css" />
-    <Content Include="Content\themes\base\resizable.css" />
-    <Content Include="Content\themes\base\selectable.css" />
-    <Content Include="Content\themes\base\selectmenu.css" />
-    <Content Include="Content\themes\base\slider.css" />
-    <Content Include="Content\themes\base\sortable.css" />
-    <Content Include="Content\themes\base\spinner.css" />
-    <Content Include="Content\themes\base\tabs.css" />
-    <Content Include="Content\themes\base\theme.css" />
-    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\wereldbol.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -335,12 +301,9 @@
     </Content>
     <Content Include="Models\Domain\domain.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\datepicker.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -385,18 +348,6 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <None Include="Views\Account\RealUserName.cshtml" />
     <None Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Reservation\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604130349599_Initial.resx">
-      <DependentUpon>201604130349599_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604130404058_RemovedTelNumber.resx">
-      <DependentUpon>201604130404058_RemovedTelNumber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604130456291_AddedApplicationUserPropertyIsLocal.resx">
-      <DependentUpon>201604130456291_AddedApplicationUserPropertyIsLocal.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -406,7 +357,17 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604131652109_Initial.resx">
+      <DependentUpon>201604131652109_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604131721449_MigratedToApplicationUser.resx">
+      <DependentUpon>201604131721449_MigratedToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604131742190_MigratingToApplicationUserContinued.resx">
+      <DependentUpon>201604131742190_MigratingToApplicationUserContinued.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

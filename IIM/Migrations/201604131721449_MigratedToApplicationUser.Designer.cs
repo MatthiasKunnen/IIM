@@ -7,13 +7,13 @@ namespace IIM.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedApplicationUserPropertyIsLocal : IMigrationMetadata
+    public sealed partial class MigratedToApplicationUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedApplicationUserPropertyIsLocal));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MigratedToApplicationUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604130456291_AddedApplicationUserPropertyIsLocal"; }
+            get { return "201604131721449_MigratedToApplicationUser"; }
         }
         
         string IMigrationMetadata.Source

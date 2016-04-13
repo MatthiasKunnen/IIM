@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using IIM.Models;
 
-namespace IIM.Models
+namespace IIM.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

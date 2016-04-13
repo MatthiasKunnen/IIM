@@ -18,7 +18,6 @@ namespace IIM.Models.DAL
         }
         public DbSet<Material> Materials { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<User> UserSet { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

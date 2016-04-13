@@ -8,79 +8,59 @@
 
 <h2>Materialen</h2><br />
 
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="text" name="SearchName" placeholder="Zoeken op naam">
+        <input type="submit" value="Search" />
+    </p>
+}
 
+<div class="clearfix">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>Acties</th>
+            <th />
+        </tr>
 
-    
-        @using (Html.BeginForm())
+        @foreach (var item in Model)
         {
-            <div style="margin-bottom: 1%;">
-                <input type="text" class="form-control" style="float: left" name="SearchName" placeholder="Zoeken op naam">
-                <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-search "></span>
-                </button>
+            <tr>
+                <td>
+                    <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style=" max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
+                </td>
+                <td>
+                    <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
 
-
-
-
-            </div> 
+                    @using (Html.BeginForm("Add", "Cart", new { id = item.Id }))
+                    {
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
+                        </button>
+                    }
+                </td>
+            </tr>
         }
-    
-    
-        <div class="clearfix">
-
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Image)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-
-                    <th>
-                        Acties
-                    </th>
-                    <th />
-                </tr>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td style="width: 15%;">
-                            <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style="width: 75%; height: auto;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
-                        </td>
-                        <td>
-                            <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-
-                        <td>
-                            @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
-                            @*
-                            @using (Html.BeginForm("Add", "Cart", new { id = item.Id}))
-                            {
-                            *@
-
-                            <button type="submit" class="btn btn-default">
-                                <span class="glyphicon glyphicon-shopping-cart "></span> Voeg toe aan verlanglijst
-                            </button>
-                            @*}*@
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        </div>
-
-
-
+    </table>
+</div>

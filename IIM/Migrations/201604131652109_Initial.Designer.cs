@@ -13,7 +13,7 @@ namespace IIM.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201604130349599_Initial"; }
+            get { return "201604131652109_Initial"; }
         }
         
         string IMigrationMetadata.Source

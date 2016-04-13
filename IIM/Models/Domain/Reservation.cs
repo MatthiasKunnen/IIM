@@ -5,9 +5,10 @@ namespace IIM.Models.Domain
 {
     public class Reservation
     {
-        public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, User user)
+        private DateTime _startDateTime;
+        public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, ApplicationUser user)
         {
-            Details = new List<ReservationDetails>();
+            Details = new List<ReservationDetail>();
             CreationDate = creationDate;
             StartDate = startDate;
             EndDate = endDate;
@@ -20,52 +21,43 @@ namespace IIM.Models.Domain
 
         public DateTime StartDate
         {
-            get { return StartDate; }
-            set
+            get { return _startDateTime; }
+            private set
             {
                 if (value.Date > DateTime.Today)
                 {
-                    StartDate = value;
+                    _startDateTime = value;
                 }
                 else
                 {
-                    throw new ArgumentException("De startdatum van een reservatie moet later zijn dan vanddag.");
+                    throw new ArgumentException("De startdatum van een reservatie moet later zijn dan vandaag.");
                 }
             }
         }
 
-        public DateTime EndDate
+        public DateTime EndDate { get; private set; }
+
+        public ApplicationUser User { get; private set; }
+
+
+        public virtual List<ReservationDetail> Details { get; }
+
+        public void AddDetail(ReservationDetail detail)
         {
-            get { return EndDate; }
-            private set
-            {
-                if (StartDate.AddDays(7) >= value)
-                {
-                    EndDate = value;
-                }
-            }
+            Details.Add(detail);
         }
 
-        public User User { get; private set; }
-
-        public virtual List<ReservationDetails> Details { get; }
-
-        public void AddDetail(ReservationDetails details)
-        {
-            Details.Add(details);
-        }
-
-        public void AddAllDetails(List<ReservationDetails> details)
+        public void AddAllDetails(List<ReservationDetail> details)
         {
             Details.AddRange(details);
         }
 
-        public void RemoveDetail(ReservationDetails detail)
+        public void RemoveDetail(ReservationDetail detail)
         {
             Details.Remove(detail);
         }
 
-        public void RemoveAllDetails(List<ReservationDetails> details)
+        public void RemoveAllDetails(List<ReservationDetail> details)
         {
             details.ForEach(d => details.Remove(d));
         }
@@ -80,7 +72,7 @@ namespace IIM.Models.Domain
                 //identifiers.AddRange(reservationRepository.GetAvailableIdentifiers(this.StartDate,this.EndDate,cart.Materials[m],m));
             }
 
-            AddAllDetails(identifiers.ConvertAll<ReservationDetails>(m => new ReservationDetails(this, m)));
+            AddAllDetails(identifiers.ConvertAll<ReservationDetail>(m => new ReservationDetail(this, m)));
 
         }
     }

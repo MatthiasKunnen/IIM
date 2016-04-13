@@ -5,10 +5,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using IIM.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IIM.Models;
+using IIM.ViewModels;
 using WebGrease.Css.Extensions;
 
 namespace IIM.Controllers
@@ -64,13 +66,9 @@ namespace IIM.Controllers
 
         public PartialViewResult RealUserName()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                
-                return PartialView(new UserViewModel((UserManager.FindByName(User.Identity.Name))));
-            }
-            return PartialView();
+            return User.Identity.IsAuthenticated ? PartialView(new UserViewModel(Account.GetUser())) : PartialView();
         }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -184,7 +182,7 @@ namespace IIM.Controllers
         public ActionResult Register()
         {
             return NoRegistering();
-            return View();
+            //return View();
         }
 
         //
@@ -192,9 +190,12 @@ namespace IIM.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<ActionResult> Register(RegisterViewModel model)
+        #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             return NoRegistering();
+            /*
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -216,6 +217,7 @@ namespace IIM.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+            */
         }
 
         private ActionResult NoRegistering()

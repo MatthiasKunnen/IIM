@@ -18,7 +18,7 @@ namespace IIM.Models.DAL
             _reservationSet = context.Reservations;
         }
 
-        public IQueryable<Reservation> FindByUser(User user)
+        public IQueryable<Reservation> FindByUser(ApplicationUser user)
         {
             return _reservationSet.Where(r => r.User == user).AsQueryable();
         }

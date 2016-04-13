@@ -8,7 +8,7 @@ namespace IIM.Models.Domain
 {
     public interface IReservationRepository
     {
-        IQueryable<Reservation> FindByUser(User user);
+        IQueryable<Reservation> FindByUser(ApplicationUser user);
 
         List<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate, int count,Material material);
         void SaveChanges();

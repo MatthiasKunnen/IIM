@@ -7,13 +7,13 @@ namespace IIM.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RemovedTelNumber : IMigrationMetadata
+    public sealed partial class MigratingToApplicationUserContinued : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemovedTelNumber));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MigratingToApplicationUserContinued));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604130404058_RemovedTelNumber"; }
+            get { return "201604131742190_MigratingToApplicationUserContinued"; }
         }
         
         string IMigrationMetadata.Source

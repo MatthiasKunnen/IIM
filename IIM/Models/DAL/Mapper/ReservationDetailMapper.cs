@@ -3,11 +3,12 @@ using IIM.Models.Domain;
 
 namespace IIM.Models.DAL.Mapper
 {
-    public class ReservationDetailsMapper : EntityTypeConfiguration<ReservationDetails>
+    public class ReservationDetailMapper : EntityTypeConfiguration<ReservationDetail>
     {
-        public ReservationDetailsMapper()
+        public ReservationDetailMapper()
         {
             ToTable("ReservationDetail");
+
             HasKey(r => r.Id);
             Property(m => m.BroughtBackDate).IsOptional().HasColumnType("datetime");
             Property(m => m.PickUpDate).IsOptional().HasColumnType("datetime");

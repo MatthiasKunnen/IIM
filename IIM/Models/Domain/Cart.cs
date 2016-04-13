@@ -9,7 +9,6 @@ namespace IIM.Models.Domain
     {
         private List<Material> _materials;
         public int Id { get; private set; }
-
         public virtual List<Material> Materials
         {
             get { return _materials ?? (_materials = new List<Material>()); }
@@ -24,6 +23,9 @@ namespace IIM.Models.Domain
         {
             Materials.Remove(material);
         }
-        
+        public Cart()
+        {
+            CreationDate = DateTime.Now;
+        }
     }
 }
