@@ -5,9 +5,9 @@
 }
 
 <h2>Detail</h2>
-<div class="col-md-8 col-sm-1   material">
-    <div class="clearfix">
-        <div class="col-sm-3  pull-xs-left">
+<div class="col-md-12 container material">
+    <div >
+        <div class="col-sm-3  pull-left">
             <img src="@Url.Content(Model.PhotoUrl)" class="img-rounded center-block" alt="Foto van @Html.DisplayFor(modelItem => Model.Name)" />
         </div>
         <div class="col-sm-9">
@@ -42,12 +42,12 @@
                 <dd>
                     @Html.DisplayFor(model => model.Firm.Name)
                     <br />
-                    @Html.DisplayFor(model => model.Firm.Email)
+                    @(Model.Firm.Email.IsEmpty() ? "Geen emailadres beschikbaar" : @Html.DisplayFor(model => model.Firm.Email).ToString())
                     <br/>
 
-                     @(Model.Firm.PhoneNumber.IsEmpty() ? "Telefoonnummer niet beschikbaar" : @Html.DisplayFor(model => model.Firm.PhoneNumber).ToString())
+                     @(Model.Firm.PhoneNumber.IsEmpty() ? "Geen telefoonnummer beschikbaar" : @Html.DisplayFor(model => model.Firm.PhoneNumber).ToString())
                     <br/>
-                    @Html.DisplayFor(model => model.Firm.Website)
+                    @(Model.Firm.Website.IsEmpty()?"Geen website beschikbaar": @Html.DisplayFor(model => model.Firm.Website).ToString())
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Curriculars)
@@ -84,9 +84,9 @@
                 <span class="glyphicon glyphicon-shopping-cart"></span>Voeg aan verlanglijst toe
             </button>
             }
-            <p>
-                @Html.ActionLink("Terug naar overzicht", "Index")
-            </p>
+            <br />
+            <br/>
+            @Html.ActionLink("Terug naar het overzicht","Index")
         </div>
 
     </div>

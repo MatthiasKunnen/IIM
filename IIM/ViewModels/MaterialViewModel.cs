@@ -31,7 +31,6 @@ namespace IIM.ViewModels
             set { _photoUrl = value ?? "~/Content/photo-coming-soon.jpg"; }
         }
 
-        //[DisplayFormat(DataFormatString = "{0:c}")]
         [DisplayFormat(DataFormatString = " €{0:0.00}")]
         [Display(Name = "Prijs")]
         public decimal Price { get; set; }
