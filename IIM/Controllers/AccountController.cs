@@ -183,6 +183,7 @@ namespace IIM.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            return NoRegistering();
             return View();
         }
 
@@ -193,6 +194,7 @@ namespace IIM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            return NoRegistering();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -214,6 +216,14 @@ namespace IIM.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private ActionResult NoRegistering()
+        {
+            TempData["HttpErrorCode"] = 505;
+            TempData["Title"] = "Actie niet beschikbaar";
+            TempData["Message"] = "Registreren is niet mogelijk. Meld u aan met uw HoGent inloggegevens.";
+            return RedirectToAction("Index", "Error");
         }
 
         //
