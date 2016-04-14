@@ -23,6 +23,11 @@ namespace IIM.Models.DAL
             return _reservationSet.Where(r => r.User == user).AsQueryable();
         }
 
+        public Reservation FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IQueryable<Reservation> FindByDate(DateTime Start, DateTime End)
         {
             return _reservationSet.Where(r => r.StartDate <= End && r.EndDate >= Start);
@@ -61,6 +66,11 @@ namespace IIM.Models.DAL
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public void Remove(Reservation reservation)
+        {
+            _reservationSet.Remove(reservation);
         }
     }
 }
