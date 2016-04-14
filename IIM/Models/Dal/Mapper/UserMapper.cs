@@ -14,7 +14,7 @@ namespace IIM.Models.DAL.Mapper
             Property(u => u.LastName).IsRequired();
             Property(u => u.Type).IsRequired();
 
-            HasOptional(u => u.WishList).WithRequired().Map(m => m.MapKey("CartId"));
+            HasOptional(u => u.WishList).WithRequired();
             HasMany(u => u.Reservations).WithRequired(r => r.User);
         }
     }

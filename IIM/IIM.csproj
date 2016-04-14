@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201604131742190_MigratingToApplicationUserContinued.Designer.cs">
       <DependentUpon>201604131742190_MigratingToApplicationUserContinued.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604132304493_UserCartBinding.cs" />
+    <Compile Include="Migrations\201604132304493_UserCartBinding.Designer.cs">
+      <DependentUpon>201604132304493_UserCartBinding.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
@@ -366,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604131742190_MigratingToApplicationUserContinued.resx">
       <DependentUpon>201604131742190_MigratingToApplicationUserContinued.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604132304493_UserCartBinding.resx">
+      <DependentUpon>201604132304493_UserCartBinding.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
