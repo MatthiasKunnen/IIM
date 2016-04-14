@@ -11,5 +11,6 @@ namespace IIM.Models.Domain
         ApplicationUser FindByName(string name);
         IQueryable<ApplicationUser> FindAll();
         void SaveChanges();
+        ApplicationUser GetCurrentUser();
     }
 }

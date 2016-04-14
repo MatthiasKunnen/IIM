@@ -19,7 +19,7 @@ namespace IIM.Models.DAL
 
         public IQueryable<ApplicationUser> FindAll()
         {
-            return _userSet;
+            return _userSet.Include(u => u.WishList);
         }
 
         public ApplicationUser FindByFirstName(string name)
@@ -35,6 +35,13 @@ namespace IIM.Models.DAL
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public ApplicationUser GetCurrentUser()
+        {
+            return HttpContext.Current.User.Identity.IsAuthenticated
+                ? FindAll().First(u => u.UserName.Equals(HttpContext.Current.User.Identity.Name))
+                : null;
         }
     }
 }

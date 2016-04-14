@@ -16,8 +16,13 @@ namespace IIM.Helpers
         {
             var user = HttpContext.Current.User;
             return user?.Identity != null && user.Identity.IsAuthenticated ? 
-                HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByName(user.Identity.Name) : 
+                GetApplicationUserManager().FindByName(user.Identity.Name) : 
                 null;
+        }
+
+        public static ApplicationUserManager GetApplicationUserManager()
+        {
+            return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
         }
     }
 }
