@@ -7,6 +7,7 @@ using IIM.Models;
 
 namespace IIM.Controllers
 {
+    [Authorize]
     public class InventoryController : Controller
     {
         private IMaterialRepository _materialRepository;

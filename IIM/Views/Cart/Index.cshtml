@@ -8,7 +8,13 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Leeg uw winkelwagen", "Clear")
+    @using (Html.BeginForm("Clear", "Cart"))
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-shopping-  "></span>Leeg uw winkelwagen
+        </button>
+    }
 </p>
 <table class="table">
     <tr>
@@ -39,6 +45,7 @@
             <td>
                 @using (Html.BeginForm("Delete", "Cart", new { id = item.Id }))
                 {
+                    @Html.AntiForgeryToken()
                     <button type="submit" class="btn btn-default">
                         <i class="fa fa-trash-o"></i> Verwijder
                     </button>

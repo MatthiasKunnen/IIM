@@ -30,6 +30,8 @@ namespace IIM.Controllers
             return View(_userRepository.GetCurrentUser().WishList.Materials.Select(m => new MaterialViewModel(m)));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             TempData["error"] = "Het item kon niet uit de winkelwagen verwijderd worden.";
@@ -44,6 +46,8 @@ namespace IIM.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Add(int id)
         {
             TempData["error"] = "Het materiaal kon niet toegevoegd worden.";
@@ -55,6 +59,8 @@ namespace IIM.Controllers
             return RedirectToAction("Index", "Inventory");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Clear()
         {
             TempData["error"] = "Uw winkelwagen kon niet leeggemaakt worden.";

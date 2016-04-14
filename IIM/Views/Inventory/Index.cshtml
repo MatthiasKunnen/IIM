@@ -7,7 +7,6 @@
 }
 
 <h2>Materialen</h2><br />
-
 @using (Html.BeginForm())
 {
     <p>
@@ -15,6 +14,7 @@
         <input type="submit" value="Search" />
     </p>
 }
+
 
 <div class="clearfix">
     <table class="table">
@@ -54,6 +54,7 @@
 
                     @using (Html.BeginForm("Add", "Cart", new { id = item.Id }))
                     {
+                        @Html.AntiForgeryToken()
                         <button type="submit" class="btn btn-default">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
                         </button>
