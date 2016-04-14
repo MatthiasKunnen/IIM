@@ -14,7 +14,7 @@ namespace IIM.Models.DAL.Mapper
             Property(u => u.LastName).IsRequired();
             Property(u => u.Type).IsRequired();
 
-            HasOptional(u => u.WishList).WithRequired();
+            HasOptional(u => u.WishList).WithRequired().WillCascadeOnDelete(true);
             HasMany(u => u.Reservations).WithRequired(r => r.User);
         }
     }
