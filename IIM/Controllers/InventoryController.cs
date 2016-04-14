@@ -19,17 +19,29 @@ namespace IIM.Controllers
         }
 
         // GET
-        public ActionResult Index(string searchName)
+        public ActionResult Index(string searchName, string searchCurricular, string searchFirm, string searchTargetGroup)
         {
-            var list = _materialRepository
+            IEnumerable<Material> list = _materialRepository
                 .FindAll();
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                list = list.Where(m => m.Name.IndexOf(searchName, StringComparison.OrdinalIgnoreCase) >= 0 || m.Description.IndexOf(searchName, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
+            var filterList = new List<Func<Material, bool>>();
+            AddFilter(filterList, searchName, m => m.Name, m => m.Description);
+            AddFilter(filterList, searchCurricular, m => m.Curriculars.Select(c => c.Name).Aggregate((c1, c2) => $"{c1} {c2}"));
+            AddFilter(filterList, searchFirm, m => m.Firm.Name);
+            AddFilter(filterList, searchTargetGroup, m => m.TargetGroups.Select(c => c.Name).Aggregate((c1, c2) => $"{c1} {c2}"));
+
+            filterList.ForEach(f => list = list.Where(f));
             return View(list.ToList()
                 .Select(m => new MaterialViewModel(m))
                 .OrderBy(mvm => mvm.Name));
+        }
+
+        private static void AddFilter(ICollection<Func<Material, bool>> filterList, string searchTerm, params Func<Material, string>[] searchedProperty)
+        {
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                filterList.Add(m => searchedProperty.Any(p => p.Invoke(m).IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0));
+            }
+
         }
 
         public ActionResult Detail(int id)
