@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using IIM.Models.Domain;
 using IIM.ViewModels;
 using System.Linq;
@@ -19,24 +20,16 @@ namespace IIM.Controllers
         // GET
         public ActionResult Index(string searchName)
         {
-            if (!String.IsNullOrEmpty(searchName) )
+            IEnumerable<MaterialViewModel> list = _materialRepository
+                .FindAll()
+                .ToList()
+                .Select(m => new MaterialViewModel(m))
+                .OrderBy(mvm => mvm.Name);
+            if (!string.IsNullOrEmpty(searchName))
             {
-                return View(_materialRepository
-                .FindAll()
-                .Where( m => m.Name.Contains(searchName) ||
-                             m.Description.Contains(searchName))
-                .OrderBy(m => m.Name)
-                .ToList()
-                .Select(m => new MaterialViewModel(m))
-                .ToList());
+                list = list.Where(m=>m.Name.Contains(searchName) || m.Description.Contains(searchName));
             }
-
-            return View(_materialRepository
-                .FindAll()
-                .OrderBy(m => m.Name)
-                .ToList()
-                .Select(m => new MaterialViewModel(m))
-                .ToList());
+            return View(list.ToList());
         }
 
         public ActionResult Detail(int id)
