@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IIM.Models.Domain;
@@ -19,12 +18,12 @@ namespace IIM.Models
         public string Type { get; set; }
         public string Base64Photo { get; set; }
         public bool IsLocal { get; set; }
-        public Cart WishList
+        public virtual Cart WishList
         {
-            get {return _cart ?? (_cart = new Cart());}
+            get { return _cart ?? (_cart = new Cart()); }
             private set { _cart = value; }
         }
-        public List<Reservation> Reservations
+        public virtual List<Reservation> Reservations
         {
             get { return _reservations ?? (_reservations = new List<Reservation>()); }
             private set { _reservations = value; }
