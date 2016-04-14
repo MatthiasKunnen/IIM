@@ -28,6 +28,9 @@
         </div>
     </div>
     <div class="container body-content">
+        @DisplayMessage("success")
+        @DisplayMessage("warning")
+        @DisplayMessage("error", "danger")
         @RenderBody()
         <hr />
         <footer class="text-center">
@@ -43,7 +46,15 @@
 
 @helper PossiblyActiveListItem(string linkText, string actionName, string controllerName)
 {
-    <li class=@(ViewBag.Active == controllerName ? "active" : "")>
+    <li class="@(ViewBag.Active == controllerName ? "active" : "")">
         @Html.ActionLink(linkText, actionName, controllerName)
     </li>
+}
+
+@helper DisplayMessage(string tempDataKey, string cssClass = null, bool isAlertClass = true)
+{
+    if (TempData.ContainsKey(tempDataKey) && TempData[tempDataKey] != null)
+    {
+        <div class="alert @($"{(isAlertClass ? "alert-" : "")}{(cssClass ?? tempDataKey)}")">@TempData[tempDataKey]</div>
+    }
 }
