@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -42,6 +43,11 @@ namespace IIM.Models.DAL
             return HttpContext.Current.User.Identity.IsAuthenticated
                 ? FindAll().First(u => u.UserName.Equals(HttpContext.Current.User.Identity.Name))
                 : null;
+        }
+
+        public void ClearWishList(ApplicationUser user)
+        {
+            _context.Entry(user.WishList).State = EntityState.Deleted;
         }
     }
 }

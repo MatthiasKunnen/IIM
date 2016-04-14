@@ -8,7 +8,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Creëer een nieuwe winkelwagen", "Create")
+    @Html.ActionLink("Leeg uw winkelwagen", "Clear")
 </p>
 <table class="table">
     <tr>
@@ -37,7 +37,12 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Remove", "Delete", new { id = item.Id })
+                @using (Html.BeginForm("Delete", "Cart", new { id = item.Id }))
+                {
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-trash-o"></i> Verwijder
+                    </button>
+                }
             </td>
         </tr>
     }

@@ -12,5 +12,6 @@ namespace IIM.Models.Domain
         IQueryable<ApplicationUser> FindAll();
         void SaveChanges();
         ApplicationUser GetCurrentUser();
+        void ClearWishList(ApplicationUser user);
     }
 }
