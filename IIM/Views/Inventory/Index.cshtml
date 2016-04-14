@@ -15,52 +15,58 @@
     </p>
 }
 
-
-<div class="clearfix">
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>Acties</th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+@if (Model != null && Model.Any())
+{
+    <div class="clearfix">
+        <table class="table">
             <tr>
-                <td>
-                    <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style=" max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
-                </td>
-                <td>
-                    <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
-
-                    @using (Html.BeginForm("Add", "Cart", new { id = item.Id }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-default">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
-                        </button>
-                    }
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>Acties</th>
             </tr>
-        }
-    </table>
-</div>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)"/>
+                    </td>
+                    <td>
+                        <h4>@Html.ActionLink(item.Name, "Detail", new {id = item.Id})</h4>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
+
+                        @using (Html.BeginForm("Add", "Cart", new {id = item.Id}))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <p>Er zijn geen materialen gevonden.</p>
+}
