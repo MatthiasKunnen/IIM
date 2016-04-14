@@ -222,10 +222,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\HoGentLoginManager.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Helpers\Account.cs" />
+    <Compile Include="Helpers\HoGentLoginManager.cs" />
     <Compile Include="Migrations\201604131652109_Initial.cs" />
     <Compile Include="Migrations\201604131652109_Initial.Designer.cs">
       <DependentUpon>201604131652109_Initial.cs</DependentUpon>
