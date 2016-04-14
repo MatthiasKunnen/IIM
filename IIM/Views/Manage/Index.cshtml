@@ -1,32 +1,32 @@
 ﻿@model IIM.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Beheer";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Change your account settings</h4>
+    <h4>Account settings wijzigen</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>Password:</dt>
+        <dt>Wachtwoord:</dt>
         <dd>
             [
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
+                @Html.ActionLink("Wijzig je wachtwoord", "ChangePassword")
             }
             else
             {
-                @Html.ActionLink("Create", "SetPassword")
+                @Html.ActionLink("Creëer", "SetPassword")
             }
             ]
         </dd>
-        <dt>External Logins:</dt>
+        <dt>Externe Logins:</dt>
         <dd>
             @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
+            @Html.ActionLink("Beheer", "ManageLogins") ]
         </dd>
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
@@ -53,11 +53,11 @@
                 ]
             </dd>
         *@
-        <dt>Two-Factor Authentication:</dt>
+        <dt>Twee-staps verificatie:</dt>
         <dd>
             <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
+                Er zijn geen twee-staps authenticatie providers geconfigureerd.  Zie <a href="http://go.microsoft.com/fwlink/?LinkId=403804">dit artikel</a>
+                voor details over hoe je dat in je ASP.NET applicatie implementeert.
             </p>
             @*@if (Model.TwoFactor)
                 {
