@@ -34,13 +34,13 @@ namespace IIM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            TempData["error"] = "Het item kon niet uit de winkelwagen verwijderd worden.";
+            TempData["error"] = "Het item kon niet uit de verlanglijstje verwijderd worden.";
             var materialsInCart = _userRepository.GetCurrentUser().WishList.Materials;
             var materialToDelete = materialsInCart.First(m => m.Id == id);
             if (materialsInCart.Remove(materialToDelete))
             {
                 _userRepository.SaveChanges();
-                TempData["success"] = $"{materialToDelete.Name} werd verwijderd uit de winkelwagen.";
+                TempData["success"] = $"{materialToDelete.Name} werd verwijderd uit de verlanglijstje.";
                 TempData.Remove("error");
             }
             return RedirectToAction("Index");
@@ -55,7 +55,7 @@ namespace IIM.Controllers
             _userRepository.GetCurrentUser().WishList.AddMaterial(material);
             _userRepository.SaveChanges();
             TempData.Remove("error");
-            TempData["success"] = $"\"{material.Name}\" werd toegevoegd aan uw winkelwagen.";
+            TempData["success"] = $"\"{material.Name}\" werd toegevoegd aan uw verlanglijstje.";
             return RedirectToAction("Index", "Inventory");
         }
 
@@ -63,11 +63,11 @@ namespace IIM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Clear()
         {
-            TempData["error"] = "Uw winkelwagen kon niet leeggemaakt worden.";
+            TempData["error"] = "Uw verlanglijstje kon niet leeggemaakt worden.";
             _userRepository.ClearWishList(_userRepository.GetCurrentUser());
             _userRepository.SaveChanges();
             TempData.Remove("error");
-            TempData["success"] = "Uw winkelwagen werd geleegd.";
+            TempData["success"] = "Uw verlanglijstje werd geleegd.";
             return RedirectToAction("Index", "Cart");
         }
     }
