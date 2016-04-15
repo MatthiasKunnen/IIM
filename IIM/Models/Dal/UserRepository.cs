@@ -23,12 +23,7 @@ namespace IIM.Models.DAL
             return _userSet.Include(u => u.WishList);
         }
 
-        public ApplicationUser FindByFirstName(string name)
-        {
-            return _userSet.First(u => u.FirstName == name);
-        }
-
-        public ApplicationUser FindByName(string name)
+        public ApplicationUser FindByUserName(string name)
         {
             return _userSet.First(u => u.UserName == name);
         }

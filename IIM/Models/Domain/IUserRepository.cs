@@ -8,7 +8,7 @@ namespace IIM.Models.Domain
 {
     public interface IUserRepository
     {
-        ApplicationUser FindByName(string name);
+        ApplicationUser FindByUserName(string name);
         IQueryable<ApplicationUser> FindAll();
         void SaveChanges();
         ApplicationUser GetCurrentUser();
