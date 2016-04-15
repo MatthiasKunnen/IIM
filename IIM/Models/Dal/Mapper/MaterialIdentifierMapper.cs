@@ -14,6 +14,7 @@ namespace IIM.Models.DAL.Mapper
             Property(m => m.Visibility).IsRequired();
 
             HasRequired(m => m.Material);
+            HasMany(m => m.ReservationDetails).WithRequired(r => r.MaterialIdentifier);
         }
     }
 }

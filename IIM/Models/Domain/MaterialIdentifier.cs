@@ -1,4 +1,6 @@
-﻿namespace IIM.Models.Domain
+﻿using System.Collections.Generic;
+
+namespace IIM.Models.Domain
 {
     public class MaterialIdentifier
     {
@@ -10,5 +12,7 @@
         public Visibility Visibility { get; private set; }
 
         public Material Material { get; private set; }
+
+        public virtual List<ReservationDetail> ReservationDetails { get; private set; }
     }
 }
