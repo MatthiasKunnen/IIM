@@ -23,6 +23,15 @@ namespace IIM.Models.Domain
         {
             Materials.Remove(material);
         }
+        public Boolean AlreadyInCart(int id)
+        {
+            if (Materials.FirstOrDefault(m => m.Id.Equals(id)) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Cart()
         {
             CreationDate = DateTime.Now;
