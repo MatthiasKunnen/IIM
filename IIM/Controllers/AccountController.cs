@@ -10,8 +10,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IIM.Models;
+using IIM.Models.Domain;
 using IIM.ViewModels;
 using WebGrease.Css.Extensions;
+using Type = IIM.Models.Domain.Type;
 
 namespace IIM.Controllers
 {
@@ -107,9 +109,20 @@ namespace IIM.Controllers
                                 Faculty = hogentIdentity.Faculteit,
                                 FirstName = hogentIdentity.Voornaam,
                                 LastName = hogentIdentity.Naam,
-                                Type = hogentIdentity.Type,
                                 UserName = hogentIdentity.Email
                             };
+                            switch (hogentIdentity.ToString().ToLower())
+                            {
+                                case "personeel":
+                                    applicationUser.Type = Type.Staff;
+                                    break;
+                                case "student":
+                                    applicationUser.Type = Type.Staff;
+                                    break;
+                                default:
+                                    ModelState.AddModelError("", "De aanmeldingsgegevens zijn correct maar het type van uw account is niet bekend. Gelieve contact op te nemen met de ontwerpers van deze applicatie");
+                                    return View(model);
+                            }
                             var identityCreationResult = UserManager.Create(applicationUser, model.Password);
                             if (!identityCreationResult.Succeeded)
                                 throw new ApplicationException(identityCreationResult.Errors.ToString());

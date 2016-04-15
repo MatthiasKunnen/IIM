@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using IIM.Models;
+using IIM.Models.Domain;
 
 namespace IIM.ViewModels
 {
@@ -118,7 +119,7 @@ namespace IIM.ViewModels
         public string Faculty { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Type { get; set; }
+        public Type Type { get; set; }
 
         public UserViewModel(ApplicationUser user)
         {

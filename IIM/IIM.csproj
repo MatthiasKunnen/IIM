@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201604140149588_CartWillCascadeOnDelete.Designer.cs">
       <DependentUpon>201604140149588_CartWillCascadeOnDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604152122298_TypeMigrationOfApplicationUserTypeProperty.cs" />
+    <Compile Include="Migrations\201604152122298_TypeMigrationOfApplicationUserTypeProperty.Designer.cs">
+      <DependentUpon>201604152122298_TypeMigrationOfApplicationUserTypeProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
@@ -380,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604140149588_CartWillCascadeOnDelete.resx">
       <DependentUpon>201604140149588_CartWillCascadeOnDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604152122298_TypeMigrationOfApplicationUserTypeProperty.resx">
+      <DependentUpon>201604152122298_TypeMigrationOfApplicationUserTypeProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
