@@ -34,8 +34,8 @@ namespace IIM.Controllers
 
             filterList.ForEach(f => list = list.Where(f));
 
-            Cart wishList = _userRepository.GetCurrentUser().WishList;
-            ViewBag.WishList = wishList;
+           Cart wishList = _userRepository.GetCurrentUser().WishList;
+           ViewBag.WishList = wishList;
 
             return View(list.ToList()
                 .Select(m => new MaterialViewModel(m))
