@@ -12,9 +12,12 @@ namespace IIM.Controllers
     [Authorize]
     public class InventoryController : Controller
     {
+        private readonly IUserRepository _userRepository;
+
         private IMaterialRepository _materialRepository;
-        public InventoryController(IMaterialRepository repository)
+        public InventoryController(IMaterialRepository repository, IUserRepository users)
         {
+            _userRepository = users;
             this._materialRepository = repository;
         }
 
@@ -30,6 +33,10 @@ namespace IIM.Controllers
             AddFilter(filterList, searchTargetGroup, m => m.TargetGroups.Select(c => c.Name).Aggregate((c1, c2) => $"{c1} {c2}"));
 
             filterList.ForEach(f => list = list.Where(f));
+
+            Cart wishList = _userRepository.GetCurrentUser().WishList;
+            ViewBag.WishList = wishList;
+
             return View(list.ToList()
                 .Select(m => new MaterialViewModel(m))
                 .OrderBy(mvm => mvm.Name));

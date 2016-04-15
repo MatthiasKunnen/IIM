@@ -1,4 +1,5 @@
 ﻿@using IIM.ViewModels
+@using IIM.Models.Domain
 @model IEnumerable<MaterialViewModel>
 
 @{
@@ -61,13 +62,24 @@
                     </td>
                     <td>
                         @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
-
+                       
                         @using (Html.BeginForm("Add", "Cart", new { id = item.Id }))
                         {
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-default">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
-                            </button>
+                            {
+                                if (ViewBag.WishList.AlreadyInCart(item.Id))
+                                {
+                                    <button type="submit" class="btn btn-default disabled">
+                                        <span class="glyphicon glyphicon-shopping-cart"></span> Toegevoegd aan verlanglijst
+                                    </button>
+
+                                }
+                                else {
+                                          <button type="submit" class="btn btn-default">
+                                              <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
+                                          </button>
+                                }
+                              }
                         }
                     </td>
                 </tr>
