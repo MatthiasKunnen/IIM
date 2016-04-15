@@ -61,7 +61,6 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        @*<h4>@Html.ActionLink("Detail", "Detail", new { id = item.Id })</h4>*@
                        
                         @using (Html.BeginForm("Add", "Cart", new { id = item.Id }))
                         {
