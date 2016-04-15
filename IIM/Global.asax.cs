@@ -1,12 +1,10 @@
 ﻿using IIM.Models.DAL;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using IIM.Infrastucture;
+using IIM.Models;
 
 namespace IIM
 {
@@ -18,6 +16,8 @@ namespace IIM
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ModelBinders.Binders.Add(typeof(ApplicationUser), new ApplicationUserModelBinder());
 
             Database.SetInitializer(new IIMInitializer());
             IIMContext db = new IIMContext();

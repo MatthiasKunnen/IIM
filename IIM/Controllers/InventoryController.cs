@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using IIM.Models.Domain;
 using IIM.ViewModels;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace IIM.Controllers
         }
 
         // GET
-        public ActionResult Index(string searchName, string searchCurricular, string searchFirm, string searchTargetGroup)
+        public ActionResult Index(ApplicationUser user, string searchName, string searchCurricular, string searchFirm, string searchTargetGroup)
         {
             IEnumerable<Material> list = _materialRepository
                 .FindAll();
@@ -34,7 +33,7 @@ namespace IIM.Controllers
 
             filterList.ForEach(f => list = list.Where(f));
 
-            Cart wishList = _userRepository.GetCurrentUser().WishList;
+            Cart wishList = user.WishList;
             ViewBag.WishList = wishList;
 
             return View(list.ToList()

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace IIM.Models.Domain
 {
@@ -11,7 +7,6 @@ namespace IIM.Models.Domain
         ApplicationUser FindByUserName(string name);
         IQueryable<ApplicationUser> FindAll();
         void SaveChanges();
-        ApplicationUser GetCurrentUser();
         void ClearWishList(ApplicationUser user);
     }
 }

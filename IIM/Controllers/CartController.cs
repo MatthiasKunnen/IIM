@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using IIM.Models.DAL;
 using IIM.Models.Domain;
 using IIM.ViewModels;
-using IIM.Helpers;
+using IIM.Models;
 
 namespace IIM.Controllers
 {
@@ -25,17 +19,17 @@ namespace IIM.Controllers
             _reservationRepository = reservations;
             _materialRepository = materials;
         }
-        public ActionResult Index()
+        public ActionResult Index(ApplicationUser user)
         {
-            return View(_userRepository.GetCurrentUser().WishList.Materials.Select(m => new MaterialViewModel(m)));
+            return View(user.WishList.Materials.Select(m => new MaterialViewModel(m)));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(ApplicationUser user, int id)
         {
             TempData["error"] = "Het item kon niet uit de verlanglijstje verwijderd worden.";
-            var materialsInCart = _userRepository.GetCurrentUser().WishList.Materials;
+            var materialsInCart = user.WishList.Materials;
             var materialToDelete = materialsInCart.First(m => m.Id == id);
             if (materialsInCart.Remove(materialToDelete))
             {
@@ -48,11 +42,11 @@ namespace IIM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(int id)
+        public ActionResult Add(ApplicationUser user, int id)
         {
             TempData["error"] = "Het materiaal kon niet toegevoegd worden.";
             var material = _materialRepository.FindById(id);
-            _userRepository.GetCurrentUser().WishList.AddMaterial(material);
+            user.WishList.AddMaterial(material);
             _userRepository.SaveChanges();
             TempData.Remove("error");
             TempData["success"] = $"\"{material.Name}\" werd toegevoegd aan uw verlanglijstje.";
@@ -61,10 +55,10 @@ namespace IIM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Clear()
+        public ActionResult Clear(ApplicationUser user)
         {
             TempData["error"] = "Uw verlanglijstje kon niet leeggemaakt worden.";
-            _userRepository.ClearWishList(_userRepository.GetCurrentUser());
+            _userRepository.ClearWishList(user);
             _userRepository.SaveChanges();
             TempData.Remove("error");
             TempData["success"] = "Uw verlanglijstje werd geleegd.";

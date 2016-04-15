@@ -1,10 +1,6 @@
 ﻿using IIM.Models.Domain;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 
 namespace IIM.Models.DAL
 {
@@ -25,19 +21,12 @@ namespace IIM.Models.DAL
 
         public ApplicationUser FindByUserName(string name)
         {
-            return _userSet.First(u => u.UserName == name);
+            return FindAll().First(u => u.UserName == name);
         }
 
         public void SaveChanges()
         {
             _context.SaveChanges();
-        }
-
-        public ApplicationUser GetCurrentUser()
-        {
-            return HttpContext.Current.User.Identity.IsAuthenticated
-                ? FindAll().First(u => u.UserName.Equals(HttpContext.Current.User.Identity.Name))
-                : null;
         }
 
         public void ClearWishList(ApplicationUser user)

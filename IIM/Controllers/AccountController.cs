@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +8,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IIM.Models;
-using IIM.Models.Domain;
 using IIM.ViewModels;
 using WebGrease.Css.Extensions;
 using Type = IIM.Models.Domain.Type;
@@ -66,9 +63,9 @@ namespace IIM.Controllers
             return View();
         }
 
-        public PartialViewResult RealUserName()
+        public PartialViewResult RealUserName(ApplicationUser user)
         {
-            return User.Identity.IsAuthenticated ? PartialView(new UserViewModel(Account.GetUser())) : PartialView();
+            return User.Identity.IsAuthenticated ? PartialView(new UserViewModel(user)) : PartialView();
         }
 
         //
