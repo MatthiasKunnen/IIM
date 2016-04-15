@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IIM.ViewModels.MaterialViewModel>
 
 @{
-    ViewBag.Title = "Winkelwagen";
+    ViewBag.Title = "Verlanglijstje";
     ViewBag.Active = "Cart";
 }
 
@@ -14,7 +14,7 @@
         {
             @Html.AntiForgeryToken()
             <button type="submit" class="btn btn-default">
-                <span class="glyphicon glyphicon-shopping-  "></span>Leeg uw winkelwagen
+                <span class="glyphicon glyphicon-shopping-  "></span>Leeg uw verlanglijstje
             </button>
         }
     </p>
@@ -67,5 +67,5 @@
 }
 else
 {
-    <p>U heeft momenteel geen items in uw winkelwagen.</p>
+    <p>U heeft momenteel geen items in uw verlanglijstje.</p>
 }
