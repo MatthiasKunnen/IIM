@@ -28,7 +28,7 @@ namespace IIM.Models
     public class SetPasswordViewModel
     {
         [Required]
-        [StringLength(100, ErrorMessage = "Het {0} moet minsten {0} karakters lang zijn.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Het {0} moet minstens {2} karakters lang zijn.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Nieuw wachtwoord")]
         public string NewPassword { get; set; }
@@ -62,7 +62,7 @@ namespace IIM.Models
     {
         [Required]
         [Phone]
-        [Display(Name = "Telefoon nummer")]
+        [Display(Name = "Telefoonnummer")]
         public string Number { get; set; }
     }
 
@@ -74,7 +74,7 @@ namespace IIM.Models
 
         [Required]
         [Phone]
-        [Display(Name = "Telefoon nummer")]
+        [Display(Name = "Telefoonnummer")]
         public string PhoneNumber { get; set; }
     }
 

@@ -7,20 +7,13 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Account settings wijzigen</h4>
+    <h4>Accountinstellingen wijzigen</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>Wachtwoord:</dt>
         <dd>
             [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Wijzig je wachtwoord", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Creëer", "SetPassword")
-            }
+            @(Model.HasPassword ? Html.ActionLink("Wijzig je wachtwoord", "ChangePassword") : Html.ActionLink("Creëer", "SetPassword"))
             ]
         </dd>
         <dt>Externe Logins:</dt>
@@ -53,11 +46,11 @@
                 ]
             </dd>
         *@
-        <dt>Twee-staps verificatie:</dt>
+        <dt>Tweeledige verificatie:</dt>
         <dd>
             <p>
-                Er zijn geen twee-staps authenticatie providers geconfigureerd.  Zie <a href="http://go.microsoft.com/fwlink/?LinkId=403804">dit artikel</a>
-                voor details over hoe je dat in je ASP.NET applicatie implementeert.
+                Er zijn geen tweeledige authenticatie providers geconfigureerd.  Zie <a href="http://go.microsoft.com/fwlink/?LinkId=403804">dit artikel</a>
+                voor details over hoe deze ASP.NET applicatie moet ingesteld worden om dit te ondersteunen.
             </p>
             @*@if (Model.TwoFactor)
                 {

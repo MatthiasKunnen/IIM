@@ -9,15 +9,14 @@
 {
     @Html.AntiForgeryToken()
 
-    <h4>Associatie</h4>
+    <h4>]Associatieformulier</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <p class="text-info">
-        Je hebt succesvol geauthenticeerd met
+        Je bent  succesvol geauthenticeerd met
         <strong>@ViewBag.LoginProvider</strong>.
         Gelieve een gebruikersnaam in te voeren voor de onderstaande site en klik vervolgens op de registreer knop om
         je login te vervolledigen.
-        
     </p>
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
