@@ -1,0 +1,38 @@
+﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationDetailViewModel>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Material.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Material.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BroughtBackDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickUpDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="@Url.Content(item.Material.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Material.Name)" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Material.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BroughtBackDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PickUpDate)
+        </td>
+        
+    </tr>
+}
+
+</table>
