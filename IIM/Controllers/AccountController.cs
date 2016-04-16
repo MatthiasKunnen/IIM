@@ -108,7 +108,7 @@ namespace IIM.Controllers
                                 LastName = hogentIdentity.Naam,
                                 UserName = hogentIdentity.Email
                             };
-                            switch (hogentIdentity.ToString().ToLower())
+                            switch (hogentIdentity.Type.ToLower())
                             {
                                 case "personeel":
                                     applicationUser.Type = Type.Staff;
