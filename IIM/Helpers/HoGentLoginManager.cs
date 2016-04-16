@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace IIM.Helpers
 {
@@ -34,7 +35,13 @@ namespace IIM.Helpers
                     .ConfigureAwait(continueOnCapturedContext:false);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsAsync<Identity>();
+                    try
+                    {
+                        return await response.Content.ReadAsAsync<Identity>();
+                    }
+                    catch (JsonSerializationException)
+                    {
+                    }
                 }
             }
             return null;
