@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using IIM.Models.Domain;
 using IIM.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
 using IIM.Models;
+using Type = IIM.Models.Domain.Type;
 
 namespace IIM.Controllers
 {
-    [Authorize]
     public class InventoryController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -31,10 +32,22 @@ namespace IIM.Controllers
             AddFilter(filterList, searchFirm, m => m.Firm.Name);
             AddFilter(filterList, searchTargetGroup, m => m.TargetGroups.Select(c => c.Name).Aggregate((c1, c2) => $"{c1} {c2}"));
 
+            Func<MaterialIdentifier, bool> searchFunc;
+            switch (user?.Type ?? Type.Student)
+            {
+                case Type.Staff:
+                    searchFunc = identifier => identifier.Visibility != Visibility.Administrator;
+                    break;
+                case Type.Student:
+                    searchFunc = identifier => identifier.Visibility == Visibility.Student;
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException(nameof(user.Type), (int)user.Type, typeof(Type));
+            }
+            filterList.Add(m => m.Identifiers.Any(searchFunc));
             filterList.ForEach(f => list = list.Where(f));
 
-            Cart wishList = user.WishList;
-            ViewBag.WishList = wishList;
+            ViewBag.WishList = user?.WishList;
 
             return View(list.ToList()
                 .Select(m => new MaterialViewModel(m))
