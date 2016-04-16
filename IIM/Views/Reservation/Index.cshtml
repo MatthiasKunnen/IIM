@@ -1,15 +1,15 @@
 ﻿@using IIM.ViewModels.ReservationViewModels
-@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationsViewModel>
+@model IEnumerable<ReservationsViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mijn Reservaties";
 }
 
-<h2>Index</h2>
+<h2>Mijn Reservaties</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -21,7 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
-        <th></th>
+        <th>
+            Acties
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -45,7 +47,7 @@
 }
 </table>
 
-<div>
-    <!--Die div ier zou moeten openschuiven wanneer er op de reservatie geklikt wordt --> >
+@*<div>
+    Die div ier zou moeten openschuiven wanneer er op de reservatie geklikt wordt 
     @Html.Partial("Details"))
-</div>
+</div>*@

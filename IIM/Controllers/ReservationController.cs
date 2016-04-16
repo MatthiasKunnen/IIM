@@ -5,25 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IIM.Models;
+using IIM.Models.Domain;
 
 namespace IIM.Controllers
 {
+    [Authorize]
     public class ReservationController : Controller
     {
+        private readonly IUserRepository _userRepository;
+        private readonly IReservationRepository _reservationRepository;
 
-        public ReservationController()
+        public ReservationController(IUserRepository userRepository, IReservationRepository reservationRepository)
         {
-
+            _userRepository = userRepository;
+            _reservationRepository = reservationRepository;
         }
-        // GET: Reservation
-        public ActionResult Index()
+
+        
+        public ActionResult Index(ApplicationUser user)
         {
-            //Pieter gmoet de reservaties doorgeven als een reservationviewmodel xxx Seghers
-            ReservationsViewModel rvm = new ReservationsViewModel()
-            {
-                Details = null /*reservatiedetails van 1 reservatie, easy gg */
-            };
-            return View();
+            return View(user.Reservations.Select(r => new ReservationsViewModel(r)));
         }
 
         public ActionResult ShowDetails(ReservationsViewModel rvm)

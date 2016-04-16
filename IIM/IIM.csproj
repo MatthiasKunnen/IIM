@@ -224,6 +224,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Helpers\HoGentLoginManager.cs" />
     <Compile Include="Infrastucture\ApplicationUserModelBinder.cs" />
     <Compile Include="Migrations\201604131652109_Initial.cs" />
@@ -291,6 +292,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\MaterialViewModel.cs" />
+    <Compile Include="ViewModels\ReservationViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DefaultConnection.mdf" />
@@ -365,6 +367,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <None Include="Views\Account\RealUserName.cshtml" />
     <None Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Reservation\Details.cshtml" />
+    <Content Include="Views\Reservation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

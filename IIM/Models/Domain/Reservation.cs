@@ -7,6 +7,11 @@ namespace IIM.Models.Domain
     {
         private readonly IReservationManager _reservationManager;
         private DateTime _startDateTime;
+
+        protected Reservation()
+        {
+        }
+
         public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, ApplicationUser user)
         {
             Details = new List<ReservationDetail>();
@@ -21,21 +26,8 @@ namespace IIM.Models.Domain
 
         public DateTime CreationDate { get; private set; }
 
-        public DateTime StartDate
-        {
-            get { return _startDateTime; }
-            private set
-            {
-                if (value.Date > DateTime.Today)
-                {
-                    _startDateTime = value;
-                }
-                else
-                {
-                    throw new ArgumentException("De startdatum van een reservatie moet later zijn dan vandaag.");
-                }
-            }
-        }
+        public DateTime StartDate { get; private set; }
+    
 
         public DateTime EndDate { get; private set; }
 
