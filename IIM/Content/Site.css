@@ -69,3 +69,29 @@ textarea {
 .search-function {
     margin-bottom: 20px;
 }
+
+
+#detail dt {
+        float: left;
+        width: 160px;
+        overflow: hidden;
+        clear: left;
+        text-align: left;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+}
+
+.back
+{
+    margin-top:5%;
+-webkit-appearance: none;
+outline: none;
+border: 0;
+background: transparent;
+}
+span.glyphicon-circle-arrow-left {
+    font-size: 3em;
+}
+span.glyphicon-circle-arrow-left:hover {
+    opacity:0.6;
+}

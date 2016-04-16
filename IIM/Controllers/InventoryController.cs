@@ -63,11 +63,12 @@ namespace IIM.Controllers
 
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(ApplicationUser user, int id)
         {
             Material material = _materialRepository.FindById(id);
             if (material == null)
                 return HttpNotFound();
+            ViewBag.WishList = user?.WishList;
             return View(new MaterialViewModel(material));
         }
     }
