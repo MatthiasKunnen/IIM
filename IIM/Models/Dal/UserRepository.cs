@@ -28,10 +28,5 @@ namespace IIM.Models.DAL
         {
             _context.SaveChanges();
         }
-
-        public void ClearWishList(ApplicationUser user)
-        {
-            _context.Entry(user.WishList).State = EntityState.Deleted;
-        }
     }
 }

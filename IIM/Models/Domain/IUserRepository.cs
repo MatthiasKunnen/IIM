@@ -7,6 +7,5 @@ namespace IIM.Models.Domain
         ApplicationUser FindByUserName(string name);
         IQueryable<ApplicationUser> FindAll();
         void SaveChanges();
-        void ClearWishList(ApplicationUser user);
     }
 }

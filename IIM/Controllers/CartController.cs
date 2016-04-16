@@ -58,7 +58,7 @@ namespace IIM.Controllers
         public ActionResult Clear(ApplicationUser user)
         {
             TempData["error"] = "Uw verlanglijstje kon niet leeggemaakt worden.";
-            _userRepository.ClearWishList(user);
+            user.ClearWishList();
             _userRepository.SaveChanges();
             TempData.Remove("error");
             TempData["success"] = "Uw verlanglijstje werd geleegd.";

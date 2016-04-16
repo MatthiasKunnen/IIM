@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IIM.Models.DAL;
 using IIM.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -35,6 +37,11 @@ namespace IIM.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public void ClearWishList()
+        {
+            IIMContext.Create().Entry(WishList).State = EntityState.Deleted;
         }
     }
 }
