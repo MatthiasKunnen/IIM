@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace IIM.Models.Domain
 {
-    public class Reservation
+    public class Reservation : IReservationManager
     {
+        private readonly IReservationManager _reservationManager;
         private DateTime _startDateTime;
         public Reservation(DateTime creationDate, DateTime startDate, DateTime endDate, ApplicationUser user)
         {
@@ -13,6 +14,7 @@ namespace IIM.Models.Domain
             StartDate = startDate;
             EndDate = endDate;
             User = user;
+            _reservationManager = TypeManagerFactory.CreateTypeManager(user.Type);
         }
 
         public int Id { get; private set; }
@@ -74,6 +76,11 @@ namespace IIM.Models.Domain
 
             AddAllDetails(identifiers.ConvertAll<ReservationDetail>(m => new ReservationDetail(this, m)));
 
+        }
+
+        public List<ReservationDetail> GetOverridableIdentifiers(List<ReservationDetail> reservationDetails)
+        {
+            return _reservationManager.GetOverridableIdentifiers(reservationDetails);
         }
     }
 }

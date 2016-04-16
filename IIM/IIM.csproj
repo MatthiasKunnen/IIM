@@ -275,6 +275,11 @@
     </Compile>
     <Compile Include="Models\Domain\IMaterialRepository.cs" />
     <Compile Include="Models\Domain\Material.cs" />
+    <Compile Include="Models\Domain\ITypeManager.cs" />
+    <Compile Include="Models\Domain\IReservationManager.cs" />
+    <Compile Include="Models\Domain\StaffManager.cs" />
+    <Compile Include="Models\Domain\StudentManager.cs" />
+    <Compile Include="Models\Domain\TypeManagerFactory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Domain\Reservation.cs" />
