@@ -61,26 +61,7 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-
-                        @using (Html.BeginForm("Add", "Cart", new { id = item.Id }))
-                        {
-                            @Html.AntiForgeryToken()
-                            {
-                                if (ViewBag.WishList?.AlreadyInCart(item.Id) == true)
-                                {
-                                    <button type="submit" class="btn btn-default disabled">
-                                        <span class="glyphicon glyphicon-shopping-cart"></span> Toegevoegd aan verlanglijst
-                                    </button>
-
-                                }
-                                else
-                                {
-                                    <button type="submit" class="btn btn-default">
-                                        <span class="glyphicon glyphicon-shopping-cart"></span> Voeg toe aan verlanglijst
-                                    </button>
-                                }
-                            }
-                        }
+                        @{Html.RenderPartial("_Button", item);}
                     </td>
                 </tr>
             }
