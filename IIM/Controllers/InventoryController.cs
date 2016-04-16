@@ -71,5 +71,6 @@ namespace IIM.Controllers
             ViewBag.WishList = user?.WishList;
             return View(new MaterialViewModel(material));
         }
+        
     }
 }
