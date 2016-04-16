@@ -12,25 +12,14 @@ namespace IIM.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        private Cart _cart;
-        private List<Reservation> _reservations;
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Faculty { get; set; }
         public Type Type { get; set; }
         public string Base64Photo { get; set; }
         public bool IsLocal { get; set; }
-        public virtual Cart WishList
-        {
-            get { return _cart ?? (_cart = new Cart()); }
-            private set { _cart = value; }
-        }
-        public virtual List<Reservation> Reservations
-        {
-            get { return _reservations ?? (_reservations = new List<Reservation>()); }
-            private set { _reservations = value; }
-        }
-
+        public virtual Cart WishList { get; private set; }
+        public virtual List<Reservation> Reservations { get; private set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -41,7 +30,15 @@ namespace IIM.Models
 
         public void ClearWishList()
         {
-            IIMContext.Create().Entry(WishList).State = EntityState.Deleted;
+            if (WishList != null)
+            {
+                IIMContext.Create().Entry(WishList).State = EntityState.Deleted;
+            }
+        }
+
+        public Cart CreateWishList()
+        {
+            return (WishList = WishList ?? new Cart());
         }
     }
 }

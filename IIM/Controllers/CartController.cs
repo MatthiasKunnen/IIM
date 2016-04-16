@@ -21,7 +21,7 @@ namespace IIM.Controllers
         }
         public ActionResult Index(ApplicationUser user)
         {
-            return View(user.WishList.Materials.Select(m => new MaterialViewModel(m)));
+            return View(user.WishList?.Materials.Select(m => new MaterialViewModel(m)));
         }
 
         [HttpPost]
@@ -29,13 +29,16 @@ namespace IIM.Controllers
         public ActionResult Delete(ApplicationUser user, int id)
         {
             TempData["error"] = "Het item kon niet uit de verlanglijstje verwijderd worden.";
-            var materialsInCart = user.WishList.Materials;
-            var materialToDelete = materialsInCart.First(m => m.Id == id);
-            if (materialsInCart.Remove(materialToDelete))
+            var materialsInCart = user.WishList?.Materials;
+            if (materialsInCart != null)
             {
-                _userRepository.SaveChanges();
-                TempData["success"] = $"{materialToDelete.Name} werd verwijderd uit de verlanglijstje.";
-                TempData.Remove("error");
+                var materialToDelete = materialsInCart.First(m => m.Id == id);
+                if (materialsInCart.Remove(materialToDelete))
+                {
+                    _userRepository.SaveChanges();
+                    TempData["success"] = $"{materialToDelete.Name} werd verwijderd uit de verlanglijstje.";
+                    TempData.Remove("error");
+                }
             }
             return RedirectToAction("Index");
         }
@@ -46,7 +49,7 @@ namespace IIM.Controllers
         {
             TempData["error"] = "Het materiaal kon niet toegevoegd worden.";
             var material = _materialRepository.FindById(id);
-            user.WishList.AddMaterial(material);
+            (user.WishList ?? user.CreateWishList()).AddMaterial(material);
             _userRepository.SaveChanges();
             TempData.Remove("error");
             TempData["success"] = $"\"{material.Name}\" werd toegevoegd aan uw verlanglijstje.";
