@@ -255,6 +255,10 @@
     <Compile Include="Migrations\201604171421175_ImprovedMaterialIdentifierMapping.Designer.cs">
       <DependentUpon>201604171421175_ImprovedMaterialIdentifierMapping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604171440126_RemovedSuperfluousUserTemp_CartID.cs" />
+    <Compile Include="Migrations\201604171440126_RemovedSuperfluousUserTemp_CartID.Designer.cs">
+      <DependentUpon>201604171440126_RemovedSuperfluousUserTemp_CartID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
@@ -405,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604171421175_ImprovedMaterialIdentifierMapping.resx">
       <DependentUpon>201604171421175_ImprovedMaterialIdentifierMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604171440126_RemovedSuperfluousUserTemp_CartID.resx">
+      <DependentUpon>201604171440126_RemovedSuperfluousUserTemp_CartID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
