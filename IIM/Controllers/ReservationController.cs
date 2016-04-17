@@ -28,13 +28,5 @@ namespace IIM.Controllers
             return View(user.Reservations.Select(r => new ReservationsViewModel(r)));
         }
 
-        public ActionResult ShowDetails(ReservationsViewModel rvm)
-        {
-            IEnumerable<ReservationDetailViewModel> details = rvm.Details
-                                                                .Select(detail=>new ReservationDetailViewModel(detail))
-                                                                .ToList();
-            
-            return PartialView("Details", details);
-        }
     }
 }

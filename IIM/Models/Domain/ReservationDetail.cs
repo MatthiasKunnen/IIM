@@ -4,6 +4,10 @@ namespace IIM.Models.Domain
 {
     public class ReservationDetail
     {
+        public ReservationDetail()
+        {
+
+        }
         public ReservationDetail(Reservation reservation, MaterialIdentifier identifier)
         {
             Reservation = reservation;

@@ -34,7 +34,7 @@ namespace IIM.Models.Domain
         public ApplicationUser User { get; private set; }
 
 
-        public virtual List<ReservationDetail> Details { get; }
+        public virtual List<ReservationDetail> Details { get; set; }
 
         public void AddDetail(ReservationDetail detail)
         {
