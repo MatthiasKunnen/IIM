@@ -67,9 +67,9 @@ namespace IIM.Models.Domain
 
         }
 
-        public List<ReservationDetail> GetOverridableIdentifiers(Material material, DateTime startDateTime, DateTime endDateTime)
+        public List<ReservationDetail> GetOverridableIdentifiers(Material material)
         {
-            return _reservationManager.GetOverridableIdentifiers(Details, material, startDateTime, endDateTime);
+            return _reservationManager.GetOverridableIdentifiers(Details, material);
         }
     }
 }

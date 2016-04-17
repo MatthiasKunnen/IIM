@@ -5,7 +5,7 @@ namespace IIM.Models.Domain
 {
     public class StudentManager : ITypeManager
     {
-        public List<ReservationDetail> GetOverridableIdentifiers(List<ReservationDetail> reservationDetails, Material material, DateTime startDateTime, DateTime endDateTime)
+        public List<ReservationDetail> GetOverridableIdentifiers(List<ReservationDetail> reservationDetails, Material material)
         {
             throw new System.NotImplementedException();
         }
