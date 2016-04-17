@@ -251,6 +251,10 @@
     <Compile Include="Migrations\201604152122298_TypeMigrationOfApplicationUserTypeProperty.Designer.cs">
       <DependentUpon>201604152122298_TypeMigrationOfApplicationUserTypeProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604171421175_ImprovedMaterialIdentifierMapping.cs" />
+    <Compile Include="Migrations\201604171421175_ImprovedMaterialIdentifierMapping.Designer.cs">
+      <DependentUpon>201604171421175_ImprovedMaterialIdentifierMapping.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
@@ -398,6 +402,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604152122298_TypeMigrationOfApplicationUserTypeProperty.resx">
       <DependentUpon>201604152122298_TypeMigrationOfApplicationUserTypeProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604171421175_ImprovedMaterialIdentifierMapping.resx">
+      <DependentUpon>201604171421175_ImprovedMaterialIdentifierMapping.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
