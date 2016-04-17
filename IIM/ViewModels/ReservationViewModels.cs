@@ -44,9 +44,9 @@ namespace IIM.ViewModels.ReservationViewModels
         public MaterialViewModel Material { get; private set; }
         public ReservationDetailViewModel(ReservationDetail detail)
         {
-            this.BroughtBackDate = detail.BroughtBackDate;
-            this.PickUpDate = detail.PickUpDate;
-            //this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+            if (detail.BroughtBackDate != null) this.BroughtBackDate = detail.BroughtBackDate.Value;
+            if (detail.PickUpDate != null) this.PickUpDate = detail.PickUpDate.Value;
+            this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
         }
     }
 }
