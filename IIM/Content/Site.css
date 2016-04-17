@@ -95,3 +95,13 @@ span.glyphicon-circle-arrow-left {
 span.glyphicon-circle-arrow-left:hover {
     opacity:0.6;
 }
+
+.reservatie{
+    color: black;
+    line-height:1.4em;
+}
+ .reservatie:hover > div{
+    
+    background-color: #f2f2f2;
+}
+ 

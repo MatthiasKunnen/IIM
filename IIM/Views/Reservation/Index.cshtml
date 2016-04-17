@@ -7,9 +7,42 @@
 
 <h2>Mijn Reservaties</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+    <div class="row col-lg-offset-1">
+        <div class="col-lg-4">
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </div>
+        <div class="col-lg-4">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </div>
+        <div class="col-lg-4">
+            @Html.DisplayNameFor(model => model.EndDate)
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row reservatie col-lg-offset-1">
+            <!--In a-tag de reservatie, wanneer op geklikt wordt openen de details-->
+            <a href='@string.Format("#{0}", item.Id)' data-toggle="collapse">
+                <div class="col-lg-4">
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </div>
+                <div class="col-lg-4">
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </div>
+                <div class="col-lg-4">
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </div>
+            </a>
+
+            <div id="@string.Format("{0}", item.Id)" class="collapse">
+                @{Html.RenderPartial("_Details",
+                      item.Details.Select(detail => new ReservationDetailViewModel(detail))
+                  , new ViewDataDictionary { { "id", item.Id } });}
+            </div>
+        </div>
+                    }
+
+@*
 <table class="table">
     <tr>
         <th>
@@ -45,9 +78,6 @@
 
     
 }
-</table>
+</table>*@
 
-@*<div>
-    Die div ier zou moeten openschuiven wanneer er op de reservatie geklikt wordt 
-    @Html.Partial("Details"))
-</div>*@
+

@@ -367,8 +367,10 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <None Include="Views\Account\RealUserName.cshtml" />
     <None Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Reservation\Details.cshtml" />
     <Content Include="Views\Reservation\Index.cshtml" />
+    <Content Include="Views\Reservation\_Details.cshtml" />
+    <Content Include="Views\Inventory\_Button.cshtml" />
+    <Content Include="Views\Reservation\ShowDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -398,6 +400,7 @@
       <DependentUpon>201604152122298_TypeMigrationOfApplicationUserTypeProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationDetailViewModel>
+    
+<div class="col-lg-8">
+    <!--Breedte van 1 detail rij-->
+    @*<div class="col-lg-3">
+        @Html.DisplayNameFor(model => model.Material.Image)
+    </div>
+    <div class="col-lg-3">
+        @Html.DisplayNameFor(model => model.Material.Name)
+    </div>*@
+    <div class="col-lg-3">
+        @Html.DisplayNameFor(model => model.BroughtBackDate)
+    </div>
+    <div class="col-lg-3">
+        @Html.DisplayNameFor(model => model.PickUpDate)
+    </div>
+
+</div>
+
+@foreach (var item in Model)
+{
+        <div class="col-lg-8"><!--Breedte van 1 detail rij-->
+            @*<div class="col-lg-3">
+                <img src="@Url.Content(item.Material.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Material.Name)" />
+            </div>
+            <div class="col-lg-3">
+                @Html.DisplayFor(details => item.Material.Name)
+            </div>
+                *@
+            <div class="col-lg-3">
+                @Html.DisplayFor(details => item.BroughtBackDate)
+            </div>
+            <div class="col-lg-3">
+                @Html.DisplayFor(details => item.PickUpDate)
+            </div>
+
+        </div>
+}
+
