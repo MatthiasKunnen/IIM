@@ -26,7 +26,6 @@ namespace IIM.Models.Domain
 
         public DateTime StartDate { get; private set; }
     
-
         public DateTime EndDate { get; private set; }
 
         public ApplicationUser User { get; private set; }

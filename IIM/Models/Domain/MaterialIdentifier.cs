@@ -11,7 +11,7 @@ namespace IIM.Models.Domain
 
         public Visibility Visibility { get; private set; }
 
-        public Material Material { get; private set; }
+        public virtual Material Material { get; private set; }
 
         public virtual List<ReservationDetail> ReservationDetails { get; private set; }
     }
