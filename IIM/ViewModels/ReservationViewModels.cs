@@ -7,8 +7,8 @@ using System.Web;
 
 namespace IIM.ViewModels.ReservationViewModels
 {
-    public class ReservationsViewModel
-    {   
+    public class ReservationViewModel
+    {
         public int Id { get; private set; }
         [Display(Name = "Aanmaakdatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
@@ -21,19 +21,22 @@ namespace IIM.ViewModels.ReservationViewModels
         //[Compare(StartDate)] Nog opzoeken
         public DateTime EndDate { get; private set; }
 
-        public List<ReservationDetail> Details { get; set; }
+        public List<ReservationDetailViewModel> Details { get; set; }
 
-        public ReservationsViewModel(Reservation r)
+        public ReservationViewModel(Reservation r)
         {
             Id = r.Id;
             CreationDate = r.CreationDate;
             StartDate = r.StartDate;
             EndDate = r.EndDate;
-            Details = r.Details;
+            Details = r.Details.Select(d => new ReservationDetailViewModel(d)).ToList();
         }
     }
 
-
+    public class NewReservationViewModel{
+        //public datepickerviewmodel
+        public List<ReservationDetailSelectionViewModel> TheDetails; 
+    }
 
     public class ReservationDetailViewModel
     {
@@ -47,6 +50,20 @@ namespace IIM.ViewModels.ReservationViewModels
             if (detail.BroughtBackDate != null) this.BroughtBackDate = detail.BroughtBackDate.Value;
             if (detail.PickUpDate != null) this.PickUpDate = detail.PickUpDate.Value;
             this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+        }
+    }
+
+    public class ReservationDetailSelectionViewModel
+    {        
+        public int MaxAmount { get; private set; }
+        [Display(Name = "Aantal")]
+        public int RequestedAmount { get; set; }
+        public MaterialViewModel TheMaterial {get; private set;}
+        public ReservationDetailSelectionViewModel(Material material, int maxAmount, int requestedAmount)
+        {
+            TheMaterial = new MaterialViewModel(material);
+            MaxAmount = maxAmount;
+            RequestedAmount = requestedAmount;
         }
     }
 }
