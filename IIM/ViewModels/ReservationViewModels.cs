@@ -46,7 +46,7 @@ namespace IIM.ViewModels.ReservationViewModels
         {
             this.BroughtBackDate = detail.BroughtBackDate;
             this.PickUpDate = detail.PickUpDate;
-            //this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+            this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
         }
     }
 }
