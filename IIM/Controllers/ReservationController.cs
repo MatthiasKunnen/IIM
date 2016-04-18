@@ -25,8 +25,10 @@ namespace IIM.Controllers
         
         public ActionResult Index(ApplicationUser user)
         {
-            return View(user.Reservations.Select(r => new ReservationsViewModel(r)));
+            return View(user.Reservations.Select(r => new ReservationViewModel(r)));
         }
+
+       
 
     }
 }

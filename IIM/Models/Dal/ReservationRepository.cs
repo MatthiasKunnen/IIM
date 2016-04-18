@@ -47,7 +47,7 @@ namespace IIM.Models.DAL
             }
         }
 
-        public int GetAmountOfAvailableIdentifiers(DateTime startDate, DateTime endDate, int count, Material material)
+        public int GetAmountOfAvailableIdentifiers(DateTime startDate, DateTime endDate, Material material)
         {
             return GetAvailablableIdentifiers(startDate,endDate,material).Count();
         }
