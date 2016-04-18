@@ -6,6 +6,7 @@ namespace IIM.Models.Domain
     public class Reservation
     {
         private readonly IReservationManager _reservationManager;
+       
         protected Reservation()
         {
         }
