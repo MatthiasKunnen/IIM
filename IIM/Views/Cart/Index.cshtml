@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Verlanglijstje";
     ViewBag.Active = "Cart";
+    
 }
 
 <h2>@ViewBag.Title</h2>
@@ -19,6 +20,9 @@
     <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -33,6 +37,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <p class="imgCenter"><img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" /></p>
+                </td>
                 <td>
                     @Html.ActionLink(@Html.DisplayFor(modelItem => item.Name).ToString(), "Detail", "Inventory", new { id = item.Id }, null)
                 </td>
@@ -55,7 +62,7 @@
         }
     </table>
 
-    <p>U kan nu een reservatie maken vanaf @ViewBag.Startdatum</p>
+    <p>U kunt een reservatie maken vanaf volgende week maandag.</p>
     using (Html.BeginForm("Index", "Reservation"))
     {
         <button type="submit" class="btn btn-default">
