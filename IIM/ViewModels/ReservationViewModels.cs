@@ -58,6 +58,7 @@ namespace IIM.ViewModels.ReservationViewModels
         public int MaxAmount { get; private set; }
         [Display(Name = "Aantal")]
         public int RequestedAmount { get; set; }
+        [Display()]
         public MaterialViewModel TheMaterial {get; private set;}
         public ReservationDetailSelectionViewModel(Material material, int maxAmount, int requestedAmount)
         {
