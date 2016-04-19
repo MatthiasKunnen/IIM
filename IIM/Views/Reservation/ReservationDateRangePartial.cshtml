@@ -1,11 +1,10 @@
-﻿@Html.BeginForm("ChangeReservationRange", "Reservation", FormMethod.Post, new {@class="form-inline"}){
-    <label class="sr-only" for="startDate">Startdatum:</label>
-    <input type="datetime" class="form-control" id="startDate" name="startDate" placeholder="Startdatum" />
-    @if (@ViewBag.DateFieldAmount ?? 1 == 2)
-    {
-        <label class="sr-only" for="endDate">Einddatum:</label>
-        <input type="datetime" class="form-control" id="endDate" name="endDate" placeholder="Einddatum" />
-    }
-
-    
+﻿﻿@Html.BeginForm("ChangeReservationRange", "Reservation", FormMethod.Post, new { @class = "form-inline" }){
+<label class="sr-only" for="startDate">Startdatum:</label>
+<input type="datetime" class="form-control" id="startDate" name="startDate" placeholder="Startdatum" />
+@if (@ViewBag.DateFieldAmount ?? 1 == 2)
+{
+    <label class="sr-only" for="endDate">Einddatum:</label>
+    <input type="datetime" class="form-control" id="endDate" name="endDate" placeholder="Einddatum" />
 }
+<input type="submit" class="btn btn-default" value="Vernieuw filter" />
+

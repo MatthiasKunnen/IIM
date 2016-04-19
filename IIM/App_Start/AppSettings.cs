@@ -33,6 +33,16 @@ namespace IIM.App_Start
             private set { _reservationRestrictions = value; }
         }
 
+        public static RangeRestriction GetEndDateRangeRestriction(Type type)
+        {
+            return ReservationRestrictions[type]?.ReservationEndTimeRestrictions;
+        }
+
+        public static RangeRestriction GetStartDateRangeRestriction(Type type)
+        {
+            return ReservationRestrictions[type]?.ReservationStartTimeRestrictions;
+        }
+
         static AppSettings()
         {
             Initialize();
