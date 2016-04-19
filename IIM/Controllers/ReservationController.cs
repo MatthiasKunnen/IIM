@@ -22,21 +22,33 @@ namespace IIM.Controllers
             _reservationRepository = reservationRepository;
         }
 
-        
+
         public ActionResult Index(ApplicationUser user)
         {
             return View(user.Reservations.Select(r => new ReservationViewModel(r)));
         }
 
-<<<<<<< HEAD
-       
-
-=======
-        [HttpPost]
-        public ActionResult ChangeReservationRange()
+        public ActionResult Create(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            return View(user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, -1, -1)));
         }
->>>>>>> 4158838f9fab0cddf68e9e0b857ba899950be783
+
+        [HttpPost]
+        public ActionResult ChangeReservationRange(DateTime startDate, DateTime endDate, ApplicationUser user)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                return Json(
+                    user.WishList.Materials.Select(
+                        m => new ReservationDetailSelectionViewModel(m,
+                                            _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
+                                            0)),JsonRequestBehavior.AllowGet);
+            }
+
+            return View("Create",user.WishList.Materials.Select(
+                        m => new ReservationDetailSelectionViewModel(m,
+                                            _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
+                                            0)));
+        }
     }
 }
