@@ -6,6 +6,7 @@ using IIM.Models.DAL;
 using IIM.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 
 namespace IIM.Models
 {
@@ -15,7 +16,7 @@ namespace IIM.Models
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Faculty { get; set; }
-        public Type Type { get; set; }
+        public Domain.Type Type { get; set; }
         public string Base64Photo { get; set; }
         public bool IsLocal { get; set; }
         public virtual Cart WishList { get; private set; }
@@ -39,6 +40,13 @@ namespace IIM.Models
         public Cart CreateWishList()
         {
             return (WishList = WishList ?? new Cart());
+        }
+
+        public Reservation CreateReservation(DateTime startDate, DateTime endDate)
+        {
+            var res = new Reservation(DateTime.Now, startDate, endDate, this);
+            Reservations.Add(res);
+            return res;
         }
     }
 }
