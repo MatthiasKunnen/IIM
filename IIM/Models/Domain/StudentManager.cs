@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IIM.Models.Domain
 {
@@ -7,7 +8,7 @@ namespace IIM.Models.Domain
     {
         public List<ReservationDetail> GetOverridableIdentifiers(List<ReservationDetail> reservationDetails, Material material)
         {
-            throw new System.NotImplementedException();
+            return reservationDetails.Where(d => d.MaterialIdentifier.Material.Equals(material)).ToList();
         }
     }
 }

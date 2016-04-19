@@ -19,8 +19,7 @@ namespace IIM.App_Start
         private static string _filePath;
         private static bool _isLoaded;
         private static string _imageStorageUrl;
-        private static Dictionary<Type, List<DateTimeRestriction>> _reservationStartTimeRanges;
-        private static Dictionary<Type, List<DateTimeRestriction>> _reservationEndTimeRanges;
+        private static Dictionary<Type, TypeSetting> _reservationRestrictions;
 
         public static string ImageStorageUrl
         {
@@ -28,16 +27,20 @@ namespace IIM.App_Start
             private set { _imageStorageUrl = value; }
         }
 
-        public static Dictionary<Type, List<DateTimeRestriction>> ReservationStartTimeRanges
+        public static Dictionary<Type, TypeSetting> ReservationRestrictions
         {
-            get { InitialLoad(); return _reservationStartTimeRanges; }
-            private set { _reservationStartTimeRanges = value; }
+            get { InitialLoad(); return _reservationRestrictions; }
+            private set { _reservationRestrictions = value; }
         }
 
-        public static Dictionary<Type, List<DateTimeRestriction>> ReservationEndTimeRanges
+        public static RangeRestriction GetEndDateRangeRestriction(Type type)
         {
-            get { InitialLoad(); return _reservationEndTimeRanges; }
-            private set { _reservationEndTimeRanges = value; }
+            return ReservationRestrictions[type]?.ReservationEndTimeRestrictions;
+        }
+
+        public static RangeRestriction GetStartDateRangeRestriction(Type type)
+        {
+            return ReservationRestrictions[type]?.ReservationStartTimeRestrictions;
         }
 
         static AppSettings()
@@ -48,8 +51,7 @@ namespace IIM.App_Start
 
         private static void Initialize()
         {
-            ReservationStartTimeRanges = new Dictionary<Type, List<DateTimeRestriction>>();
-            ReservationEndTimeRanges = new Dictionary<Type, List<DateTimeRestriction>>();
+            ReservationRestrictions = new Dictionary<Type, TypeSetting>();
         }
 
         public static T DeserializeObject<T>(string data)
@@ -111,12 +113,7 @@ namespace IIM.App_Start
             var mirror = DeserializeObject<SettingsMirror>(ReadFile());
             if (mirror == null) return;
             ImageStorageUrl = mirror.MirroredImageStorageUrl;
-            GetTypes().ForEach(t =>
-            {
-                if (!mirror.TypeSettings.ContainsKey(t)) return;
-                if (mirror.TypeSettings[t]?.ReservationEndTimeRestrictions.Any() == true) ReservationEndTimeRanges[t] = mirror.TypeSettings[t].ReservationEndTimeRestrictions;
-                if (mirror.TypeSettings[t]?.ReservationStartTimeRestrictions.Any() == true) ReservationStartTimeRanges[t] = mirror.TypeSettings[t].ReservationStartTimeRestrictions;
-            });
+            ReservationRestrictions = mirror.TypeSettings;
         }
 
         private static void Save()
@@ -126,25 +123,11 @@ namespace IIM.App_Start
 
         private static SettingsMirror GetSettingsMirror()
         {
-            var mirror = new SettingsMirror() { MirroredImageStorageUrl = ImageStorageUrl };
-
-            ReservationStartTimeRanges.ForEach(rsdr =>
+            return new SettingsMirror()
             {
-                if (!mirror.TypeSettings.ContainsKey(rsdr.Key))
-                    mirror.TypeSettings.Add(rsdr.Key, new TypeSetting());
-                mirror.TypeSettings[rsdr.Key].ReservationStartTimeRestrictions.AddRange(rsdr.Value);
-            });
-            ReservationEndTimeRanges.ForEach(rsdr =>
-            {
-                if (mirror.TypeSettings.ContainsKey(rsdr.Key))
-                    mirror.TypeSettings.Add(rsdr.Key, new TypeSetting());
-                mirror.TypeSettings[rsdr.Key].ReservationEndTimeRestrictions.AddRange(rsdr.Value);
-            });
-            return mirror;
-        }
-        private static IEnumerable<Type> GetTypes()
-        {
-            return ((Type[])Enum.GetValues(typeof(Type))).AsQueryable();
+                MirroredImageStorageUrl = ImageStorageUrl,
+                TypeSettings = ReservationRestrictions
+            };
         }
     }
     public class SettingsMirror
@@ -163,27 +146,21 @@ namespace IIM.App_Start
 
     public class TypeSetting
     {
-        private List<DateTimeRestriction> _reservationStartTimeRestrictions;
-        private List<DateTimeRestriction> _reservationEndTimeRestrictions;
-
         [JsonProperty("ReservationStartRestrictions")]
-        public List<DateTimeRestriction> ReservationStartTimeRestrictions
-        {
-            get { return _reservationStartTimeRestrictions ?? (_reservationStartTimeRestrictions = new List<DateTimeRestriction>()); }
-            set { _reservationStartTimeRestrictions = value; }
-        }
+        public RangeRestriction ReservationStartTimeRestrictions { get; set; }
 
         [JsonProperty("ReservationEndRestrictions")]
-        public List<DateTimeRestriction> ReservationEndTimeRestrictions
-        {
-            get { return _reservationEndTimeRestrictions ?? (_reservationEndTimeRestrictions = new List<DateTimeRestriction>()); }
-            set { _reservationEndTimeRestrictions = value; }
-        }
+        public RangeRestriction ReservationEndTimeRestrictions { get; set; }
+    }
 
-        public TypeSetting()
+    public class RangeRestriction
+    {
+        private List<DateTimeRestriction> _restrictions;
+        public List<DateTimeRestriction> Restrictions
         {
-            ReservationStartTimeRestrictions = new List<DateTimeRestriction>();
-            ReservationEndTimeRestrictions = new List<DateTimeRestriction>();
+            get { return _restrictions ?? (_restrictions = new List<DateTimeRestriction>()); }
+            set { _restrictions = value; }
         }
+        public DateTimeRestriction.RestrictionType DefaultRestrictionType { get; set; }
     }
 }

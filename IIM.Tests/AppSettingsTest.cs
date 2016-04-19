@@ -28,9 +28,12 @@ namespace IIM.Tests
             };
             _typeSetting = new TypeSetting()
             {
-                ReservationEndTimeRestrictions = new List<DateTimeRestriction>()
+                ReservationEndTimeRestrictions = new RangeRestriction()
                 {
-                    _restriction
+                    Restrictions = new List<DateTimeRestriction>()
+                    {
+                        _restriction
+                    }
                 }
             };
             _settingsMirror = new SettingsMirror()
@@ -60,26 +63,27 @@ namespace IIM.Tests
         {
             var serialized = (string)JsonConvert.SerializeObject(_typeSetting, new StringEnumConverter());
             var deserialized = JsonConvert.DeserializeObject<TypeSetting>(serialized, new StringEnumConverter());
-            Assert.AreEqual(_typeSetting.ReservationEndTimeRestrictions.Count,
-                deserialized.ReservationEndTimeRestrictions.Count);
-            Assert.AreEqual(_typeSetting.ReservationStartTimeRestrictions.Count,
-                deserialized.ReservationStartTimeRestrictions.Count);
-            Assert.AreEqual(_typeSetting.ReservationEndTimeRestrictions[0].DaysOfWeek[0],
-                deserialized.ReservationEndTimeRestrictions[0].DaysOfWeek[0]);
+            Assert.AreEqual(_typeSetting.ReservationEndTimeRestrictions.Restrictions.Count,
+                deserialized.ReservationEndTimeRestrictions.Restrictions.Count);
+            Assert.AreEqual(_typeSetting.ReservationStartTimeRestrictions?.Restrictions.Count,
+                deserialized.ReservationStartTimeRestrictions?.Restrictions.Count);
+            Assert.AreEqual(_typeSetting.ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0],
+                deserialized.ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0]);
         }
 
         [TestMethod]
         public void SettingMirrorTest()
         {
             var serialized = (string)JsonConvert.SerializeObject(_settingsMirror, new StringEnumConverter());
+            Console.WriteLine(serialized);
             var deserialized = JsonConvert.DeserializeObject<SettingsMirror>(serialized, new StringEnumConverter());
             Assert.AreEqual(_settingsMirror.MirroredImageStorageUrl, deserialized.MirroredImageStorageUrl);
             Assert.AreEqual(
-                _settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions[0].DaysOfWeek[0],
-                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions[0].DaysOfWeek[0]);
+                _settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0],
+                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0]);
             Assert.AreEqual(
-                _settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions[0].TimeStart,
-                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions[0].TimeStart);
+                _settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].TimeStart,
+                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].TimeStart);
         }
 
         [TestMethod]
@@ -93,8 +97,8 @@ namespace IIM.Tests
         {
             var deserialized = AppSettings.DeserializeObject<SettingsMirror>(_settingMirrorSerialized);
             Assert.AreEqual(_settingsMirror.MirroredImageStorageUrl, deserialized.MirroredImageStorageUrl);
-            Assert.AreEqual(_settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Count,
-                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Count);
+            Assert.AreEqual(_settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions.Count,
+                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions.Count);
         }
     }
 }
