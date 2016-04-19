@@ -28,7 +28,15 @@ namespace IIM.Controllers
             return View(user.Reservations.Select(r => new ReservationViewModel(r)));
         }
 
+<<<<<<< HEAD
        
 
+=======
+        [HttpPost]
+        public ActionResult ChangeReservationRange()
+        {
+            throw new NotImplementedException();
+        }
+>>>>>>> 4158838f9fab0cddf68e9e0b857ba899950be783
     }
 }
