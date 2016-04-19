@@ -31,11 +31,12 @@ namespace IIM.Models.Domain
             Type = restrictionType;
         }
 
-        public bool IsValid(DateTime dateTime)
+        public bool? IsValid(DateTime dateTime)
         {
-            return (Dates?.All(d => dateTime.Date != d.Date) ?? true) || (!DaysOfWeek?.Contains(dateTime.DayOfWeek) ?? true) ||
-                   (TimeStart.TimeOfDay > dateTime.TimeOfDay || TimeEnd.TimeOfDay < dateTime.TimeOfDay) ||
-                   Type == RestrictionType.Allow;
+            return Dates.All(d => dateTime.Date == d.Date) && DaysOfWeek.Contains(dateTime.DayOfWeek) &&
+                   (TimeStart.TimeOfDay <= dateTime.TimeOfDay && TimeEnd.TimeOfDay >= dateTime.TimeOfDay)
+                ? (bool?) (Type == RestrictionType.Allow)
+                : null; //Restriction is not applicable
         }
 
         public enum RestrictionType
