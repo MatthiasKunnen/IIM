@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="AppSettingsTest.cs" />
     <Compile Include="Controllers\DummyDataContext.cs" />
+    <Compile Include="Controllers\InventoryControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

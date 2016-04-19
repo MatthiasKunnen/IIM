@@ -58,7 +58,7 @@ namespace IIM.Controllers
         {
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                filterList.Add(m => searchedProperty.Any(p => p.Invoke(m).IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0));
+                filterList.Add(m => searchedProperty.Any(p => p.Invoke(m)?.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0));
             }
 
         }
