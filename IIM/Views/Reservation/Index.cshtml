@@ -7,29 +7,26 @@
 
 <h2>Mijn Reservaties</h2>
 
-    <div class="row col-lg-offset-1">
-        <div class="col-lg-4">
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </div>
-        <div class="col-lg-4">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </div>
-        <div class="col-lg-4">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </div>
-    </div>
+<table class=" table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.CreationDate)</th>
+        <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+    </tr>
+</table>
+   
     @foreach (var item in Model)
     {
-        <div class="row reservatie col-lg-offset-1">
+        <div class="row reservatie">
             <!--In a-tag de reservatie, wanneer op geklikt wordt openen de details-->
             <a href='@string.Format("#{0}", item.Id)' data-toggle="collapse">
-                <div class="col-lg-4">
+                <div class="col-md-4">
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </div>
-                <div class="col-lg-4">
+                <div class="col-md-4">
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </div>
             </a>
@@ -40,44 +37,4 @@
                   , new ViewDataDictionary { { "id", item.Id } });}
             </div>
         </div>
-                    }
-
-@*
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            Acties
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "ShowDetails", "Reservation", new { id = item.Id }, null)
-        </td>
-        
-    </tr>
-
-    
 }
-</table>*@
-
-
