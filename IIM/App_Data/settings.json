@@ -1,0 +1,17 @@
+{
+    "ImageStorageUrl": "https://iim.blob.core.windows.net/images",
+    "UserTypes": {
+        "Student": {
+            "ReservationStartRestrictions": [
+                {
+                    "DaysOfWeek": [ "Monday" ],
+                    "TimeStart": "2016-04-19T08:00:00",
+                    "TimeEnd": "2016-04-19T10:00:00",
+                    "Dates": null,
+                    "Type": "Deny"
+                }
+            ],
+            "ReservationEndRestrictions": [ ]
+        }
+    }
+}

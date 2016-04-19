@@ -215,6 +215,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AppSettings.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="Models\DAL\ReservationRepository.cs" />
     <Compile Include="Models\DAL\UserRepository.cs" />
     <Compile Include="Models\Domain\Cart.cs" />
+    <Compile Include="Models\Domain\DateTimeRestriction.cs" />
     <Compile Include="Models\Domain\IReservationRepository.cs" />
     <Compile Include="Models\Domain\IUserRepository.cs" />
     <Compile Include="Models\Domain\MaterialIdentifier.cs" />
@@ -329,6 +331,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Models\Domain\domain.cd" />
+    <Content Include="App_Data\settings.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
