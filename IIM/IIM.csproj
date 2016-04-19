@@ -385,6 +385,7 @@
     <Content Include="Views\Inventory\_Button.cshtml" />
     <Content Include="Views\Reservation\ShowDetails.cshtml" />
     <Content Include="Views\Reservation\ReservationDateRangePartial.cshtml" />
+    <Content Include="Views\Reservation\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

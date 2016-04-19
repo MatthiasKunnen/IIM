@@ -1,0 +1,49 @@
+﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationDetailSelectionViewModel>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@Html.RenderPartial("ReservationDateRangePartial");
+
+<table class="table">
+    <tr>
+        <th colspan="2">
+            <p>Materiaal</p>
+        </th>
+        <th>
+            <p>Beschrijving</p>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestedAmount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="@Url.Content(item.TheMaterial.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.TheMaterial.Name)" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem=> item.TheMaterial.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TheMaterial.Description);
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestedAmount)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
