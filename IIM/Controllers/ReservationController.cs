@@ -14,13 +14,12 @@ namespace IIM.Controllers
     [Authorize]
     public class ReservationController : Controller
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IReservationRepository _reservationRepository;
         private readonly IMaterialRepository _materialRepository;
+        private readonly IReservationRepository _reservationRepository;
 
-        public ReservationController(IUserRepository userRepository, IReservationRepository reservationRepository)
+        public ReservationController(IMaterialRepository materialRepository, IReservationRepository reservationRepository)
         {
-            _userRepository = userRepository;
+            _materialRepository = materialRepository;
             _reservationRepository = reservationRepository;
         }
 
