@@ -71,7 +71,7 @@ textarea {
     padding-right: 0;
 }
 
-.search-function {
+.form-inline, .search-function {
     margin-bottom: 20px;
 }
 
@@ -125,4 +125,3 @@ a:hover{
     text-align: center;
     
 }
-
