@@ -5,7 +5,7 @@
 }
 
 <h2>Reserveer je materialen</h2>
-@Html.Partial("ReservationDateRangePartial", Model)
+@Html.Partial("ReservationDateRangePartial", Model.ReservationDateRange)
 
 @using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Get, new { newReservationModel = Model }))
 {
