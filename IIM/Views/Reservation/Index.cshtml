@@ -1,5 +1,5 @@
 ﻿@using IIM.ViewModels.ReservationViewModels
-@model IEnumerable<ReservationsViewModel>
+@model IEnumerable<ReservationViewModel>
 
 @{
     ViewBag.Title = "Mijn Reservaties";
@@ -8,18 +8,19 @@
 <h2>Mijn Reservaties</h2>
 
 <table class=" table">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.CreationDate)</th>
-        <th>@Html.DisplayNameFor(model => model.StartDate)</th>
-        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+    <tr >
+        <th class="ReservatieHead">@Html.DisplayNameFor(model => model.CreationDate)</th>
+        <th class="ReservatieHead">@Html.DisplayNameFor(model => model.StartDate)</th>
+        <th class="ReservatieHead">@Html.DisplayNameFor(model => model.EndDate)</th>
     </tr>
 </table>
    
     @foreach (var item in Model)
     {
-        <div class="row reservatie">
-            <!--In a-tag de reservatie, wanneer op geklikt wordt openen de details-->
-            <a href='@string.Format("#{0}", item.Id)' data-toggle="collapse">
+        <a href='@string.Format("#{0}", item.Id)' data-toggle="collapse">
+            <div class="row reservatie">
+                <!--In a-tag de reservatie, wanneer op geklikt wordt openen de details-->
+
                 <div class="col-md-4">
                     @Html.DisplayFor(modelItem => item.CreationDate)
                 </div>
@@ -29,12 +30,12 @@
                 <div class="col-md-4">
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </div>
-            </a>
 
-            <div id="@string.Format("{0}", item.Id)" class="collapse">
-                @{Html.RenderPartial("_Details",
-                      item.Details.Select(detail => new ReservationDetailViewModel(detail))
-                  , new ViewDataDictionary { { "id", item.Id } });}
+
+                <div id="@string.Format("{0}", item.Id)" class="collapse">
+                    @{Html.RenderPartial("_Details",
+                                          item.Details, new ViewDataDictionary { { "id", item.Id } });}
+                </div>
             </div>
-        </div>
-}
+        </a>
+                        }

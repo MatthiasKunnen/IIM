@@ -4,19 +4,19 @@
 
 <table class="reservatie table">
     <tr>
-        <th>
+        <th class="ReservatieHead">
             @Html.DisplayNameFor(model => model.Material.Image)
         </th>
-        <th>
+        <th class="ReservatieHead">
             @Html.DisplayNameFor(model => model.Material.Name)
         </th>
-        <th>
+        <th class="ReservatieHead">
             @Html.DisplayNameFor(model => model.PickUpDate)
         </th>
-        <th>
+        <th class="ReservatieHead">
             @Html.DisplayNameFor(model => model.BroughtBackDate)
         </th>
-        <th />
+        
     </tr>
 
     @foreach (var item in Model)
