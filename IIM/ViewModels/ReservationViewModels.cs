@@ -2,10 +2,12 @@
 using IIM.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using Type = IIM.Models.Domain.Type;
 
 namespace IIM.ViewModels.ReservationViewModels
 {
@@ -36,13 +38,13 @@ namespace IIM.ViewModels.ReservationViewModels
         }
     }
 
-   public class ReservationDetailViewModel
+    public class ReservationDetailViewModel
     {
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
-        [Display(Name ="Terugbrengdatum")]
+        [Display(Name = "Terugbrengdatum")]
         public DateTime BroughtBackDate { get; private set; }
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
-        [Display(Name ="Afhaaldatum")]
+        [Display(Name = "Afhaaldatum")]
         public DateTime PickUpDate { get; private set; }
         public MaterialViewModel Material { get; private set; }
         public ReservationDetailViewModel(ReservationDetail detail)
@@ -56,25 +58,37 @@ namespace IIM.ViewModels.ReservationViewModels
 
     public class NewReservationViewModel
     {
-        public DateTime StartDate;
-        public DateTime EndDate;
-        public IEnumerable<ReservationDetailSelectionViewModel> TheMaterials;
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public IEnumerable<ReservationDetailSelectionViewModel> TheMaterials { get; set; }
+        public int DateFieldAmount { get; set; }
 
-        public NewReservationViewModel(DateTime startDate,DateTime endDate, IEnumerable<ReservationDetailSelectionViewModel> theMaterials )
+        public NewReservationViewModel(DateTime startDate, DateTime endDate, IEnumerable<ReservationDetailSelectionViewModel> theMaterials, Type userType)
         {
             StartDate = startDate;
             EndDate = endDate;
             TheMaterials = theMaterials;
+            switch (userType)
+            {
+                case Type.Staff:
+                    DateFieldAmount = 2;
+                    break;
+                case Type.Student:
+                    DateFieldAmount = 1;
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException(nameof(userType), (int)userType, typeof(Type));
+            }
         }
     }
 
     public class ReservationDetailSelectionViewModel
-    {        
+    {
         public int MaxAmount { get; private set; }
         [Display(Name = "Aantal")]
         public int RequestedAmount { get; set; }
         [Display()]
-        public MaterialViewModel TheMaterial {get; private set;}
+        public MaterialViewModel TheMaterial { get; private set; }
         public ReservationDetailSelectionViewModel(Material material, int maxAmount, int requestedAmount)
         {
             TheMaterial = new MaterialViewModel(material);

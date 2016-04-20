@@ -4,69 +4,53 @@
     ViewBag.Title = "Create";
 }
 
-@{
-    Html.RenderPartial("ReservationDateRangePartial");
-}
-;
+<h2>Reserveer je materialen</h2>
+@Html.Partial("ReservationDateRangePartial", Model)
 
-@Html.BeginForm("Create", "Reservation", FormMethod.Get){
-@Html.AntiForgeryToken()
-<table class="table">
-    <tr>
-        <th colspan="2">
-            <p>Materiaal</p>
-        </th>
-        <th>
-            <p>Beschrijving</p>
-        </th>
-        <th>
-            <p>Maximaal aantal</p>
-        </th>
-        <th>
-            <p>Gewenst aantal</p>
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.TheMaterials)
-    {
+@using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
         <tr>
-            <td>
-                <img src="@Url.Content(item.TheMaterial.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.TheMaterial.Name)" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TheMaterial.Name);
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TheMaterial.Description);
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxAmount);
-            </td>
-            <td>
-                @if (ViewBag.disabled == true)
-                {
-                    @Html.TextBoxFor(modelItem => item.RequestedAmount, new { disabled = "disabled" });
-                }
-                else
-                {
-                    @Html.TextBoxFor(modelItem => item.RequestedAmount);
-                }
-            </td>
-            <td>
-               <!-- @/*Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})*/-->
-            </td>
+            <th colspan="2">
+                <p>Materiaal</p>
+            </th>
+            <th>
+                <p>Beschrijving</p>
+            </th>
+            <th>
+                <p>Maximaal aantal</p>
+            </th>
+            <th>
+                <p>Gewenst aantal</p>
+            </th>
+            <th></th>
         </tr>
 
-    }
-    @if (ViewBag.disabled == true)
-    {
-        <input type="submit" class="btn btn-default" value="Reserveer" disabled="disabled" />
-    }
-    else
-    {
-        <input type="submit" class="btn btn-default" value="Reserveer" />
-    }
+        @foreach (var item in Model.TheMaterials)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content(item.TheMaterial.PhotoUrl)" class="img-rounded" style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.TheMaterial.Name)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TheMaterial.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TheMaterial.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxAmount)
+                </td>
+                <td>
+                    @(ViewBag.disabled == true ? @Html.TextBoxFor(modelItem => item.RequestedAmount, new { disabled = "disabled" }) : @Html.TextBoxFor(modelItem => item.RequestedAmount))
+                </td>
+                <td>
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.})*@
+                </td>
+            </tr>
 
-    }
-</table>
+        }
+    </table>
+    <input type="submit" class="btn btn-default" value="Reserveer" @(ViewBag.disabled == true ? @"disabled=""disabled""" : "") />
+}
