@@ -28,9 +28,9 @@ namespace IIM.Controllers
                 .FindAll();
             var filterList = new List<Func<Material, bool>>();
             AddFilter(filterList, searchName, m => m.Name, m => m.Description);
-            AddFilter(filterList, searchCurricular, m => m.Curriculars.Select(c => c.Name).Aggregate((c1, c2) => $"{c1} {c2}"));
-            AddFilter(filterList, searchFirm, m => m.Firm.Name);
-            AddFilter(filterList, searchTargetGroup, m => m.TargetGroups.Select(c => c.Name).Aggregate((c1, c2) => $"{c1} {c2}"));
+            AddFilter(filterList, searchCurricular, m => string.Join(" ", m.Curriculars.Select(c => c.Name)));
+            AddFilter(filterList, searchFirm, m => m.Firm?.Name);
+            AddFilter(filterList, searchTargetGroup, m => string.Join(" ", m.TargetGroups.Select(t => t.Name)));
 
             Func<MaterialIdentifier, bool> searchFunc;
             switch (user?.Type ?? Type.Student)
@@ -71,6 +71,6 @@ namespace IIM.Controllers
             ViewBag.WishList = user?.WishList;
             return View(new MaterialViewModel(material));
         }
-        
+
     }
 }

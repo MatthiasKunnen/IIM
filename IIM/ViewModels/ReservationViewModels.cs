@@ -1,8 +1,10 @@
-﻿using IIM.Models.Domain;
+﻿using Foolproof;
+using IIM.Models.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace IIM.ViewModels.ReservationViewModels
@@ -15,10 +17,11 @@ namespace IIM.ViewModels.ReservationViewModels
         public DateTime CreationDate { get; private set; }
         [Display(Name = "Ophaaldatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
+        [LessThan("EndDate")]
         public DateTime StartDate { get; private set; }
         [Display(Name = "Terugbrengdatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
-        //[Compare(StartDate)] Nog opzoeken
+        [GreaterThan("StartDate")]
         public DateTime EndDate { get; private set; }
 
         public List<ReservationDetailViewModel> Details { get; set; }
@@ -36,8 +39,10 @@ namespace IIM.ViewModels.ReservationViewModels
    public class ReservationDetailViewModel
     {
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
+        [Display(Name ="Terugbrengdatum")]
         public DateTime BroughtBackDate { get; private set; }
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
+        [Display(Name ="Afhaaldatum")]
         public DateTime PickUpDate { get; private set; }
         public MaterialViewModel Material { get; private set; }
         public ReservationDetailViewModel(ReservationDetail detail)
@@ -77,4 +82,5 @@ namespace IIM.ViewModels.ReservationViewModels
             RequestedAmount = requestedAmount;
         }
     }
+
 }
