@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using IIM.Models;
 using IIM.Models.Domain;
+using WebGrease.Css.Extensions;
 
 namespace IIM.Controllers
 {
@@ -15,6 +16,7 @@ namespace IIM.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IReservationRepository _reservationRepository;
+        private readonly IMaterialRepository _materialRepository; 
 
         public ReservationController(IUserRepository userRepository, IReservationRepository reservationRepository)
         {
@@ -30,25 +32,47 @@ namespace IIM.Controllers
 
         public ActionResult Create(ApplicationUser user)
         {
-            return View(user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, -1, -1)));
+            ViewBag.disabled = true;
+            return View(new NewReservationViewModel(DateTime.Today, DateTime.Today,user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, 0, 0))));
         }
 
         [HttpPost]
         public ActionResult ChangeReservationRange(DateTime startDate, DateTime endDate, ApplicationUser user)
         {
-            if (Request.IsAjaxRequest())
-            {
-                return Json(
-                    user.WishList.Materials.Select(
+            ViewBag.disabled = false;
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return Json(
+            //        user.WishList.Materials.Select(
+            //            m => new ReservationDetailSelectionViewModel(m,
+            //                                _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
+            //                                0)),JsonRequestBehavior.AllowGet);
+            //}
+
+            return View("Create",new NewReservationViewModel(startDate,endDate,user.WishList.Materials.Select(
                         m => new ReservationDetailSelectionViewModel(m,
                                             _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
-                                            0)),JsonRequestBehavior.AllowGet);
+                                            0))));
+        }
+
+        public ActionResult CreateReservation(NewReservationViewModel model, ApplicationUser user)
+        {
+
+            Reservation res = user.CreateReservation(model.StartDate, model.EndDate);
+            foreach (var material in model.TheMaterials)
+            {
+                List<ReservationDetail> details = 
+                    _reservationRepository.GetAvailableIdentifiers(
+                        res.StartDate,
+                        res.EndDate, 
+                        material.RequestedAmount,
+                        _materialRepository.FindById(material.TheMaterial.Id))
+                            .Select(mi=> new ReservationDetail(res,mi)).ToList();
+                res.AddAllDetails(details);
             }
 
-            return View("Create",user.WishList.Materials.Select(
-                        m => new ReservationDetailSelectionViewModel(m,
-                                            _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
-                                            0)));
+            return View("Index");
         }
+        
     }
 }

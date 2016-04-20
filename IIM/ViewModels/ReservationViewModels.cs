@@ -36,12 +36,7 @@ namespace IIM.ViewModels.ReservationViewModels
         }
     }
 
-    public class NewReservationViewModel{
-        //public datepickerviewmodel
-        public List<ReservationDetailSelectionViewModel> TheDetails; 
-    }
-
-    public class ReservationDetailViewModel
+   public class ReservationDetailViewModel
     {
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [Display(Name ="Terugbrengdatum")]
@@ -55,6 +50,21 @@ namespace IIM.ViewModels.ReservationViewModels
             if (detail.BroughtBackDate != null) this.BroughtBackDate = detail.BroughtBackDate.Value;
             if (detail.PickUpDate != null) this.PickUpDate = detail.PickUpDate.Value;
             this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+        }
+    }
+
+
+    public class NewReservationViewModel
+    {
+        public DateTime StartDate;
+        public DateTime EndDate;
+        public IEnumerable<ReservationDetailSelectionViewModel> TheMaterials;
+
+        public NewReservationViewModel(DateTime startDate,DateTime endDate, IEnumerable<ReservationDetailSelectionViewModel> theMaterials )
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+            TheMaterials = theMaterials;
         }
     }
 
