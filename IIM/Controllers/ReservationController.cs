@@ -61,10 +61,10 @@ namespace IIM.Controllers
                                             0)), user.Type));
         }
 
-        public ActionResult CreateReservation(NewReservationViewModel model, ApplicationUser user)
+        public ActionResult CreateReservation(NewReservationViewModel newReservationModel, ApplicationUser user)
         {
-            Reservation res = user.CreateReservation(model.StartDate, model.EndDate);
-            foreach (var material in model.TheMaterials)
+            Reservation res = user.CreateReservation(newReservationModel.StartDate, newReservationModel.EndDate);
+            foreach (var material in newReservationModel.TheMaterials)
             {
                 List<ReservationDetail> details =
                     _reservationRepository.GetAvailableIdentifiers(

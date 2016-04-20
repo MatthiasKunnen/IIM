@@ -1,4 +1,6 @@
-﻿@model IIM.ViewModels.ReservationViewModels.NewReservationViewModel
+﻿@using System.Web.Mvc.Html
+@using IIM.ViewModels.ReservationViewModels
+@model IIM.ViewModels.ReservationViewModels.NewReservationViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,7 +9,7 @@
 <h2>Reserveer je materialen</h2>
 @Html.Partial("ReservationDateRangePartial", Model)
 
-@using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Get))
+@using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Get, new { newReservationModel = Model } ))
 {
     @Html.AntiForgeryToken()
     <table class="table">
