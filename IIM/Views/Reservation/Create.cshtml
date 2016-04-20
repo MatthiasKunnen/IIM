@@ -1,11 +1,16 @@
-﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationDetailSelectionViewModel>
+﻿@model IIM.ViewModels.ReservationViewModels.NewReservationViewModel
 
 @{
     ViewBag.Title = "Create";
 }
 
-@Html.RenderPartial("ReservationDateRangePartial");
+@{
+    Html.RenderPartial("ReservationDateRangePartial");
+}
+;
 
+@Html.BeginForm("Create", "Reservation", FormMethod.Get){
+@Html.AntiForgeryToken()
 <table class="table">
     <tr>
         <th colspan="2">
@@ -15,35 +20,53 @@
             <p>Beschrijving</p>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MaxAmount)
+            <p>Maximaal aantal</p>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RequestedAmount)
+            <p>Gewenst aantal</p>
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img src="@Url.Content(item.TheMaterial.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.TheMaterial.Name)" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem=> item.TheMaterial.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TheMaterial.Description);
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestedAmount)
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.TheMaterials)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content(item.TheMaterial.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.TheMaterial.Name)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TheMaterial.Name);
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TheMaterial.Description);
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxAmount);
+            </td>
+            <td>
+                @if (ViewBag.disabled == true)
+                {
+                    @Html.TextBoxFor(modelItem => item.RequestedAmount, new { disabled = "disabled" });
+                }
+                else
+                {
+                    @Html.TextBoxFor(modelItem => item.RequestedAmount);
+                }
+            </td>
+            <td>
+               <!-- @/*Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})*/-->
+            </td>
+        </tr>
 
+    }
+    @if (ViewBag.disabled == true)
+    {
+        <input type="submit" class="btn btn-default" value="Reserveer" disabled="disabled" />
+    }
+    else
+    {
+        <input type="submit" class="btn btn-default" value="Reserveer" />
+    }
+
+    }
 </table>
