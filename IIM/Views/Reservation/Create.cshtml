@@ -27,17 +27,17 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model.TheMaterials)
+        @foreach (var item in Model.ReservationMaterials.Materials)
         {
             <tr>
                 <td>
-                    <img src="@Url.Content(item.TheMaterial.PhotoUrl)" class="img-rounded" style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.TheMaterial.Name)" />
+                    <img src="@Url.Content(item.Material.PhotoUrl)" class="img-rounded" style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Material.Name)" />
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TheMaterial.Name)
+                    @Html.DisplayFor(modelItem => item.Material.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TheMaterial.Description)
+                    @Html.DisplayFor(modelItem => item.Material.Description)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.MaxAmount)

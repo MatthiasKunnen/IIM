@@ -33,7 +33,8 @@ namespace IIM.Controllers
         public ActionResult Create(ApplicationUser user)
         {
             ViewBag.disabled = true;
-            return View(new NewReservationViewModel(DateTime.Today, DateTime.Today, user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, 0, 0)), user.Type));
+            return View(new NewReservationViewModel(new ReservationDateRangeViewModel(DateTime.Today, DateTime.Today.AddDays(4), user.Type), 
+                new NewReservationMaterialsViewModel(user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, 0, 0)))));
         }
 
         [HttpPost]
@@ -55,23 +56,23 @@ namespace IIM.Controllers
             //                                0)),JsonRequestBehavior.AllowGet);
             //}
 
-            return View("Create", new NewReservationViewModel(startDate, endDate, user.WishList.Materials.Select(
-                        m => new ReservationDetailSelectionViewModel(m,
-                                            _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
-                                            0)), user.Type));
+            return View("Create", new NewReservationViewModel(new ReservationDateRangeViewModel(startDate, endDate, user.Type), new NewReservationMaterialsViewModel(
+                user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m,
+                    _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
+                    0)))));
         }
 
         public ActionResult CreateReservation(NewReservationViewModel model, ApplicationUser user)
         {
-            Reservation res = user.CreateReservation(model.StartDate, model.EndDate);
-            foreach (var material in model.TheMaterials)
+            Reservation res = user.CreateReservation(model.ReservationDateRange.StartDate, model.ReservationDateRange.EndDate);
+            foreach (var material in model.ReservationMaterials.Materials)
             {
                 List<ReservationDetail> details =
                     _reservationRepository.GetAvailableIdentifiers(
                         res.StartDate,
                         res.EndDate,
                         material.RequestedAmount,
-                        _materialRepository.FindById(material.TheMaterial.Id))
+                        _materialRepository.FindById(material.Material.Id))
                             .Select(mi => new ReservationDetail(res, mi)).ToList();
                 res.AddAllDetails(details);
             }

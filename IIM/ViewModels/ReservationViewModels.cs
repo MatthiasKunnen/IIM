@@ -58,16 +58,40 @@ namespace IIM.ViewModels.ReservationViewModels
 
     public class NewReservationViewModel
     {
+        public ReservationDateRangeViewModel ReservationDateRange { get; set; }
+        public NewReservationMaterialsViewModel ReservationMaterials { get; set; }
+
+        public NewReservationViewModel(ReservationDateRangeViewModel reservationDateRange, NewReservationMaterialsViewModel reservationMaterials)
+        {
+            ReservationDateRange = reservationDateRange;
+            ReservationMaterials = reservationMaterials;
+        }
+
+        public NewReservationViewModel()
+        {
+            
+        }
+    }
+
+    public class NewReservationMaterialsViewModel
+    {
+        public IEnumerable<ReservationDetailSelectionViewModel> Materials { get; set; }
+
+        public NewReservationMaterialsViewModel(IEnumerable<ReservationDetailSelectionViewModel> materials)
+        {
+            Materials = materials;
+        }
+    }
+
+    public class ReservationDateRangeViewModel
+    {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public IEnumerable<ReservationDetailSelectionViewModel> TheMaterials { get; set; }
         public int DateFieldAmount { get; set; }
-
-        public NewReservationViewModel(DateTime startDate, DateTime endDate, IEnumerable<ReservationDetailSelectionViewModel> theMaterials, Type userType)
+        public ReservationDateRangeViewModel(DateTime startDate, DateTime endDate, Type userType)
         {
             StartDate = startDate;
             EndDate = endDate;
-            TheMaterials = theMaterials;
             switch (userType)
             {
                 case Type.Staff:
@@ -80,6 +104,10 @@ namespace IIM.ViewModels.ReservationViewModels
                     throw new InvalidEnumArgumentException(nameof(userType), (int)userType, typeof(Type));
             }
         }
+        public ReservationDateRangeViewModel()
+        {
+            
+        }
     }
 
     public class ReservationDetailSelectionViewModel
@@ -88,10 +116,10 @@ namespace IIM.ViewModels.ReservationViewModels
         [Display(Name = "Aantal")]
         public int RequestedAmount { get; set; }
         [Display()]
-        public MaterialViewModel TheMaterial { get; private set; }
+        public MaterialViewModel Material { get; private set; }
         public ReservationDetailSelectionViewModel(Material material, int maxAmount, int requestedAmount)
         {
-            TheMaterial = new MaterialViewModel(material);
+            Material = new MaterialViewModel(material);
             MaxAmount = maxAmount;
             RequestedAmount = requestedAmount;
         }
