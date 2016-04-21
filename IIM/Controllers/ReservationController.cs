@@ -56,10 +56,10 @@ namespace IIM.Controllers
             return RedirectToAction("Create");
         }
 
-        public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationViewModel newReservationModel)
+        public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationMaterialsViewModel reservationMaterialsViewModel)
         {
             var res = user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
-            foreach (var details in newReservationModel.ReservationMaterials.Materials.Select(material => _reservationRepository.GetAvailableIdentifiers(
+            foreach (var details in reservationMaterialsViewModel.Materials.Select(material => _reservationRepository.GetAvailableIdentifiers(
                 res.StartDate,
                 res.EndDate,
                 material.RequestedAmount,

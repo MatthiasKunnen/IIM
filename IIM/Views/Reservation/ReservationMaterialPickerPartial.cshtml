@@ -1,0 +1,40 @@
+﻿@using System.Dynamic
+@model IIM.ViewModels.ReservationViewModels.NewReservationMaterialsViewModel
+
+@using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Post, new { id = "materialPickerForm" }))
+{
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Materials.FirstOrDefault().Material.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Materials.FirstOrDefault().Material.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.Materials.FirstOrDefault().MaxAmount)</th>
+            <th>@Html.DisplayNameFor(model => model.Materials.FirstOrDefault().RequestedAmount)</th>
+        </tr>
+
+        @foreach (var item in Model.Materials)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content(item.Material.PhotoUrl)" class="img-rounded" style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Material.Name)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Material.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Material.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxAmount)
+                </td>
+                <td>
+                    @(Model.IsDisabled
+                          ? @Html.TextBoxFor(modelItem => item.RequestedAmount, new {type = "number", min = "0", pattern = @"\d*", @class = "form-control", disabled = "disabled"})
+                          : @Html.TextBoxFor(modelItem => item.RequestedAmount, new {type = "number", min = "0", pattern = @"\d*", @class = "form-control"}))
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="submit" class="btn btn-default" value="Reserveer" @(ViewBag.disabled == true ? @"disabled=""disabled""" : "") />
+}

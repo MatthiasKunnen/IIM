@@ -129,8 +129,9 @@ namespace IIM.ViewModels.ReservationViewModels
 
     public class ReservationDetailSelectionViewModel
     {
+        [Display(Name = "Maximaal aantal")]
         public int MaxAmount { get; private set; }
-        [Display(Name = "Aantal")]
+        [Display(Name = "Gewenst aantal")]
         public int RequestedAmount { get; set; }
         [Display()]
         public MaterialViewModel Material { get; private set; }

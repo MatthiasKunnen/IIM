@@ -397,6 +397,7 @@
     <Content Include="Views\Reservation\ShowDetails.cshtml" />
     <Content Include="Views\Reservation\ReservationDateRangePartial.cshtml" />
     <Content Include="Views\Reservation\Create.cshtml" />
+    <Content Include="Views\Reservation\ReservationMaterialPickerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
