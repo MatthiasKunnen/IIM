@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 400px;
 }
 
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400,700);

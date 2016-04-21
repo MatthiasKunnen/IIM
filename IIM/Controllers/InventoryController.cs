@@ -10,6 +10,7 @@ using Type = IIM.Models.Domain.Type;
 
 namespace IIM.Controllers
 {
+    [Authorize]
     public class InventoryController : Controller
     {
         private readonly IUserRepository _userRepository;
