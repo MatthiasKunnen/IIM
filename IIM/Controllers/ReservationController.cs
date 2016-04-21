@@ -29,17 +29,10 @@ namespace IIM.Controllers
         {
             return View(user.Reservations.Select(r => new ReservationViewModel(r)));
         }
-        /*
+
         public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)
         {
             reservationDateRangeViewModel.SetType(user.Type);
-            
-            return Create(new NewReservationViewModel(reservationDateRangeViewModel, 
-                new NewReservationMaterialsViewModel(user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, 0, 0)))));
-        }
-        */
-        public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)
-        {
             var isDateRangeValid = true;
             Func<Material, int> func = material => 0;
             if (isDateRangeValid)
