@@ -48,8 +48,8 @@
             @foreach (var item in Model)
                 {
                 <tr>
-                    <td>
-                        <p class="imgCenter"><img src="@Url.Content(item.PhotoUrl)" class="img-rounded  " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" /></p>
+                    <td class="text-center">
+                        <img src="@Url.Content(item.PhotoUrl)" class="img-rounded" style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)"/>
                     </td>
                     <td>
                         <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
