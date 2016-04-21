@@ -23,14 +23,13 @@ namespace IIM.Controllers
         }
 
         // GET
-        public ActionResult Index(ApplicationUser user, string searchName, string searchCurricular, string searchFirm, string searchTargetGroup)
+        public ActionResult Index(ApplicationUser user, string searchName, string searchCurricular, string searchTargetGroup)
         {
             IEnumerable<Material> list = _materialRepository
                 .FindAll();
             var filterList = new List<Func<Material, bool>>();
             AddFilter(filterList, searchName, m => m.Name, m => m.Description);
             AddFilter(filterList, searchCurricular, m => string.Join(" ", m.Curriculars.Select(c => c.Name)));
-            AddFilter(filterList, searchFirm, m => m.Firm?.Name);
             AddFilter(filterList, searchTargetGroup, m => string.Join(" ", m.TargetGroups.Select(t => t.Name)));
 
             Func<MaterialIdentifier, bool> searchFunc;
