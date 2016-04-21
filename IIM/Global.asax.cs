@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using IIM.Infrastucture;
 using IIM.Models;
+using IIM.ViewModels.ReservationViewModels;
 
 namespace IIM
 {
@@ -18,6 +19,7 @@ namespace IIM
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ModelBinders.Binders.Add(typeof(ApplicationUser), new ApplicationUserModelBinder());
+            ModelBinders.Binders.Add(typeof(ReservationDateRangeViewModel), new ReservationDateRangeBinder());
 
             Database.SetInitializer(new IIMInitializer());
             IIMContext db = new IIMContext();

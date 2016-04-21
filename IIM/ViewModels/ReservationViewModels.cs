@@ -69,7 +69,7 @@ namespace IIM.ViewModels.ReservationViewModels
 
         public NewReservationViewModel()
         {
-            
+
         }
     }
 
@@ -77,9 +77,21 @@ namespace IIM.ViewModels.ReservationViewModels
     {
         public IEnumerable<ReservationDetailSelectionViewModel> Materials { get; set; }
 
-        public NewReservationMaterialsViewModel(IEnumerable<ReservationDetailSelectionViewModel> materials)
+        public bool IsDisabled { get; set; }
+
+        public NewReservationMaterialsViewModel() : this(null)
+        {
+
+        }
+        public NewReservationMaterialsViewModel(IEnumerable<ReservationDetailSelectionViewModel> materials) : this(materials, true)
+        {
+
+        }
+
+        public NewReservationMaterialsViewModel(IEnumerable<ReservationDetailSelectionViewModel> materials, bool isDisabled)
         {
             Materials = materials;
+            IsDisabled = isDisabled;
         }
     }
 
@@ -92,6 +104,15 @@ namespace IIM.ViewModels.ReservationViewModels
         {
             StartDate = startDate;
             EndDate = endDate;
+            SetType(userType);
+        }
+        public ReservationDateRangeViewModel()
+        {
+
+        }
+
+        public void SetType(Type userType)
+        {
             switch (userType)
             {
                 case Type.Staff:
@@ -103,10 +124,6 @@ namespace IIM.ViewModels.ReservationViewModels
                 default:
                     throw new InvalidEnumArgumentException(nameof(userType), (int)userType, typeof(Type));
             }
-        }
-        public ReservationDateRangeViewModel()
-        {
-            
         }
     }
 

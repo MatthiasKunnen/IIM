@@ -234,6 +234,7 @@
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Helpers\HoGentLoginManager.cs" />
     <Compile Include="Infrastucture\ApplicationUserModelBinder.cs" />
+    <Compile Include="Infrastucture\ReservationDateRangeBinder.cs" />
     <Compile Include="Migrations\201604131652109_Initial.cs" />
     <Compile Include="Migrations\201604131652109_Initial.Designer.cs">
       <DependentUpon>201604131652109_Initial.cs</DependentUpon>
