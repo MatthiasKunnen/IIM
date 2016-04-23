@@ -1,5 +1,4 @@
-﻿@using System.Dynamic
-@model IIM.ViewModels.ReservationViewModels.NewReservationMaterialsViewModel
+﻿@model IIM.ViewModels.ReservationViewModels.NewReservationMaterialsViewModel
 
 @using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Post, new { id = "materialPickerForm" }))
 {
@@ -19,22 +18,14 @@
                 <td>
                     <img src="@Url.Content(item.Material.PhotoUrl)" class="img-rounded" style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Material.Name)" />
                 </td>
+                <td>@Html.DisplayFor(modelItem => item.Material.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Material.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaxAmount)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Material.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Material.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaxAmount)
-                </td>
-                <td>
-                    @(Model.IsDisabled
-                          ? @Html.TextBoxFor(modelItem => item.RequestedAmount, new {type = "number", min = "0", pattern = @"\d*", @class = "form-control", disabled = "disabled"})
-                          : @Html.TextBoxFor(modelItem => item.RequestedAmount, new {type = "number", min = "0", pattern = @"\d*", @class = "form-control"}))
+                    <input type="number" pattern="\d*" class="form-control" min="0" value="@item.RequestedAmount" @(Model.IsDisabled ? " disabled" : "") />
                 </td>
             </tr>
         }
     </table>
-    <input type="submit" class="btn btn-default" value="Reserveer" @(ViewBag.disabled == true ? @"disabled=""disabled""" : "") />
+    <input type="submit" class="btn btn-default" value="Reserveer"@(Model.IsDisabled ? " disabled" : "") />
 }
