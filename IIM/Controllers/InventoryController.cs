@@ -63,9 +63,13 @@ namespace IIM.Controllers
 
         }
 
-        public ActionResult Detail(ApplicationUser user, int id)
+        public ActionResult Detail(ApplicationUser user, int? id)
         {
-            Material material = _materialRepository.FindById(id);
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Index");
+            }
+            var material = _materialRepository.FindById(id.Value);
             if (material == null)
                 return HttpNotFound();
             ViewBag.WishList = user?.WishList;
