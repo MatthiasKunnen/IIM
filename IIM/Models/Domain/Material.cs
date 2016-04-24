@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IIM.Models.DAL;
-using Ninject.Infrastructure.Language;
-using WebGrease.Css.Extensions;
 
 namespace IIM.Models.Domain
 {
@@ -19,11 +16,6 @@ namespace IIM.Models.Domain
         public string Name { get; private set; }
         public decimal Price { get; private set; }
         public virtual List<TargetGroup> TargetGroups { get; private set; }
-
-        public IEnumerable<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate, int count)
-        {
-            return Identifiers.Where(i=> i.ReservationDetails)
-        }
-             
+   
     }
 }
