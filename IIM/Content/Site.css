@@ -44,32 +44,28 @@ textarea {
     margin-right: 15px;
 }
 
- .material img {
+    .material img {
         max-width: 100%;
         max-height: 150px;
     }
 
-.imgCenter {
-    text-align: center;
-}
+    .material h4 {
+        margin-top: 0;
+    }
 
-.material h4 {
-    margin-top: 0;
-}
+    .material > p {
+        margin-top: 10px;
+    }
 
-.material > p {
-    margin-top: 10px;
-}
+    .material > div > *:first-child {
+        padding-left: 0;
+        padding-right: 8px;
+    }
 
-.material > div > *:first-child {
-    padding-left: 0;
-    padding-right: 8px;
-}
-
-.material > div > *:last-child {
-    padding-left: 8px;
-    padding-right: 0;
-}
+    .material > div > *:last-child {
+        padding-left: 8px;
+        padding-right: 0;
+    }
 
 .form-inline, .search-function {
     margin-bottom: 20px;
@@ -105,23 +101,20 @@ span.glyphicon-circle-arrow-left {
 .reservatie {
     color: whitesmoke;
     line-height: 1.4em;
-    background-color:#333;
-    margin-bottom:1%;
-    padding:2% 0 2% 0;
-    text-align : center;
-
-}
-
-.reservatie a{
-    color:whitesmoke;
-
-}
-
-a:hover{
-    text-decoration:none;
-}
-
-.ReservatieHead{
+    background-color: #333;
+    margin-bottom: 1%;
+    padding: 2% 0 2% 0;
     text-align: center;
-    
+}
+
+    .reservatie a {
+        color: whitesmoke;
+    }
+
+a:hover {
+    text-decoration: none;
+}
+
+.ReservatieHead {
+    text-align: center;
 }
