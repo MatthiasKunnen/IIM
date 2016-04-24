@@ -74,38 +74,13 @@ namespace IIM.Models.Domain
             return _reservationManager.GetOverridableIdentifiers(Details, material);
         }
 
-        public String DetailToString()
+        public string DetailToString()
         {
             var details = "";
             Details.ForEach(i => details += i.MaterialIdentifier.Material.Name + " ");
             return details;
         }
 
-        public Boolean sendConfirmation()
-        {
-            try {
-                MailMessage mail = new MailMessage("donotreply.iim@gmail.com", User.Email);
-                SmtpClient client = new SmtpClient();
-                client.Port = 25;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Host = "smtp.google.com";
-                mail.Subject = "Bevestiging van uw reservatie.";
-                mail.Body = String.Format("Beste %s %s%n%nHierbij krijgt u een bevestiging van uw reservatie.%nOphalen : %s%nTerugbrengen : %s%n%nGereserveerde items: %s",
-                    User.FirstName,
-                    User.LastName,
-                    StartDate.ToShortDateString(),
-                    EndDate.ToShortDateString(),
-                    this.DetailToString());
-                client.Send(mail);
-                return true;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            
-        }
+   
     }
 }
