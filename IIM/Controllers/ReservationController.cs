@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using IIM.Models;
 using IIM.Models.Domain;
 using WebGrease.Css.Extensions;
@@ -29,50 +30,42 @@ namespace IIM.Controllers
             return View(user.Reservations.Select(r => new ReservationViewModel(r)));
         }
 
-        public ActionResult Create(ApplicationUser user)
+        public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)
         {
-            ViewBag.disabled = true;
-            return View(new NewReservationViewModel(new ReservationDateRangeViewModel(DateTime.Today, DateTime.Today.AddDays(4), user.Type), 
-                new NewReservationMaterialsViewModel(user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, 0, 0)))));
+            reservationDateRangeViewModel.SetType(user.Type);
+            var isDateRangeValid = true;
+            Func<Material, int> func = material => 0;
+            if (isDateRangeValid)
+            {
+                func = material =>
+                        _reservationRepository.GetAmountOfAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
+                            reservationDateRangeViewModel.EndDate, material);
+            }
+            var materials = user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, func.Invoke(m), 0));
+            var materialsPicker = new NewReservationMaterialsViewModel(materials, false);
+            var wrapper = new NewReservationViewModel(reservationDateRangeViewModel, materialsPicker);
+            return View(wrapper);
         }
 
         [HttpPost]
-        public ActionResult ChangeReservationRange(DateTime startDate, DateTime endDate, ApplicationUser user)
+        public ActionResult ChangeReservationRange(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, DateTime startDate, DateTime endDate)
         {
-            /*
-            var startDateRestrictions = AppSettings.GetStartDateRangeRestriction(user.Type);
-            if (startDateRestrictions.DefaultRestrictionType == DateTimeRestriction.RestrictionType.Allow && startDateRestrictions?.Restrictions.Any(r => r.IsValid(startDate)))
-            {
-
-            }*/
-            ViewBag.disabled = false;
-            //if (Request.IsAjaxRequest())
-            //{
-            //    return Json(
-            //        user.WishList.Materials.Select(
-            //            m => new ReservationDetailSelectionViewModel(m,
-            //                                _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
-            //                                0)),JsonRequestBehavior.AllowGet);
-            //}
-
-            return View("Create", new NewReservationViewModel(new ReservationDateRangeViewModel(startDate, endDate, user.Type), new NewReservationMaterialsViewModel(
-                user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m,
-                    _reservationRepository.GetAmountOfAvailableIdentifiers(startDate, endDate, m),
-                    0)))));
+            reservationDateRangeViewModel.SetType(user.Type);
+            reservationDateRangeViewModel.StartDate = startDate;
+            reservationDateRangeViewModel.EndDate = endDate;
+            return RedirectToAction("Create");
         }
 
-        public ActionResult CreateReservation(NewReservationViewModel newReservationModel, ApplicationUser user)
+        public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationViewModel newReservationModel)
         {
-            Reservation res = user.CreateReservation(newReservationModel.ReservationDateRange.StartDate, newReservationModel.ReservationDateRange.EndDate);
-            foreach (var material in newReservationModel.ReservationMaterials.Materials)
+            var res = user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
+            foreach (var details in newReservationModel.ReservationMaterials.Materials.Select(material => _reservationRepository.GetAvailableIdentifiers(
+                res.StartDate,
+                res.EndDate,
+                material.RequestedAmount,
+                _materialRepository.FindById(material.Material.Id))
+                .Select(mi => new ReservationDetail(res, mi)).ToList()))
             {
-                List<ReservationDetail> details =
-                    _reservationRepository.GetAvailableIdentifiers(
-                        res.StartDate,
-                        res.EndDate,
-                        material.RequestedAmount,
-                        _materialRepository.FindById(material.Material.Id))
-                            .Select(mi => new ReservationDetail(res, mi)).ToList();
                 res.AddAllDetails(details);
             }
 

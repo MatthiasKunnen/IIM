@@ -7,7 +7,7 @@
 <h2>Reserveer je materialen</h2>
 @Html.Partial("ReservationDateRangePartial", Model.ReservationDateRange)
 
-@using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Get, new { newReservationModel = Model }))
+@using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Post, new { id = "materialPickerForm" }))
 {
     @Html.AntiForgeryToken()
     <table class="table">
@@ -43,7 +43,7 @@
                     @Html.DisplayFor(modelItem => item.MaxAmount)
                 </td>
                 <td>
-                    @(ViewBag.disabled == true ? @Html.TextBoxFor(modelItem => item.RequestedAmount, new { disabled = "disabled" }) : @Html.TextBoxFor(modelItem => item.RequestedAmount))
+                    @(Model.ReservationMaterials.IsDisabled ? @Html.TextBoxFor(modelItem => item.RequestedAmount, new {disabled = "disabled"}) : @Html.TextBoxFor(modelItem => item.RequestedAmount))
                 </td>
                 <td>
                     @*@Html.ActionLink("Delete", "Delete", new { id = item.})*@

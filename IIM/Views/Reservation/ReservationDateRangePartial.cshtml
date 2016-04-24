@@ -1,5 +1,5 @@
 ﻿@model IIM.ViewModels.ReservationViewModels.ReservationDateRangeViewModel
-@using (Html.BeginForm("ChangeReservationRange", "Reservation", FormMethod.Post, new { @class = "form-inline" }))
+@using (Html.BeginForm("ChangeReservationRange", "Reservation", FormMethod.Post, new { @class = "form-inline", id = "dateRangeForm" }))
 {
     <label class="sr-only" for="startDate">Startdatum:</label>
     <input type="datetime" class="form-control" id="startDate" name="startDate" placeholder="Startdatum" value="@Model.StartDate" />
