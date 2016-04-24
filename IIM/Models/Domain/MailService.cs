@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 
@@ -12,6 +13,7 @@ namespace IIM.Models.Domain
         private int Port { get; set; }
         private string Host { get; set; }
         private SmtpClient Client { get; set; }
+        private string Password {  get; set; }
 
         public MailService()
         {
@@ -19,10 +21,29 @@ namespace IIM.Models.Domain
             Port = 25;
             Host = "smtp.google.com";
             Client = new SmtpClient();
+            Password = "Pieteriscool";
+            InitializeSmtp();
+
+        }
+
+        public MailService(string originAddress, int port, string host, string password)
+        {
+            OriginAddress = originAddress;
+            Port = port;
+            Host = host;
+            Password = password;
+            InitializeSmtp();
+        }
+
+        private void InitializeSmtp()
+        {
+            Client = new SmtpClient();
             Client.Port = Port;
             Client.DeliveryMethod = SmtpDeliveryMethod.Network;
             Client.UseDefaultCredentials = false;
+            Client.Credentials = new NetworkCredential(OriginAddress, Password);
             Client.Host = Host;
+
         }
 
 
@@ -30,10 +51,12 @@ namespace IIM.Models.Domain
         {
             try
             {
-                MailMessage mail = new MailMessage(OriginAddress, reservation.User.Email);
-                
-                mail.Subject = "Bevestiging van uw reservatie.";
-                mail.Body = String.Format("Beste {0} {1}%n%nHierbij krijgt u een bevestiging van uw reservatie.%nOphalen : {2}%nTerugbrengen : {3}%n%nGereserveerde items: {4}",
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(OriginAddress);
+                mail.To.Add(reservation.User.Email);
+                mail.Subject = "Bevestiging reservatie.";
+                mail.IsBodyHtml = false;
+                mail.Body = string.Format("Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
                     reservation.User.FirstName,
                     reservation.User.LastName,
                     reservation.StartDate.ToShortDateString(),
