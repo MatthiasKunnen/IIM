@@ -81,6 +81,18 @@ namespace IIM.Models.Domain
             return details;
         }
 
+        public string ReservationBody()
+        {
+            return
+                string.Format(
+                    "Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
+                    User.FirstName,
+                    User.LastName,
+                    StartDate.ToShortDateString(),
+                    EndDate.ToShortDateString(),
+                    DetailToString());
+        }
+
    
     }
 }

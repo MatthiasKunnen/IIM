@@ -46,31 +46,22 @@ namespace IIM.Models.Domain
 
         }
 
-
-        public bool SendConfirmation(Reservation reservation)
+        public void SendMail(string body,string subject, string email)
         {
             try
             {
-                MailMessage mail = new MailMessage();
+                var mail = new MailMessage();
                 mail.From = new MailAddress(OriginAddress);
-                mail.To.Add(reservation.User.Email);
-                mail.Subject = "Bevestiging reservatie.";
+                mail.To.Add(email);
+                mail.Subject = subject;
                 mail.IsBodyHtml = false;
-                mail.Body = string.Format("Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
-                    reservation.User.FirstName,
-                    reservation.User.LastName,
-                    reservation.StartDate.ToShortDateString(),
-                    reservation.EndDate.ToShortDateString(),
-                    reservation.DetailToString());
+                mail.Body = body;
                 Client.Send(mail);
-                return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return false;
+                Console.WriteLine(ex.InnerException.ToString());
             }
-
         }
 
 
