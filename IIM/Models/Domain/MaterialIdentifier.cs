@@ -16,9 +16,5 @@ namespace IIM.Models.Domain
 
         public virtual List<ReservationDetail> ReservationDetails { get; private set; }
 
-        public boolean IsAvailable(DateTime startDate, DateTime endDate)
-        {
-            return ReservationDetails.
-        } 
     }
 }
