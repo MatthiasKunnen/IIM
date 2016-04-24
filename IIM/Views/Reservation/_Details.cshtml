@@ -1,40 +1,21 @@
 ﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationDetailViewModel>
-    
-
 
 <table class="reservatie table">
     <tr>
-        <th class="ReservatieHead">
-            
-        </th>
-        <th class="ReservatieHead">
-            @Html.DisplayNameFor(model => model.Material.Name)
-        </th>
-        <th class="ReservatieHead">
-            @Html.DisplayNameFor(model => model.PickUpDate)
-        </th>
-        <th class="ReservatieHead">
-            @Html.DisplayNameFor(model => model.BroughtBackDate)
-        </th>
-        
+        <th class="text-center">Foto</th>
+        <th class="text-center">@Html.DisplayNameFor(model => model.Material.Name)</th>
+        <th class="text-center">@Html.DisplayNameFor(model => model.PickUpDate)</th>
+        <th class="text-center">@Html.DisplayNameFor(model => model.BroughtBackDate)</th>
     </tr>
-
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                <p class="imgCenter"><img src="@Url.Content(item.Material.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Material.Name)" /></p>
+            <td class="text-center">
+                <img src="@Url.Content(item.Material.PhotoUrl)" class="img-rounded material-image" alt="Foto van @Html.DisplayFor(modelItem => item.Material.Name)" />
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Material.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PickUpDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BroughtBackDate)
-            </td>
-      </tr>
+            <td>@Html.DisplayFor(modelItem => item.Material.Name)</td>
+            <td>@(item.PickUpDate.HasValue ? Html.DisplayFor(modelItem => item.PickUpDate).ToString() : "Nog niet opgehaald.")</td>
+            <td>@(item.BroughtBackDate.HasValue ? Html.DisplayFor(modelItem => item.BroughtBackDate).ToString() : "Nog niet teruggebracht.")</td>
+        </tr>
     }
 </table>
-

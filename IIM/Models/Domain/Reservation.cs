@@ -54,21 +54,6 @@ namespace IIM.Models.Domain
             details.ForEach(d => details.Remove(d));
         }
 
-
-        //WIP
-        public void AddCart(Cart cart, IReservationRepository reservationRepository)
-        {
-            List<MaterialIdentifier> identifiers = new List<MaterialIdentifier>();
-
-            foreach (Material m in cart.Materials)
-            {
-                //identifiers.AddRange(reservationRepository.GetAvailableIdentifiers(this.StartDate,this.EndDate,cart.Materials[m],m));
-            }
-
-            AddAllDetails(identifiers.ConvertAll<ReservationDetail>(m => new ReservationDetail(this, m)));
-
-        }
-
         public List<ReservationDetail> GetOverridableIdentifiers(Material material)
         {
             return _reservationManager.GetOverridableIdentifiers(Details, material);

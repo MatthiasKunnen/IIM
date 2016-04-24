@@ -42,16 +42,16 @@ namespace IIM.ViewModels.ReservationViewModels
     {
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [Display(Name = "Terugbrengdatum")]
-        public DateTime BroughtBackDate { get; private set; }
+        public DateTime? BroughtBackDate { get; private set; }
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [Display(Name = "Afhaaldatum")]
-        public DateTime PickUpDate { get; private set; }
+        public DateTime? PickUpDate { get; private set; }
         public MaterialViewModel Material { get; private set; }
         public ReservationDetailViewModel(ReservationDetail detail)
         {
-            if (detail.BroughtBackDate != null) this.BroughtBackDate = detail.BroughtBackDate.Value;
-            if (detail.PickUpDate != null) this.PickUpDate = detail.PickUpDate.Value;
-            this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+            if (detail.BroughtBackDate.HasValue) BroughtBackDate = detail.BroughtBackDate.Value;
+            if (detail.PickUpDate.HasValue) PickUpDate = detail.PickUpDate.Value;
+            Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
         }
     }
 
