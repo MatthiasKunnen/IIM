@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace IIM.Models.Domain
 {
@@ -14,5 +15,10 @@ namespace IIM.Models.Domain
         public virtual Material Material { get; private set; }
 
         public virtual List<ReservationDetail> ReservationDetails { get; private set; }
+
+        public boolean IsAvailable(DateTime startDate, DateTime endDate)
+        {
+            return ReservationDetails.
+        } 
     }
 }
