@@ -268,6 +268,7 @@
       <DependentUpon>201604171440126_RemovedSuperfluousUserTemp_CartID.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DAL\CurricularRepository.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
@@ -275,10 +276,13 @@
     <Compile Include="Models\DAL\Mapper\ReservationMapper.cs" />
     <Compile Include="Models\DAL\Mapper\UserMapper.cs" />
     <Compile Include="Models\DAL\ReservationRepository.cs" />
+    <Compile Include="Models\DAL\TargetGroupRepository.cs" />
     <Compile Include="Models\DAL\UserRepository.cs" />
     <Compile Include="Models\Domain\Cart.cs" />
     <Compile Include="Models\Domain\DateTimeRestriction.cs" />
+    <Compile Include="Models\Domain\ICurricularRepository.cs" />
     <Compile Include="Models\Domain\IReservationRepository.cs" />
+    <Compile Include="Models\Domain\ITargetGroupRepository.cs" />
     <Compile Include="Models\Domain\IUserRepository.cs" />
     <Compile Include="Models\Domain\MaterialIdentifier.cs" />
     <Compile Include="Models\DAL\IIMContext.cs" />
@@ -397,6 +401,7 @@
     <Content Include="Views\Reservation\ShowDetails.cshtml" />
     <Content Include="Views\Reservation\ReservationDateRangePartial.cshtml" />
     <Content Include="Views\Reservation\Create.cshtml" />
+    <Content Include="Views\Inventory\MaterialOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

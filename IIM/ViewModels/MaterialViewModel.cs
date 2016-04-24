@@ -53,4 +53,40 @@ namespace IIM.ViewModels
             TargetGroups = m.TargetGroups;
         }
     }
+
+    public class InventoryViewModel
+    {
+
+        public IEnumerable<SearchableItemModel> CurricularModels { get; set; }
+        public SearchableItemModel CurricularSelectedValue { get; set; }
+        public IEnumerable<MaterialViewModel> MaterialViewModels { get; set; }
+        public IEnumerable<SearchableItemModel> TargetGroupModels { get; set; }
+        public SearchableItemModel TargetGroupSelectedValue { get; set; }
+
+        public InventoryViewModel()
+        {
+            
+        }
+
+        public InventoryViewModel(IEnumerable<SearchableItemModel> curricularModels, SearchableItemModel curricularSelectedValue, IEnumerable<MaterialViewModel> materialViewModels, IEnumerable<SearchableItemModel> targetGroupModels, SearchableItemModel targetGroupSelectedValue)
+        {
+            CurricularModels = curricularModels;
+            CurricularSelectedValue = curricularSelectedValue;
+            MaterialViewModels = materialViewModels;
+            TargetGroupModels = targetGroupModels;
+            TargetGroupSelectedValue = targetGroupSelectedValue;
+        }
+    }
+
+    public class SearchableItemModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public SearchableItemModel(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
 }

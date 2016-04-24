@@ -1,57 +1,39 @@
 ﻿@using IIM.ViewModels
-@using IIM.Models.Domain
-@model IEnumerable<MaterialViewModel>
+@model InventoryViewModel
 
 @{
     ViewBag.Title = "Inventaris";
     ViewBag.Active = "Inventory";
 }
 
-<h2>Materialen</h2><br />
+<h2>Materialen</h2>
 @using (Html.BeginForm("Index", "Inventory", FormMethod.Get, new { @class = "form-inline search-function" }))
 {
-    @CreateSearchControl("SearchName", "Zoeken op naam")
-    @CreateSearchControl("searchCurricular", "Zoeken op leergebied")
-    @CreateSearchControl("searchTargetGroup", "Zoeken op doelgroep")
+    @CreateSearchControl("SearchName", "naam")
+    @CreateSearchControl("searchCurricular", "leergebied", Model.CurricularModels, Model.CurricularSelectedValue.Name)
+    @CreateSearchControl("searchTargetGroup", "doelgroep", Model.TargetGroupModels, Model.TargetGroupSelectedValue.Name)
     <input type="submit" class="btn btn-default" value="Zoek" />
 }
 
-@helper CreateSearchControl(string id, string placeholder)
+@helper CreateSearchControl(string id, string placeholder, IEnumerable<SearchableItemModel> input = null, string defaultValue = null)
 {
     <div class="form-group">
-        <label class="sr-only" for="@id">@placeholder</label>
-        <input type="text" class="form-control" name="@id" id="@id" placeholder="@placeholder">
-    </div>
-}
-
-@if (Model != null && Model.Any())
-{
-    <div class="clearfix">
-        <table class="table">
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.Image)</th>
-                <th>@Html.DisplayNameFor(model => model.Name)</th>
-                <th>@Html.DisplayNameFor(model => model.Description)</th>
-                <th>@Html.DisplayNameFor(model => model.Price)</th>
-                <th>Acties</th>
-            </tr>
-
-            @foreach (var item in Model)
+        <label class="sr-only" for="@id">Zoeken op @placeholder</label>
+        @if (input == null)
+        {
+            <input type="text" class="form-control" name="@id" id="@id" placeholder="Zoeken op @placeholder">
+        }
+        else
+        {
+            <select id="@id" name="@id" class="form-control">
+                <option value="" @(defaultValue == null ? "selected" : "")>@($"--Selecteer een {placeholder}--")</option>
+                @foreach (var item in input)
                 {
-                <tr class="material">
-                    <td class="text-center">
-                        <img src="@Url.Content(item.PhotoUrl)" class="img-rounded" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
-                    </td>
-                    <td>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</td>
-                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                    <td>@Html.Partial("_Button", item)</td>
-                </tr>
-            }
-        </table>
+                    <option value="@item.Name" @(item.Name.Equals(defaultValue) ? "selected" : "")>@item.Name</option>
+                }
+            </select>
+        }
     </div>
 }
-else
-{
-    <p>Er zijn geen materialen gevonden.</p>
-}
+
+@Html.Partial("MaterialOverview", Model.MaterialViewModels)
