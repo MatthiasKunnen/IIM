@@ -389,6 +389,7 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\Detail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="ViewModels\ViewModels.cd" />
     <None Include="Views\Account\RealUserName.cshtml" />
     <None Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Reservation\Index.cshtml" />
