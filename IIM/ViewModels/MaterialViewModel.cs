@@ -13,19 +13,19 @@ namespace IIM.ViewModels
     {
         private string _photoUrl;
         [Display(Name = "Artikelnummer")]
-
         public string ArticleNr { get; set; }
         [Display(Name = "Opleidingsonderdelen")]
         public List<Curricular> Curriculars { get; set; }
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
         public int Id { get; set; }
-
+        [Display(Name = "Foto")]
         public string Image { get; set; }
         [Display(Name = "Firma")]
         public Firm Firm { get; set; }
         [Display(Name = "Naam")]
         public string Name { get; set; }
+        [Display(Name = "Url van foto")]
         public string PhotoUrl
         {
             get { return _photoUrl ?? "~/Content/photo-coming-soon.jpg"; }
