@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 
-namespace IIM.Models.Domain
+namespace IIM.Helpers
 {
     public class MailService
     {
@@ -13,7 +13,7 @@ namespace IIM.Models.Domain
         private int Port { get; set; }
         private string Host { get; set; }
         private SmtpClient Client { get; set; }
-        private string Password {  get; set; }
+        private string Password { get; set; }
 
         public MailService()
         {
@@ -37,22 +37,22 @@ namespace IIM.Models.Domain
 
         private void InitializeSmtp()
         {
-            Client = new SmtpClient();
-            Client.Port = Port;
-            Client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            Client.UseDefaultCredentials = false;
-            Client.Credentials = new NetworkCredential(OriginAddress, Password);
-            Client.Host = Host;
-
+            Client = new SmtpClient
+            {
+                Port = Port,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(OriginAddress, Password),
+                Host = Host
+            };
         }
 
-        public void SendMail(string body,string subject, string email)
+        public void SendMail(string body, string subject, string recipientEmail)
         {
             try
             {
-                var mail = new MailMessage();
-                mail.From = new MailAddress(OriginAddress);
-                mail.To.Add(email);
+                var mail = new MailMessage { From = new MailAddress(OriginAddress) };
+                mail.To.Add(recipientEmail);
                 mail.Subject = subject;
                 mail.IsBodyHtml = false;
                 mail.Body = body;
@@ -63,7 +63,5 @@ namespace IIM.Models.Domain
                 Console.WriteLine(ex.InnerException.ToString());
             }
         }
-
-
     }
 }
