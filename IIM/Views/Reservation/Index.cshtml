@@ -7,13 +7,11 @@
 
 <h2>Mijn Reservaties</h2>
 
-<table class=" table">
-    <tr >
-        <th class="ReservatieHead">@Html.DisplayNameFor(model => model.CreationDate)</th>
-        <th class="ReservatieHead">@Html.DisplayNameFor(model => model.StartDate)</th>
-        <th class="ReservatieHead">@Html.DisplayNameFor(model => model.EndDate)</th>
-    </tr>
-</table>
+<div class="row ReservatieHead">
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.CreationDate)</div>
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.StartDate)</div>
+    <div class="col-md-4">@Html.DisplayNameFor(model => model.EndDate)</div>
+</div>
    
     @foreach (var item in Model)
     {
@@ -30,8 +28,6 @@
                 <div class="col-md-4">
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </div>
-
-
                 <div id="@string.Format("{0}", item.Id)" class="collapse">
                     @{Html.RenderPartial("_Details",
                                           item.Details, new ViewDataDictionary { { "id", item.Id } });}
