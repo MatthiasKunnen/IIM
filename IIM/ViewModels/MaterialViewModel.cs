@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using IIM.Models.Domain;
 using System.ComponentModel.DataAnnotations;
-using System.Configuration;
-using System.Web.Mvc;
 using IIM.App_Start;
 
 namespace IIM.ViewModels
@@ -48,7 +44,7 @@ namespace IIM.ViewModels
             Image = m.Encoding;
             Firm = m.Firm;
             Name = m.Name;
-            PhotoUrl = $"{AppSettings.ImageStorageUrl}/{m.Id}.{m.Encoding}";
+            PhotoUrl = $"{AppSettings.GetInstance().ImageStorageUrl}/{m.Id}.{m.Encoding}";
             Price = m.Price;
             TargetGroups = m.TargetGroups;
         }

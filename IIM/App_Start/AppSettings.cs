@@ -1,104 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Web.Configuration;
 using System.Web.Hosting;
 using IIM.Models.Domain;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using WebGrease.Css.Extensions;
 using Type = IIM.Models.Domain.Type;
 
 namespace IIM.App_Start
 {
-    public static class AppSettings
+    public class AppSettings
     {
-        private static readonly JsonConverter[] JsonConverters;
-        private static string _filePath;
-        private static bool _isLoaded;
-        private static string _imageStorageUrl;
-        private static Dictionary<Type, TypeSetting> _reservationRestrictions;
+        private readonly JsonConverter[] _jsonConverters;
+        private bool _isLoaded;
+        private string _imageStorageUrl;
+        private readonly ISettingsFile _settingsFile;
+        private Dictionary<Type, TypeSetting> _reservationRestrictions;
+        private static AppSettings _this;
 
-        public static string ImageStorageUrl
+        [JsonProperty("ImageStorageUrl")]
+        public string ImageStorageUrl
         {
             get { InitialLoad(); return _imageStorageUrl; }
             private set { _imageStorageUrl = value; }
         }
 
-        public static Dictionary<Type, TypeSetting> ReservationRestrictions
+        [JsonProperty("UserTypes")]
+        public Dictionary<Type, TypeSetting> ReservationRestrictions
         {
             get { InitialLoad(); return _reservationRestrictions; }
             private set { _reservationRestrictions = value; }
         }
 
-        public static RangeRestriction GetEndDateRangeRestriction(Type type)
+        public RangeRestriction GetEndDateRangeRestriction(Type type)
         {
             return ReservationRestrictions[type]?.ReservationEndTimeRestrictions;
         }
 
-        public static RangeRestriction GetStartDateRangeRestriction(Type type)
+        public RangeRestriction GetStartDateRangeRestriction(Type type)
         {
             return ReservationRestrictions[type]?.ReservationStartTimeRestrictions;
         }
 
-        static AppSettings()
+        private AppSettings(ISettingsFile settingsFile)
         {
+            _settingsFile = settingsFile;
             Initialize();
-            JsonConverters = new JsonConverter[] { new StringEnumConverter() };
+            _jsonConverters = new JsonConverter[] { new StringEnumConverter() };
         }
 
-        private static void Initialize()
+        public static AppSettings GetInstance(ISettingsFile iSettingsFile)
+        {
+            return _this ?? (_this = new AppSettings(iSettingsFile));
+        }
+
+        public static AppSettings GetInstance()
+        {
+            return GetInstance(new DefaultSettingsFile());
+        }
+
+        private void Initialize()
         {
             ReservationRestrictions = new Dictionary<Type, TypeSetting>();
         }
 
-        public static T DeserializeObject<T>(string data)
+        public T DeserializeObject<T>(string data)
         {
-            return JsonConvert.DeserializeObject<T>(data, JsonConverters);
+            return JsonConvert.DeserializeObject<T>(data, _jsonConverters);
         }
 
-        public static string SerializeObject(object obj)
+        public string SerializeObject(object obj)
         {
-            return JsonConvert.SerializeObject(obj, JsonConverters);
+            return JsonConvert.SerializeObject(obj, _jsonConverters);
         }
 
-        private static void LoadPath()
-        {
-            if (_filePath == null)
-            {
-                _filePath = HostingEnvironment.MapPath("~/App_Data/settings.json");
-                if (_filePath == null) throw new ArgumentNullException(nameof(_filePath), "MapPath failed.");
-            }
-        }
-
-        private static void WriteToFile(string data)
-        {
-            LoadPath();
-            using (TextWriter writer = File.CreateText(_filePath))
-            {
-                writer.Write(data);
-            }
-        }
-
-        private static string ReadFile()
-        {
-            LoadPath();
-            try
-            {
-                using (TextReader writer = File.OpenText(_filePath))
-                {
-                    return writer.ReadToEnd();
-                }
-            }
-            catch
-            {
-                return "";
-            }
-        }
-
-        private static void InitialLoad()
+        private void InitialLoad()
         {
             if (!_isLoaded)
             {
@@ -107,40 +83,18 @@ namespace IIM.App_Start
             }
         }
 
-        private static void Load()
+        private void Load()
         {
             Initialize();
-            var mirror = DeserializeObject<SettingsMirror>(ReadFile());
-            if (mirror == null) return;
-            ImageStorageUrl = mirror.MirroredImageStorageUrl;
-            ReservationRestrictions = mirror.TypeSettings;
+            var deserialized = DeserializeObject<AppSettings>(_settingsFile.ReadFile());
+            if (deserialized == null) return;
+            ImageStorageUrl = deserialized.ImageStorageUrl;
+            ReservationRestrictions = deserialized.ReservationRestrictions;
         }
 
-        private static void Save()
+        private void Save()
         {
-            WriteToFile(SerializeObject(GetSettingsMirror()));
-        }
-
-        private static SettingsMirror GetSettingsMirror()
-        {
-            return new SettingsMirror()
-            {
-                MirroredImageStorageUrl = ImageStorageUrl,
-                TypeSettings = ReservationRestrictions
-            };
-        }
-    }
-    public class SettingsMirror
-    {
-        [JsonProperty("ImageStorageUrl")]
-        public string MirroredImageStorageUrl { get; set; }
-
-        [JsonProperty("UserTypes")]
-        public Dictionary<Type, TypeSetting> TypeSettings { get; set; }
-
-        public SettingsMirror()
-        {
-            TypeSettings = new Dictionary<Type, TypeSetting>();
+            _settingsFile.WriteToFile(SerializeObject(this));
         }
     }
 
@@ -162,5 +116,43 @@ namespace IIM.App_Start
             set { _restrictions = value; }
         }
         public DateTimeRestriction.RestrictionType DefaultRestrictionType { get; set; }
+    }
+
+    public class DefaultSettingsFile : ISettingsFile
+    {
+        private string _filePath;
+        public void WriteToFile(string data)
+        {
+            LoadPath();
+            using (TextWriter writer = File.CreateText(_filePath))
+            {
+                writer.Write(data);
+            }
+        }
+
+        public string ReadFile()
+        {
+            LoadPath();
+            try
+            {
+                using (TextReader writer = File.OpenText(_filePath))
+                {
+                    return writer.ReadToEnd();
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private void LoadPath()
+        {
+            if (_filePath == null)
+            {
+                _filePath = HostingEnvironment.MapPath("~/App_Data/settings.json");
+                if (_filePath == null) throw new ArgumentNullException(nameof(_filePath), "MapPath failed.");
+            }
+        }
     }
 }
