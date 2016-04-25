@@ -114,7 +114,7 @@ namespace IIM.Controllers
                                     applicationUser.Type = Type.Staff;
                                     break;
                                 case "student":
-                                    applicationUser.Type = Type.Staff;
+                                    applicationUser.Type = Type.Student;
                                     break;
                                 default:
                                     ModelState.AddModelError("", "De aanmeldingsgegevens zijn correct maar het type van uw account is niet bekend. Gelieve contact op te nemen met de ontwerpers van deze applicatie");
