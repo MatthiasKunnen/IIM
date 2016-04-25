@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Web;
 
 namespace IIM.Helpers
 {
@@ -18,9 +15,8 @@ namespace IIM.Helpers
         public MailService()
         {
             OriginAddress = "donotreply.iim@gmail.com";
-            Port = 25;
-            Host = "smtp.google.com";
-            Client = new SmtpClient();
+            Port = 587;
+            Host = "smtp.gmail.com";
             Password = "Pieteriscool";
             InitializeSmtp();
 
@@ -39,11 +35,12 @@ namespace IIM.Helpers
         {
             Client = new SmtpClient
             {
+                Host = Host,
                 Port = Port,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
+                UseDefaultCredentials = true,
                 Credentials = new NetworkCredential(OriginAddress, Password),
-                Host = Host
+                EnableSsl = true
             };
         }
 
@@ -51,11 +48,12 @@ namespace IIM.Helpers
         {
             try
             {
-                var mail = new MailMessage { From = new MailAddress(OriginAddress) };
-                mail.To.Add(recipientEmail);
-                mail.Subject = subject;
-                mail.IsBodyHtml = false;
-                mail.Body = body;
+                var mail = new MailMessage(OriginAddress, recipientEmail)
+                {
+                    Subject = subject,
+                    IsBodyHtml = false,
+                    Body = body
+                };
                 Client.Send(mail);
             }
             catch (Exception ex)
