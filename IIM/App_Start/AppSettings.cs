@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Web.Configuration;
 using System.Web.Hosting;
 using IIM.Models.Domain;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using WebGrease.Css.Extensions;
 using Type = IIM.Models.Domain.Type;
 
 namespace IIM.App_Start
@@ -86,15 +90,29 @@ namespace IIM.App_Start
         private void Load()
         {
             Initialize();
-            var deserialized = DeserializeObject<AppSettings>(_settingsFile.ReadFile());
-            if (deserialized == null) return;
-            ImageStorageUrl = deserialized.ImageStorageUrl;
-            ReservationRestrictions = deserialized.ReservationRestrictions;
+            var mirror = DeserializeObject<SettingsMirror>(_settingsFile.ReadFile());
+            if (mirror == null) return;
+            ImageStorageUrl = mirror.MirroredImageStorageUrl;
+            ReservationRestrictions = mirror.TypeSettings;
         }
 
         private void Save()
         {
             _settingsFile.WriteToFile(SerializeObject(this));
+        }
+    }
+
+    public class SettingsMirror
+    {
+        [JsonProperty("ImageStorageUrl")]
+        public string MirroredImageStorageUrl { get; set; }
+
+        [JsonProperty("UserTypes")]
+        public Dictionary<Type, TypeSetting> TypeSettings { get; set; }
+
+        public SettingsMirror()
+        {
+            TypeSettings = new Dictionary<Type, TypeSetting>();
         }
     }
 
