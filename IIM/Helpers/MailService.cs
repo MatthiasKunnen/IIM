@@ -1,10 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
+using EASendMail;
+using SmtpClient = System.Net.Mail.SmtpClient;
 
 namespace IIM.Helpers
 {
-    public class MailService
+    public  class MailService
     {
         private string OriginAddress { get; set; }
         private int Port { get; set; }
@@ -44,22 +48,26 @@ namespace IIM.Helpers
             };
         }
 
-        public void SendMail(string body, string subject, string recipientEmail)
+       public async void SendMailAsync(string body, string subject, string recipientEmail)
         {
-            try
+            var mail = new MailMessage(OriginAddress, recipientEmail)
             {
-                var mail = new MailMessage(OriginAddress, recipientEmail)
-                {
-                    Subject = subject,
-                    IsBodyHtml = false,
-                    Body = body
-                };
-                Client.Send(mail);
+                Subject = subject,
+                IsBodyHtml = false,
+                Body = body
+            };
+           try
+           {
+               await Client.SendMailAsync(mail);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.InnerException.ToString());
-            }
+           catch (Exception e)
+           {
+               Console.WriteLine(e.InnerException.ToString());
+           }
+                
+
         }
+
+
     }
 }
