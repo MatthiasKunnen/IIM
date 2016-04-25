@@ -99,7 +99,16 @@ span.glyphicon-circle-arrow-left {
         opacity: 0.6;
     }
 
-.reservatie {
+.ReservatieHead{
+    color: whitesmoke;
+    line-height: 1.4em;
+    background-color:#222;
+    margin-bottom:1%;
+    padding:2% 0 2% 0;
+    text-align : center;
+}
+
+.reservatie:nth-child(even) {
     color: whitesmoke;
     line-height: 1.4em;
     background-color: #333;
