@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web.Configuration;
 using System.Web.Hosting;
 using IIM.Models.Domain;
@@ -162,5 +163,18 @@ namespace IIM.App_Start
             set { _restrictions = value; }
         }
         public DateTimeRestriction.RestrictionType DefaultRestrictionType { get; set; }
+    }
+
+    public class MailSettings
+    {
+        [JsonProperty("Originaddress")]
+        public string OriginAddress { get; set; }
+        [JsonProperty("Password")]
+        public string Password { get; set; }
+        [JsonProperty("Port")]
+        public int Port { get; set; }
+        [JsonProperty("Host")]
+        public string Host { get; set; }
+
     }
 }

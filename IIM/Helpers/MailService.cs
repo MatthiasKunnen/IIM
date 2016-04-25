@@ -8,23 +8,13 @@ using SmtpClient = System.Net.Mail.SmtpClient;
 
 namespace IIM.Helpers
 {
-    public  class MailService
+    public class MailService
     {
         private string OriginAddress { get; set; }
         private int Port { get; set; }
         private string Host { get; set; }
         private SmtpClient Client { get; set; }
         private string Password { get; set; }
-
-        public MailService()
-        {
-            OriginAddress = "donotreply.iim@gmail.com";
-            Port = 587;
-            Host = "smtp.gmail.com";
-            Password = "Pieteriscool";
-            InitializeSmtp();
-
-        }
 
         public MailService(string originAddress, int port, string host, string password)
         {
@@ -48,7 +38,7 @@ namespace IIM.Helpers
             };
         }
 
-       public async void SendMailAsync(string body, string subject, string recipientEmail)
+        public async void SendMailAsync(string body, string subject, string recipientEmail)
         {
             var mail = new MailMessage(OriginAddress, recipientEmail)
             {
@@ -56,18 +46,18 @@ namespace IIM.Helpers
                 IsBodyHtml = false,
                 Body = body
             };
-           try
-           {
-               await Client.SendMailAsync(mail);
+            try
+            {
+                await Client.SendMailAsync(mail);
             }
-           catch (Exception e)
-           {
-               Console.WriteLine(e.InnerException.ToString());
-           }
-                
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.ToString());
+            }
+
 
         }
 
 
     }
-}
+}w  
