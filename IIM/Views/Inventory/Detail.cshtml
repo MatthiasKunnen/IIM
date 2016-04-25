@@ -39,7 +39,7 @@
                 <dd>
                     @if (Model.Curriculars != null)
                     {
-                        Model.Curriculars.ForEach(item => Html.DisplayFor(modelItem => item.Name));
+                        @Html.Raw(string.Join(", ", Model.Curriculars.Select(item => Html.DisplayFor(modelItem => item.Name))));
                     }
                     else
                     {
@@ -50,7 +50,7 @@
                 <dd>
                     @if (Model.TargetGroups != null)
                     {
-                        Model.TargetGroups.ForEach(item => Html.DisplayFor(modelItem => item.Name));
+                        @Html.Raw(string.Join(", ", Model.TargetGroups.Select(item => Html.DisplayFor(modelItem => item.Name))));
                     }
                     else
                     {
