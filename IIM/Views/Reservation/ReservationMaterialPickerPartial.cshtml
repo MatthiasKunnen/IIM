@@ -1,6 +1,6 @@
 ﻿@model IIM.ViewModels.ReservationViewModels.NewReservationMaterialsViewModel
 
-@using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Post, new { id = "materialPickerForm" }))
+@using (Html.BeginForm("CreateReservation", "Reservation"))
 {
     @Html.AntiForgeryToken()
     <table class="table">
@@ -11,8 +11,8 @@
             <th>@Html.DisplayNameFor(model => model.Materials.FirstOrDefault().MaxAmount)</th>
             <th>@Html.DisplayNameFor(model => model.Materials.FirstOrDefault().RequestedAmount)</th>
         </tr>
-
-        @foreach (var item in Model.Materials)
+        @{ var i = 0;}
+        @foreach(var item in Model.Materials)
         {
             <tr>
                 <td>
@@ -22,9 +22,12 @@
                 <td>@Html.DisplayFor(modelItem => item.Material.Description)</td>
                 <td>@Html.DisplayFor(modelItem => item.MaxAmount)</td>
                 <td>
-                    <input type="number" pattern="\d*" class="form-control" min="0" value="@item.RequestedAmount" @(Model.IsDisabled ? " disabled" : "") />
+                    <input type="hidden" name="Materials.Index" value="@i"/>
+                    <input type="hidden" name="Materials[@i].Material.Id" value="@item.Material.Id"/>
+                    <input type="number" pattern="\d*" name="Materials[@i].RequestedAmount" class="form-control" min="0" value="@item.RequestedAmount" @(Model.IsDisabled ? " disabled" : "")/>
                 </td>
             </tr>
+            i++;
         }
     </table>
     <input type="submit" class="btn btn-default" value="Reserveer"@(Model.IsDisabled ? " disabled" : "") />

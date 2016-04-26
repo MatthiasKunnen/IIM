@@ -52,6 +52,11 @@ namespace IIM.ViewModels
             Price = m.Price;
             TargetGroups = m.TargetGroups;
         }
+
+        public MaterialViewModel()
+        {
+            
+        }
     }
 
     public class InventoryViewModel

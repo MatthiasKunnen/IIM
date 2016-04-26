@@ -1,14 +1,9 @@
-﻿using IIM.ViewModels;
-using IIM.ViewModels.ReservationViewModels;
+﻿using IIM.ViewModels.ReservationViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using IIM.Models;
 using IIM.Models.Domain;
-using WebGrease.Css.Extensions;
 
 namespace IIM.Controllers
 {
@@ -48,11 +43,11 @@ namespace IIM.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeReservationRange(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, DateTime startDate, DateTime endDate)
+        public ActionResult ChangeReservationRange(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, DateTime startDate, DateTime? endDate)
         {
             reservationDateRangeViewModel.SetType(user.Type);
             reservationDateRangeViewModel.StartDate = startDate;
-            reservationDateRangeViewModel.EndDate = endDate;
+            reservationDateRangeViewModel.EndDate = endDate ?? GetNextWeekday(startDate, DayOfWeek.Friday);
             return RedirectToAction("Create");
         }
 
@@ -67,5 +62,12 @@ namespace IIM.Controllers
             return View("Index");
         }
 
-       }
+        private static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
+        {
+            var result = start.AddDays(1);
+            while (result.DayOfWeek != day)
+                result = result.AddDays(1);
+            return result;
+        }
+    }
 }

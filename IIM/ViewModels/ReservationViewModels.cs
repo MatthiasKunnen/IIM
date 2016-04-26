@@ -134,12 +134,19 @@ namespace IIM.ViewModels.ReservationViewModels
         [Display(Name = "Gewenst aantal")]
         public int RequestedAmount { get; set; }
         [Display()]
-        public MaterialViewModel Material { get; private set; }
+        public MaterialViewModel Material { get; set; }
+        public int MaterialId { get; set; }
         public ReservationDetailSelectionViewModel(Material material, int maxAmount, int requestedAmount)
         {
             Material = new MaterialViewModel(material);
             MaxAmount = maxAmount;
             RequestedAmount = requestedAmount;
+            MaterialId = material.Id;
+        }
+
+        public ReservationDetailSelectionViewModel()
+        {
+
         }
     }
 
