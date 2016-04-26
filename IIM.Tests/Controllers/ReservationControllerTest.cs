@@ -50,6 +50,13 @@ namespace IIM.Tests.Controllers
             Assert.AreEqual(_user.WishList.Materials.Count, newReservation.ReservationMaterials.Materials.Count());
         }
 
+        [TestMethod]
+        public void TestChangeReservationRange()
+        {
+            ReservationDateRangeViewModel rdrv = new ReservationDateRangeViewModel(new System.DateTime(2016, 06, 26), new System.DateTime(2016, 07, 03), Type.Student);
+            RedirectToRouteResult result = _controller.ChangeReservationRange(_user, rdrv, new System.DateTime(2016,06,27),new System.DateTime(2016,06,29)) as RedirectToRouteResult;
+            Assert.AreEqual("Create", result.RouteValues["action"]);
+        }
 
         //[TestMethod]
         //public void IndexReturnsSearchResultsOnCurricularAndName()

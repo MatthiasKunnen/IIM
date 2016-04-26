@@ -22,6 +22,12 @@ namespace IIM.Tests.Models.Domain
             Assert.IsTrue(_cart.AlreadyInCart(_context.Bal.Id));
             Assert.IsFalse(_cart.AlreadyInCart(_context.Werelbol.Id));
         }
+        [TestMethod]
+        public void RemoveMaterialTest()
+        {
+            _cart.RemoveMaterial(_context.Bal);
+            Assert.IsFalse(_cart.Materials.Contains(_context.Bal));
+        }
 
     }
 }

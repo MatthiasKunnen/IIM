@@ -174,18 +174,27 @@ namespace IIM.Tests.Controllers
             Res1_Detail2 = new ReservationDetail(Reservation1, BalIdentifier1); //Nog niet teruggebracht
             typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail2, new DateTime(2016, 04, 21));
             typeof(Reservation).GetProperty("Details").SetValue(Reservation1, (new ReservationDetail[] { Res1_Detail1, Res1_Detail2 }).ToList());
+
+
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(WerelbolIdentifier1, (new ReservationDetail[] { Res1_Detail1 }).ToList());
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(BalIdentifier1, (new ReservationDetail[] { Res1_Detail2 }).ToList());
+
             #endregion
 
 
             #region Reservation2
             Reservation2 = new Reservation(new DateTime(2016, 04, 26), new DateTime(2016, 04, 30), new DateTime(2016, 05, 03), Student);
             typeof(Reservation).GetProperty("Id").SetValue(Reservation2, 1);
-            Res2_Detail1 = new ReservationDetail(Reservation2, WerelbolIdentifier1);
+            Res2_Detail1 = new ReservationDetail(Reservation2, WerelbolIdentifier2);
             typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res2_Detail1, new DateTime(2016, 05, 03));
             typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail1, new DateTime(2016, 04, 30));
             Res2_Detail2 = new ReservationDetail(Reservation1, BalIdentifier1); //Nog niet teruggebracht
             typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail2, new DateTime(2016, 04, 30));
             typeof(Reservation).GetProperty("Details").SetValue(Reservation2, (new ReservationDetail[] { Res2_Detail1, Res2_Detail2 }).ToList());
+
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(WerelbolIdentifier2, (new ReservationDetail[] { Res2_Detail1 }).ToList());
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(BalIdentifier1, (new ReservationDetail[] { Res2_Detail2 }).ToList());
+
             #endregion
 
             Reservations = (new Reservation[] { Reservation1, Reservation2 }).ToList();

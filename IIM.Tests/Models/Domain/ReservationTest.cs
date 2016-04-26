@@ -63,5 +63,7 @@ namespace IIM.Tests.Models.Domain
             Assert.IsFalse(_reservation.Details.Contains(_context.Res1_Detail1));
             Assert.IsFalse(_reservation.Details.Contains(_context.Res1_Detail2));
         }
+        
+
     }
 }
