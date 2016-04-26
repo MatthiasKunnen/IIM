@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
+using WebGrease.Css.Extensions;
 
 namespace IIM.Models.Domain
 {
@@ -54,6 +56,23 @@ namespace IIM.Models.Domain
             details.ForEach(d => details.Remove(d));
         }
 
+        public void AddMaterial(Material material, int count)
+        {
+            List<MaterialIdentifier> identifiers = material.GetAvailableIdentifiers(StartDate, EndDate).Take(count).ToList();
+            int idCount = identifiers.Count();
+            if (idCount == count)
+            {
+                AddAllDetails(identifiers.Select(i => new ReservationDetail(this, i)).ToList());
+            }
+            else
+            {
+                IEnumerable<ReservationDetail> overridableDetails = material.GetReservationRange(StartDate,EndDate).SelectMany(r=> r.GetOverridableIdentifiers(material));
+                overridableDetails = overridableDetails.OrderByDescending(d => d.Reservation.CreationDate).Take(count-idCount);
+                //methode om mail te sturen naar overriden user waiting for mailservice
+                overridableDetails.ForEach(d=> d.OverwriteDetail(this));
+            }
+        }
+
         public List<ReservationDetail> GetOverridableIdentifiers(Material material)
         {
             return _reservationManager.GetOverridableIdentifiers(Details, material);
@@ -65,7 +84,7 @@ namespace IIM.Models.Domain
             Details.ForEach(i => details += i.MaterialIdentifier.Material.Name + " ");
             return details;
         }
-
+        
         public Boolean sendConfirmation()
         {
             try {

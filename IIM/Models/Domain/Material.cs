@@ -20,10 +20,20 @@ namespace IIM.Models.Domain
         public decimal Price { get; private set; }
         public virtual List<TargetGroup> TargetGroups { get; private set; }
 
-        public IEnumerable<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate, int count)
+        public IEnumerable<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate)
         {
-            return Identifiers.Where(i=> i.ReservationDetails)
+            return Identifiers.Where(i => i.IsAvailable(startDate, endDate,Type.Student));
         }
-             
+
+        public int GetAvailableIdentifierCount(DateTime startDate, DateTime endDate, Type userType)
+        {
+                return Identifiers.Count(i => i.IsAvailable(startDate, endDate, userType));
+        }
+
+
+        internal IEnumerable<Reservation> GetReservationRange(DateTime startDate, DateTime endDate)
+        {
+            return Identifiers.SelectMany(i => i.GetDetailRange(startDate, endDate).Select(d => d.Reservation));
+        }
     }
 }
