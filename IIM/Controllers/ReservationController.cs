@@ -56,10 +56,11 @@ namespace IIM.Controllers
             var res = user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
             foreach (var detail in reservationMaterialsViewModel.Materials)
             {
-                //res.AddMaterial(detail.Material,detail.RequestedAmount);
+                res.AddMaterial(_materialRepository.FindById(detail.Material.Id),detail.RequestedAmount);
             }
 
-            return View("Index");
+            _reservationRepository.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         private static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
