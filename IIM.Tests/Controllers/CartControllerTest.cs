@@ -25,7 +25,7 @@ namespace IIM.Tests.Controllers
         public void Initialize()
         {
             _context = new DummyDataContext();
-            _user = _context.User;
+            _user = _context.Student;
             _materialRepository = new Mock<IMaterialRepository>();
             _userRepositoy = new Mock<IUserRepository>();
             _reservationRepository = new Mock<IReservationRepository>();
@@ -56,6 +56,7 @@ namespace IIM.Tests.Controllers
             Assert.AreEqual(aantal - 1, _user.WishList.Materials.Count);
             _userRepositoy.Verify(u => u.SaveChanges(), Times.Once());
         }
+      
 
         [TestMethod]
         public void AddMaterialToCart()
@@ -67,15 +68,23 @@ namespace IIM.Tests.Controllers
             Assert.AreEqual(aantal + 1, _user.WishList.Materials.Count);
             _userRepositoy.Verify(u => u.SaveChanges(), Times.Once());
         }
+        [TestMethod]
         public void AddMaterialToEmptyCart()
         {
+            //Lege verlanglijst aan Student toewijzen                 
+            typeof(ApplicationUser).GetProperty("WishList").SetValue(_user, null);
 
+            RedirectToRouteResult result = _controller.Add(_user, _context.Werelbol.Id) as RedirectToRouteResult;
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsTrue(_user.WishList.Materials.Contains(_context.Werelbol));
+            Assert.AreEqual(1, _user.WishList.Materials.Count);
+            _userRepositoy.Verify(u => u.SaveChanges(), Times.Once());
         }
-        
+
         //[TestMethod]
         //public void ClearCart()
         //{
-        // /*Iets met entityframework die */
+        //    /*Iets met entityframework die raar doet*/
         //    int aantal = _user.WishList.Materials.Count;
         //    RedirectToRouteResult result = _controller.Clear(_user) as RedirectToRouteResult;
         //    Assert.AreEqual("Index", result.RouteValues["action"]);

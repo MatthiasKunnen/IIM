@@ -90,8 +90,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettingsTest.cs" />
+    <Compile Include="Controllers\CartControllerTest.cs" />
     <Compile Include="Controllers\DummyDataContext.cs" />
     <Compile Include="Controllers\InventoryControllerTest.cs" />
+    <Compile Include="Controllers\ReservationControllerTest.cs" />
     <Compile Include="Models\Domain\CartTest.cs" />
     <Compile Include="Models\Domain\ReservationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

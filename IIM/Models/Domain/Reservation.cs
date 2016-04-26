@@ -51,7 +51,7 @@ namespace IIM.Models.Domain
 
         public void RemoveAllDetails(List<ReservationDetail> details)
         {
-            details.ForEach(d => details.Remove(d));
+            details.ForEach(d => Details.Remove(d));
         }
 
 

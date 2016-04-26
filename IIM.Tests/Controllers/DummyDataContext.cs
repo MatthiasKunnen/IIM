@@ -20,19 +20,28 @@ namespace IIM.Tests.Controllers
         public Curricular Analyse { get; set; }
         public TargetGroup EersteGraad { get; set; }
         public TargetGroup TweedeGraad { get; set; }
-        public ApplicationUser User { get; set; }
+        public ApplicationUser Student { get; set; }
+        public ApplicationUser Staff { get; set; }
 
         public Cart WishList { get; set; }
+        public Cart WishListStaff { get; set; }
         public Material Werelbol { get; set; }
         public Reservation Reservation1 { get; set; }
-        public ReservationDetail Detail1 { get; set; }
-        public ReservationDetail Detail2 { get; set; }
-
+        public Reservation Reservation2 { get; set; }
+        public List<Reservation> Reservations { get; set; }
+        public ReservationDetail Res1_Detail1 { get; set; }
+        public ReservationDetail Res1_Detail2 { get; set; }
+        public ReservationDetail Res2_Detail1 { get; set; }
+        public ReservationDetail Res2_Detail2 { get; set; }
         public DummyDataContext()
         {
-            #region User
-            User = new ApplicationUser();
-            User.FirstName = "Jan"; User.LastName = "Test"; User.IsLocal = true; User.Type = IIM.Models.Domain.Type.Student; User.Faculty = "Schoonmeersen";
+            #region Student
+            Student = new ApplicationUser();
+            Student.FirstName = "Jan"; Student.LastName = "Test"; Student.IsLocal = true; Student.Type = IIM.Models.Domain.Type.Student; Student.Faculty = "Schoonmeersen";
+            #endregion
+            #region Staff
+            Staff = new ApplicationUser();
+            Staff.FirstName = "Staff"; Staff.LastName = "Naam"; Staff.IsLocal = true; Staff.Type = IIM.Models.Domain.Type.Staff; Staff.Faculty = "Schoonmeersen";
             #endregion
 
             #region Curriculars
@@ -135,23 +144,52 @@ namespace IIM.Tests.Controllers
             typeof(Material).GetProperty("Identifiers").SetValue(Werelbol, wereldbolIdentifiers);
             #endregion
 
+
             /*Lijst van materialen*/
             Materials = (new Material[] { Bal, Scrumboard }).ToList().AsQueryable();
 
-            #region WishList opvullen
-            /*User zijn WishList vullen*/
+            #region WishList opvullen Student
+            /*Student zijn WishList vullen*/
             IList<Material> materials = (new Material[] { Bal, Scrumboard }).ToList();
             WishList = new Cart();
             typeof(Cart).GetProperty("Id").SetValue(WishList, 1);
             typeof(Cart).GetProperty("Materials").SetValue(WishList, materials);
-            typeof(ApplicationUser).GetProperty("WishList").SetValue(User, WishList);
+            typeof(ApplicationUser).GetProperty("WishList").SetValue(Student, WishList);
+            #endregion
+            #region WishList opvullen Staff
+            /*Staff zijn WishList vullen*/
+            IList<Material> materialsStaff = (new Material[] { Bal, Scrumboard }).ToList();
+            WishListStaff = new Cart();
+            typeof(Cart).GetProperty("Id").SetValue(WishListStaff, 1);
+            typeof(Cart).GetProperty("Materials").SetValue(WishListStaff, materialsStaff);
+            typeof(ApplicationUser).GetProperty("WishList").SetValue(Staff, WishListStaff);
             #endregion
 
-            Reservation1 = new Reservation(new DateTime(2016, 04, 16), new DateTime(2016, 04, 21), new DateTime(2016, 04, 25), User);
+            #region Reservation1
+            Reservation1 = new Reservation(new DateTime(2016, 04, 16), new DateTime(2016, 04, 21), new DateTime(2016, 04, 25), Student);
             typeof(Reservation).GetProperty("Id").SetValue(Reservation1, 1);
+            Res1_Detail1 = new ReservationDetail(Reservation1, WerelbolIdentifier1);
+            typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res1_Detail1, new DateTime(2016, 04, 21));
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail1, new DateTime(2016, 04, 16));
+            Res1_Detail2 = new ReservationDetail(Reservation1, BalIdentifier1); //Nog niet teruggebracht
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail2, new DateTime(2016, 04, 21));
+            typeof(Reservation).GetProperty("Details").SetValue(Reservation1, (new ReservationDetail[] { Res1_Detail1, Res1_Detail2 }).ToList());
+            #endregion
 
-            Detail1 = new ReservationDetail(Reservation1, WerelbolIdentifier1);
-            Detail2 = new ReservationDetail(Reservation1, BalIdentifier1);
+
+            #region Reservation2
+            Reservation2 = new Reservation(new DateTime(2016, 04, 26), new DateTime(2016, 04, 30), new DateTime(2016, 05, 03), Student);
+            typeof(Reservation).GetProperty("Id").SetValue(Reservation2, 1);
+            Res2_Detail1 = new ReservationDetail(Reservation2, WerelbolIdentifier1);
+            typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res2_Detail1, new DateTime(2016, 05, 03));
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail1, new DateTime(2016, 04, 30));
+            Res2_Detail2 = new ReservationDetail(Reservation1, BalIdentifier1); //Nog niet teruggebracht
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail2, new DateTime(2016, 04, 30));
+            typeof(Reservation).GetProperty("Details").SetValue(Reservation2, (new ReservationDetail[] { Res2_Detail1, Res2_Detail2 }).ToList());
+            #endregion
+
+            Reservations = (new Reservation[] { Reservation1, Reservation2 }).ToList();
+            typeof(ApplicationUser).GetProperty("Reservations").SetValue(Student, Reservations);
 
         }
     }

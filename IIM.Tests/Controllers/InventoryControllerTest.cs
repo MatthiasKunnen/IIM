@@ -17,13 +17,15 @@ namespace IIM.Tests.Controllers
         private Mock<IMaterialRepository> _materialRepository;
         private Mock<IUserRepository> _userRepositoy;
         private ApplicationUser _user;
+        private ApplicationUser _userStaff;
 
         private DummyDataContext _context;
         [TestInitialize]
         public void Initialize()
         {
             _context = new DummyDataContext();
-            _user = _context.User;
+            _user = _context.Student;
+            _userStaff = _context.Staff;
             _materialRepository = new Mock<IMaterialRepository>();
             _userRepositoy = new Mock<IUserRepository>();
             _materialRepository.Setup(m => m.FindAll()).Returns(_context.Materials);
@@ -34,10 +36,12 @@ namespace IIM.Tests.Controllers
         [TestMethod]
         public void IndexReturnsAllMaterials()
         {
+            /*Wanneer je debugt lukt het wel.. Nog al zo'n testen gehad met dezelfde fout namelijk iets met de _filePath*/
             ViewResult result = _controller.Index(_user, "", "", "", "") as ViewResult;
             var materials = result.ViewData.Model as IEnumerable<MaterialViewModel>;
             Assert.AreEqual(_context.Materials.Count(), materials.ToList().Count);
         }
+       
         [TestMethod]
         public void IndexReturnsSearchResultsOnName()
         {
