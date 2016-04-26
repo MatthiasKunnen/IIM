@@ -38,8 +38,8 @@ namespace IIM.Controllers
             if (isDateRangeValid)
             {
                 func = material =>
-                        _reservationRepository.GetAmountOfAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
-                            reservationDateRangeViewModel.EndDate, material);
+                    material.GetAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
+                        reservationDateRangeViewModel.EndDate).Count();
             }
             var materials = user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, func.Invoke(m), 0));
             var materialsPicker = new NewReservationMaterialsViewModel(materials, false);
@@ -59,18 +59,13 @@ namespace IIM.Controllers
         public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationMaterialsViewModel reservationMaterialsViewModel)
         {
             var res = user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
-            foreach (var details in reservationMaterialsViewModel.Materials.Select(material => _reservationRepository.GetAvailableIdentifiers(
-                res.StartDate,
-                res.EndDate,
-                material.RequestedAmount,
-                _materialRepository.FindById(material.Material.Id))
-                .Select(mi => new ReservationDetail(res, mi)).ToList()))
+            foreach (var detail in reservationMaterialsViewModel.Materials)
             {
-                res.AddAllDetails(details);
+                //res.AddMaterial(detail.Material,detail.RequestedAmount);
             }
 
             return View("Index");
         }
 
-    }
+       }
 }
