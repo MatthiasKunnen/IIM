@@ -53,7 +53,7 @@ namespace IIM.Models
                 res.AddMaterial(material, requestedMaterials[material]);
             }
             Reservations.Add(res);
-            MailService.SendMailAsync(res.ReservationBody(), "Uw reservatie werd geregistreerd", Email);
+            MailService.SendMailAsync(res.ReservationBody(), "Uw reservatie werd geregistreerd", Email); //asyncexception
             
         }
 

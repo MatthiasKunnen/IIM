@@ -18,9 +18,9 @@ namespace IIM.Models.Domain
         {
             return !ReservationDetails.Any(
                              r =>
-                                 r.Reservation.StartDate < endDate &&
+                                 r.Reservation.StartDate < endDate && 
                                  r.Reservation.EndDate > startDate &&
-                                 r.Reservation.User.Type < userType); //yes I know this gon be wrong
+                                 r.Reservation.User.Type >= userType); //yes I know this gon be wrong
         }
 
         public IEnumerable<ReservationDetail> GetDetailRange(DateTime endDate, DateTime startDate)
