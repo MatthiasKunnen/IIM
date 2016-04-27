@@ -17,11 +17,13 @@ namespace IIM.Controllers
     {
         private readonly IMaterialRepository _materialRepository;
         private readonly IReservationRepository _reservationRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ReservationController(IMaterialRepository materialRepository, IReservationRepository reservationRepository)
+        public ReservationController(IMaterialRepository materialRepository, IReservationRepository reservationRepository, IUserRepository userRepository)
         {
             _materialRepository = materialRepository;
             _reservationRepository = reservationRepository;
+            _userRepository = userRepository;
         }
 
 
@@ -71,6 +73,22 @@ namespace IIM.Controllers
 
             return View("Index");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(ApplicationUser user,int id)
+        {
+            TempData["error"] = "De reservatie kon niet verwijderd worden.";
 
+            var res = _reservationRepository.FindById(id);
+            if (res != null)
+            {
+                user.DeleteReservation(res);
+                _userRepository.SaveChanges();
+                    TempData["success"] = "De reservatie werd verwijderd.";
+                    TempData.Remove("error");
+                
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
