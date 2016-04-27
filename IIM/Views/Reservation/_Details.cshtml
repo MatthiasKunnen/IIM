@@ -16,6 +16,9 @@
         <th class="ReservatieDetail">
             @Html.DisplayNameFor(model => model.BroughtBackDate)
         </th>
+        <th class="ReservatieDetail">
+            Acties
+        </th>
         
     </tr>
 
@@ -33,6 +36,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BroughtBackDate)
+            </td>
+            <td>
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
             </td>
       </tr>
     }

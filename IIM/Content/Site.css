@@ -114,10 +114,11 @@ span.glyphicon-circle-arrow-left {
 .reservatie:nth-child(even) {
     color: whitesmoke;
     line-height: 1.4em;
-    background-color:#333;
+    background-color:#777;
     margin-bottom:1%;
     padding:2% 0 2% 0;
     text-align : center;
+    border: solid 1px #777;
 }
 
 .reservatie:nth-child(odd) {
