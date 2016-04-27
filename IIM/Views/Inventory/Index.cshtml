@@ -6,8 +6,12 @@
     ViewBag.Active = "Inventory";
 }
 
+@section Scripts{
+    <script src="~/Scripts/CustomScripts/Hijax.js"></script>
+}
+
 <h2>Materialen</h2>
-@using (Html.BeginForm("Index", "Inventory", FormMethod.Get, new { @class = "form-inline search-function" }))
+@using (Html.BeginForm("Index", "Inventory", FormMethod.Get, new { @class = "form-inline search-function hijax", data_hijax_id = "0" }))
 {
     @CreateSearchControl("SearchName", "naam")
     @CreateSearchControl("searchCurricular", "leergebied", Model.CurricularModels, Model.CurricularSelectedValue.Name)
@@ -35,5 +39,6 @@
         }
     </div>
 }
-
-@Html.Partial("MaterialOverview", Model.MaterialViewModels)
+<div class="hijax-result" data-hijax-id="0">
+    @Html.Partial("MaterialOverview", Model.MaterialViewModels)    
+</div>

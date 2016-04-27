@@ -51,12 +51,16 @@ namespace IIM.Controllers
 
             ViewBag.WishList = user?.WishList;
 
-            return View(new InventoryViewModel(
-                _curricularRepository.FindAll().OrderBy(c => c.Name).ToList().Select(c => new SearchableItemModel(c.Id, c.Name)),
-                new SearchableItemModel(0, searchCurricular), 
-                list.ToList().Select(m => new MaterialViewModel(m)).OrderBy(mvm => mvm.Name),
-                _targetGroupRepository.FindAll().OrderBy(t => t.Name).ToList().Select(t => new SearchableItemModel(t.Id, t.Name)),
-                new SearchableItemModel(0, searchTargetGroup)));
+            var materialViewModels = list.ToList().Select(m => new MaterialViewModel(m)).OrderBy(mvm => mvm.Name);
+
+            return Request.IsAjaxRequest()
+                ? (ActionResult)PartialView("MaterialOverview", materialViewModels)
+                : View(new InventoryViewModel(
+                    _curricularRepository.FindAll().OrderBy(c => c.Name).ToList().Select(c => new SearchableItemModel(c.Id, c.Name)),
+                    new SearchableItemModel(0, searchCurricular),
+                    materialViewModels,
+                    _targetGroupRepository.FindAll().OrderBy(t => t.Name).ToList().Select(t => new SearchableItemModel(t.Id, t.Name)),
+                    new SearchableItemModel(0, searchTargetGroup)));
         }
 
         private static void AddFilter(ICollection<Func<Material, bool>> filterList, string searchTerm, params Func<Material, string>[] searchedProperty)
