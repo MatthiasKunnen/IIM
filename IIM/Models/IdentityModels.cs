@@ -29,6 +29,13 @@ namespace IIM.Models
             return userIdentity;
         }
 
+        public void DeleteReservation(Reservation reservation)
+        {
+            
+            Reservations.Remove(reservation);
+            IIMContext.Create().Entry(reservation).State = EntityState.Deleted;
+        }
+
         public void ClearWishList()
         {
             if (WishList != null)
