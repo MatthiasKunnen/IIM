@@ -7,6 +7,7 @@ using IIM.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Linq;
 
 namespace IIM.Models
 {
@@ -42,11 +43,20 @@ namespace IIM.Models
             return (WishList = WishList ?? new Cart());
         }
 
-        public Reservation CreateReservation(DateTime startDate, DateTime endDate)
+        public Reservation CreateReservation(DateTime startDate, DateTime endDate, Dictionary<Material,int> requestedMaterials)
         {
             var res = new Reservation(DateTime.Now, startDate, endDate, this);
+            foreach(var material in requestedMaterials.Keys)
+            {
+                res.AddMaterial(material, requestedMaterials[material]);
+            }
             Reservations.Add(res);
             return res;
+        }
+
+        public IEnumerable<MaterialIdentifier> GetPreviousIdentifierRange(DateTime startDate, DateTime enddate,Material material)
+        {
+            return Reservations.Where(r => r.StartDate < enddate && r.EndDate > startDate).SelectMany(res => res.Details.Where(d=> d.MaterialIdentifier.Material.Equals(material)).Select(d => d.MaterialIdentifier));
         }
     }
 }

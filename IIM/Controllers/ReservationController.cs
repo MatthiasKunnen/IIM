@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using IIM.Models;
 using IIM.Models.Domain;
+using System.Collections.Generic;
 
 namespace IIM.Controllers
 {
@@ -53,12 +54,13 @@ namespace IIM.Controllers
 
         public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationMaterialsViewModel reservationMaterialsViewModel)
         {
-            var res = user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
+            Dictionary<Material, int> requestedMaterials = new Dictionary<Material, int>();
             foreach (var detail in reservationMaterialsViewModel.Materials)
             {
-                res.AddMaterial(_materialRepository.FindById(detail.Material.Id),detail.RequestedAmount);
+                requestedMaterials.Add(_materialRepository.FindById(detail.Material.Id), detail.RequestedAmount);
             }
 
+            user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate, requestedMaterials);
             _reservationRepository.SaveChanges();
             return RedirectToAction("Index");
         }

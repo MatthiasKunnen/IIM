@@ -58,19 +58,19 @@ namespace IIM.Models.Domain
 
         public void AddMaterial(Material material, int count)
         {
-            List<MaterialIdentifier> identifiers = material.GetAvailableIdentifiers(StartDate, EndDate).Take(count).ToList();
+            List<MaterialIdentifier> identifiers = material.GetAvailableIdentifiers(StartDate, EndDate).ToList();
             int idCount = identifiers.Count();
-            if (idCount == count)
-            {
-                AddAllDetails(identifiers.Select(i => new ReservationDetail(this, i)).ToList());
-            }
-            else
+            IEnumerable<MaterialIdentifier> previousIdentifiers = User.GetPreviousIdentifierRange(StartDate.Subtract(TimeSpan.FromDays(7)), EndDate.AddDays(7), material);
+            if (idCount < count)            
             {
                 IEnumerable<ReservationDetail> overridableDetails = material.GetReservationRange(StartDate,EndDate).SelectMany(r=> r.GetOverridableIdentifiers(material));
-                overridableDetails = overridableDetails.OrderByDescending(d => d.Reservation.CreationDate).Take(count-idCount);
-                //methode om mail te sturen naar overriden user waiting for mailservice
-                overridableDetails.ForEach(d=> d.OverwriteDetail(this));
+                overridableDetails = overridableDetails.OrderByDescending(d => d.Reservation.CreationDate);                
+                //methode om mail te sturen naar overriden user waiting for mailservice                
+                overridableDetails.OrderBy(d => !previousIdentifiers.Contains(d.MaterialIdentifier)).Take(count-idCount).ForEach(d=> d.OverwriteDetail(this));
+                count -= count - idCount;
             }
+            
+            AddAllDetails(identifiers.OrderBy(i => !previousIdentifiers.Contains(i)).Take(count).Select(i => new ReservationDetail(this, i)).ToList());
         }
 
         public List<ReservationDetail> GetOverridableIdentifiers(Material material)
@@ -110,6 +110,7 @@ namespace IIM.Models.Domain
                 return false;
             }
             
-        }
+        }      
+        
     }
 }
