@@ -47,11 +47,15 @@ namespace IIM.ViewModels.ReservationViewModels
         [Display(Name = "Afhaaldatum")]
         public DateTime PickUpDate { get; private set; }
         public MaterialViewModel Material { get; private set; }
+        public MaterialIdentifier MaterialIdentifier { get; private set; }
+        public int ReservationId { get; private set; }
         public ReservationDetailViewModel(ReservationDetail detail)
         {
             if (detail.BroughtBackDate != null) this.BroughtBackDate = detail.BroughtBackDate.Value;
             if (detail.PickUpDate != null) this.PickUpDate = detail.PickUpDate.Value;
             this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+            this.MaterialIdentifier = detail.MaterialIdentifier;
+            this.ReservationId = detail.Reservation.Id;
         }
     }
 
