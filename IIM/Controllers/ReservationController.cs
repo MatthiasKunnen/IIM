@@ -90,5 +90,24 @@ namespace IIM.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteIdentifier(ApplicationUser user,int mat_id, int rid)
+        {
+            TempData["error"] = "De reservatie kon niet verwijderd worden.";
+
+            var res = _reservationRepository.FindById(rid);
+            var mat_iden = res.Details.First(r => r.MaterialIdentifier.Id == mat_id).MaterialIdentifier;
+            if (res != null && mat_iden!=null)
+            {
+                user.DeleteReservationMaterial(res, mat_iden);
+                _userRepository.SaveChanges();
+                TempData["success"] = "De reservatie werd verwijderd.";
+                TempData.Remove("error");
+
+            }
+            return RedirectToAction("Index");
+
+        }
     }
 }
