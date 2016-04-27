@@ -1,6 +1,7 @@
 ﻿@using System.Linq.Expressions
+@using IIM.Helpers
 @using IIM.ViewModels
-@model IIM.ViewModels.MaterialViewModel
+@model MaterialViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -13,7 +14,6 @@
             <img src="@Url.Content(Model.PhotoUrl)" class="img-rounded center-block" alt="Foto van @Html.DisplayFor(modelItem => Model.Name)" />
             @using (Html.BeginForm("Index", "Inventory"))
             {
-
                 <button class="back">
                     <span class="glyphicon glyphicon-circle-arrow-left"></span>
                 </button>
@@ -39,7 +39,7 @@
                 <dd>
                     @if (Model.Curriculars != null)
                     {
-                        Model.Curriculars.ForEach(item => Html.DisplayFor(modelItem => item.Name));
+                        @Html.Raw(string.Join(", ", Model.Curriculars.Select(item => Html.DisplayFor(modelItem => item.Name))));
                     }
                     else
                     {
@@ -50,7 +50,7 @@
                 <dd>
                     @if (Model.TargetGroups != null)
                     {
-                        Model.TargetGroups.ForEach(item => Html.DisplayFor(modelItem => item.Name));
+                        @Html.Raw(string.Join(", ", Model.TargetGroups.Select(item => Html.DisplayFor(modelItem => item.Name))));
                     }
                     else
                     {
@@ -65,6 +65,12 @@
 </div>
 
 @helper CreateDescription(Expression<Func<MaterialViewModel, object>> property)
+{
+    <dt>@Html.DisplayNameFor(property)</dt>
+    <dd>@Html.DisplayFor(property)</dd>
+}
+
+@helper CreateDescription(Expression<Func<MaterialViewModel, decimal>> property)
 {
     <dt>@Html.DisplayNameFor(property)</dt>
     <dd>@Html.DisplayFor(property)</dd>

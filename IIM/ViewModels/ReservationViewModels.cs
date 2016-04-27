@@ -13,18 +13,18 @@ namespace IIM.ViewModels.ReservationViewModels
 {
     public class ReservationViewModel
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         [Display(Name = "Aanmaakdatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
-        public DateTime CreationDate { get; private set; }
+        public DateTime CreationDate { get; set; }
         [Display(Name = "Ophaaldatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [LessThan("EndDate")]
-        public DateTime StartDate { get; private set; }
+        public DateTime StartDate { get; set; }
         [Display(Name = "Terugbrengdatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [GreaterThan("StartDate")]
-        public DateTime EndDate { get; private set; }
+        public DateTime EndDate { get; set; }
 
         public List<ReservationDetailViewModel> Details { get; set; }
 
@@ -42,11 +42,11 @@ namespace IIM.ViewModels.ReservationViewModels
     {
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [Display(Name = "Terugbrengdatum")]
-        public DateTime? BroughtBackDate { get; private set; }
+        public DateTime? BroughtBackDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [Display(Name = "Afhaaldatum")]
-        public DateTime? PickUpDate { get; private set; }
-        public MaterialViewModel Material { get; private set; }
+        public DateTime? PickUpDate { get; set; }
+        public MaterialViewModel Material { get; set; }
         public ReservationDetailViewModel(ReservationDetail detail)
         {
             if (detail.BroughtBackDate.HasValue) BroughtBackDate = detail.BroughtBackDate.Value;
@@ -54,7 +54,6 @@ namespace IIM.ViewModels.ReservationViewModels
             Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
         }
     }
-
 
     public class NewReservationViewModel
     {
@@ -130,7 +129,7 @@ namespace IIM.ViewModels.ReservationViewModels
     public class ReservationDetailSelectionViewModel
     {
         [Display(Name = "Maximaal aantal")]
-        public int MaxAmount { get; private set; }
+        public int MaxAmount { get; set; }
         [Display(Name = "Gewenst aantal")]
         public int RequestedAmount { get; set; }
         [Display()]

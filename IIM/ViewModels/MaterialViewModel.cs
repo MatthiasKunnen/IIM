@@ -19,13 +19,13 @@ namespace IIM.ViewModels
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
         public int Id { get; set; }
-        [Display(Name = "Foto")]
-        public string Image { get; set; }
+        [Display(Name = "Codering")]
+        public string Encoding { get; set; }
         [Display(Name = "Firma")]
         public Firm Firm { get; set; }
         [Display(Name = "Naam")]
         public string Name { get; set; }
-        [Display(Name = "Url van foto")]
+        [Display(Name = "Foto")]
         public string PhotoUrl
         {
             get { return _photoUrl ?? "~/Content/photo-coming-soon.jpg"; }
@@ -45,7 +45,7 @@ namespace IIM.ViewModels
             Curriculars = m.Curriculars;
             Firm = m.Firm;
             Description = m.Description;
-            Image = m.Encoding;
+            Encoding = m.Encoding;
             Firm = m.Firm;
             Name = m.Name;
             PhotoUrl = $"{AppSettings.ImageStorageUrl}/{m.Id}.{m.Encoding}";

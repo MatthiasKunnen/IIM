@@ -233,6 +233,7 @@
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Helpers\HoGentLoginManager.cs" />
+    <Compile Include="Helpers\MailService.cs" />
     <Compile Include="Infrastucture\ApplicationUserModelBinder.cs" />
     <Compile Include="Infrastucture\ReservationDateRangeBinder.cs" />
     <Compile Include="Migrations\201604131652109_Initial.cs" />
@@ -348,6 +349,7 @@
     <Content Include="Models\Domain\domain.cd" />
     <Content Include="App_Data\settings.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CustomScripts\Hijax.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
