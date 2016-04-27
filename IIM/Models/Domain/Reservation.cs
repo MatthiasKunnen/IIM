@@ -66,31 +66,18 @@ namespace IIM.Models.Domain
             return details;
         }
 
-        public Boolean sendConfirmation()
+        public string ReservationBody()
         {
-            try {
-                MailMessage mail = new MailMessage("donotreply.iim@gmail.com", User.Email);
-                SmtpClient client = new SmtpClient();
-                client.Port = 25;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Host = "smtp.google.com";
-                mail.Subject = "Bevestiging van uw reservatie.";
-                mail.Body = String.Format("Beste %s %s%n%nHierbij krijgt u een bevestiging van uw reservatie.%nOphalen : %s%nTerugbrengen : %s%n%nGereserveerde items: %s",
+            return
+                string.Format(
+                    "Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
                     User.FirstName,
                     User.LastName,
                     StartDate.ToShortDateString(),
                     EndDate.ToShortDateString(),
-                    this.DetailToString());
-                client.Send(mail);
-                return true;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            
+                    DetailToString());
         }
+
+   
     }
 }

@@ -233,6 +233,7 @@
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Helpers\HoGentLoginManager.cs" />
+    <Compile Include="Helpers\MailService.cs" />
     <Compile Include="Infrastucture\ApplicationUserModelBinder.cs" />
     <Compile Include="Infrastucture\ReservationDateRangeBinder.cs" />
     <Compile Include="Migrations\201604131652109_Initial.cs" />

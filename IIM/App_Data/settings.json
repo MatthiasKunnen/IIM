@@ -16,5 +16,14 @@
                 "DefaultRestrictionType": "Allow"
             }
         }
-    }
+    },
+    "Emails": {
+        "donotreply.iim@gmail.com": {
+            "Password": "Pieteriscool",
+            "Port": 587,
+            "Host": "smtp.gmail.com",
+            "EnableSSL": "true"
+        }
+    },
+    "DefaultEmailOrigin": "donotreply.iim@gmail.com"
 }
