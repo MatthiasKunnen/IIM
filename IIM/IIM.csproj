@@ -233,6 +233,7 @@
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Helpers\HoGentLoginManager.cs" />
+    <Compile Include="Helpers\MailService.cs" />
     <Compile Include="Infrastucture\ApplicationUserModelBinder.cs" />
     <Compile Include="Infrastucture\ReservationDateRangeBinder.cs" />
     <Compile Include="Migrations\201604131652109_Initial.cs" />
@@ -268,6 +269,7 @@
       <DependentUpon>201604171440126_RemovedSuperfluousUserTemp_CartID.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DAL\CurricularRepository.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
     <Compile Include="Models\DAL\Mapper\CartMapper.cs" />
     <Compile Include="Models\DAL\Mapper\MaterialIdentifierMapper.cs" />
@@ -275,10 +277,13 @@
     <Compile Include="Models\DAL\Mapper\ReservationMapper.cs" />
     <Compile Include="Models\DAL\Mapper\UserMapper.cs" />
     <Compile Include="Models\DAL\ReservationRepository.cs" />
+    <Compile Include="Models\DAL\TargetGroupRepository.cs" />
     <Compile Include="Models\DAL\UserRepository.cs" />
     <Compile Include="Models\Domain\Cart.cs" />
     <Compile Include="Models\Domain\DateTimeRestriction.cs" />
+    <Compile Include="Models\Domain\ICurricularRepository.cs" />
     <Compile Include="Models\Domain\IReservationRepository.cs" />
+    <Compile Include="Models\Domain\ITargetGroupRepository.cs" />
     <Compile Include="Models\Domain\IUserRepository.cs" />
     <Compile Include="Models\Domain\MaterialIdentifier.cs" />
     <Compile Include="Models\DAL\IIMContext.cs" />
@@ -333,7 +338,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -344,6 +349,7 @@
     <Content Include="Models\Domain\domain.cd" />
     <Content Include="App_Data\settings.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CustomScripts\Hijax.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -389,6 +395,7 @@
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Inventory\Detail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="ViewModels\ViewModels.cd" />
     <None Include="Views\Account\RealUserName.cshtml" />
     <None Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Reservation\Index.cshtml" />
@@ -397,6 +404,8 @@
     <Content Include="Views\Reservation\ShowDetails.cshtml" />
     <Content Include="Views\Reservation\ReservationDateRangePartial.cshtml" />
     <Content Include="Views\Reservation\Create.cshtml" />
+    <Content Include="Views\Reservation\ReservationMaterialPickerPartial.cshtml" />
+    <Content Include="Views\Inventory\MaterialOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

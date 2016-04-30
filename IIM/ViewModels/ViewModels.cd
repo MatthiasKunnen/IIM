@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IIM.ViewModels.ReservationViewModels.ReservationViewModel">
+    <Position X="13" Y="3.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>QAACAAAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ViewModels\ReservationViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.ViewModels.ReservationViewModels.ReservationDetailViewModel">
+    <Position X="13" Y="1.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AEAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>ViewModels\ReservationViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.ViewModels.ReservationViewModels.NewReservationViewModel">
+    <Position X="5.5" Y="1.5" Width="3" />
+    <AssociationLine Name="ReservationDateRange" Type="IIM.ViewModels.ReservationViewModels.ReservationDateRangeViewModel" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="7.938" Y="2.603" />
+        <Point X="7.938" Y="2.978" />
+        <Point X="7.938" Y="2.978" />
+        <Point X="7.938" Y="4" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>ViewModels\ReservationViewModels.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ReservationMaterials" />
+      <Property Name="ReservationDateRange" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IIM.ViewModels.ReservationViewModels.NewReservationMaterialsViewModel">
+    <Position X="3" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ReservationViewModels.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Materials" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="IIM.ViewModels.ReservationViewModels.ReservationDateRangeViewModel">
+    <Position X="7.25" Y="4" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAQAAEAAAAA=</HashCode>
+      <FileName>ViewModels\ReservationViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.ViewModels.ReservationViewModels.ReservationDetailSelectionViewModel">
+    <Position X="3" Y="5.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>ViewModels\ReservationViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.ViewModels.MaterialViewModel">
+    <Position X="21.25" Y="1.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAQAgAAAAgAAIAAQAAAACBBAAAIAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MaterialViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.IndexViewModel">
+    <Position X="31.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAQAAAEAEA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.ManageLoginsViewModel">
+    <Position X="28.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.FactorViewModel">
+    <Position X="28.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.SetPasswordViewModel">
+    <Position X="30" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.ChangePasswordViewModel">
+    <Position X="31.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.AddPhoneNumberViewModel">
+    <Position X="30" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.VerifyPhoneNumberViewModel">
+    <Position X="28.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IIM.Models.ConfigureTwoFactorViewModel">
+    <Position X="30" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

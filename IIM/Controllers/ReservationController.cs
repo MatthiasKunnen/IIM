@@ -1,14 +1,10 @@
-﻿using IIM.ViewModels;
-using IIM.ViewModels.ReservationViewModels;
+﻿using IIM.ViewModels.ReservationViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using IIM.Models;
 using IIM.Models.Domain;
-using WebGrease.Css.Extensions;
+using System.Collections.Generic;
 
 namespace IIM.Controllers
 {
@@ -38,8 +34,8 @@ namespace IIM.Controllers
             if (isDateRangeValid)
             {
                 func = material =>
-                        _reservationRepository.GetAmountOfAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
-                            reservationDateRangeViewModel.EndDate, material);
+                    material.GetAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
+                        reservationDateRangeViewModel.EndDate).Count();
             }
             var materials = user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, func.Invoke(m), 0));
             var materialsPicker = new NewReservationMaterialsViewModel(materials, false);
@@ -48,29 +44,33 @@ namespace IIM.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeReservationRange(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, DateTime startDate, DateTime endDate)
+        public ActionResult ChangeReservationRange(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, DateTime startDate, DateTime? endDate)
         {
             reservationDateRangeViewModel.SetType(user.Type);
             reservationDateRangeViewModel.StartDate = startDate;
-            reservationDateRangeViewModel.EndDate = endDate;
+            reservationDateRangeViewModel.EndDate = endDate ?? GetNextWeekday(startDate, DayOfWeek.Friday);
             return RedirectToAction("Create");
         }
 
-        public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationViewModel newReservationModel)
+        public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationMaterialsViewModel reservationMaterialsViewModel)
         {
-            var res = user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
-            foreach (var details in newReservationModel.ReservationMaterials.Materials.Select(material => _reservationRepository.GetAvailableIdentifiers(
-                res.StartDate,
-                res.EndDate,
-                material.RequestedAmount,
-                _materialRepository.FindById(material.Material.Id))
-                .Select(mi => new ReservationDetail(res, mi)).ToList()))
+            Dictionary<Material, int> requestedMaterials = new Dictionary<Material, int>();
+            foreach (var detail in reservationMaterialsViewModel.Materials)
             {
-                res.AddAllDetails(details);
+                requestedMaterials.Add(_materialRepository.FindById(detail.Material.Id), detail.RequestedAmount);
             }
 
-            return View("Index");
+            user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate, requestedMaterials);
+            _reservationRepository.SaveChanges();
+            return RedirectToAction("Index");
         }
 
+        private static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
+        {
+            var result = start.AddDays(1);
+            while (result.DayOfWeek != day)
+                result = result.AddDays(1);
+            return result;
+        }
     }
 }

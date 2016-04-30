@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace IIM.Models.Domain
 {
@@ -15,14 +14,29 @@ namespace IIM.Models.Domain
             private set { _materials = value; }
         }
         public DateTime CreationDate { get; private set; }
-        public void AddMaterial(Material material)
+        public bool AddMaterial(Material material)
         {
-            Materials.Add(material);
+            if (Materials.Contains(material))
+            {
+                return false;
+            }
+            else
+            {
+                Materials.Add(material);
+                return true;
+            }
         }
-        public void RemoveMaterial(Material material)
+
+        public bool RemoveMaterial(Material material)
         {
-            Materials.Remove(material);
+            return Materials.Remove(material);
         }
+
+        public Material GetMaterial(int id)
+        {
+            return Materials.First(m => m.Id == id);
+        }
+
         public Boolean AlreadyInCart(int id)
         {
             if (Materials.FirstOrDefault(m => m.Id.Equals(id)) != null)

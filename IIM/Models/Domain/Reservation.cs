@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
+using WebGrease.Css.Extensions;
 
 namespace IIM.Models.Domain
 {
     public class Reservation
     {
         private readonly IReservationManager _reservationManager;
-       
+
         protected Reservation()
         {
         }
@@ -27,7 +29,7 @@ namespace IIM.Models.Domain
         public DateTime CreationDate { get; private set; }
 
         public DateTime StartDate { get; private set; }
-    
+
         public DateTime EndDate { get; private set; }
 
         public ApplicationUser User { get; private set; }
@@ -54,19 +56,21 @@ namespace IIM.Models.Domain
             details.ForEach(d => Details.Remove(d));
         }
 
-
-        //WIP
-        public void AddCart(Cart cart, IReservationRepository reservationRepository)
+        public void AddMaterial(Material material, int count)
         {
-            List<MaterialIdentifier> identifiers = new List<MaterialIdentifier>();
-
-            foreach (Material m in cart.Materials)
+            List<MaterialIdentifier> identifiers = material.GetAvailableIdentifiers(StartDate, EndDate).ToList();
+            int idCount = identifiers.Count();
+            IEnumerable<MaterialIdentifier> previousIdentifiers = User.GetPreviousIdentifierRange(StartDate.Subtract(TimeSpan.FromDays(7)), EndDate.AddDays(7), material);
+            if (idCount < count)
             {
-                //identifiers.AddRange(reservationRepository.GetAvailableIdentifiers(this.StartDate,this.EndDate,cart.Materials[m],m));
+                IEnumerable<ReservationDetail> overridableDetails = material.GetReservationRange(StartDate, EndDate).SelectMany(r => r.GetOverridableIdentifiers(material));
+                overridableDetails = overridableDetails.OrderByDescending(d => d.Reservation.CreationDate);
+                //methode om mail te sturen naar overriden user waiting for mailservice                
+                overridableDetails.OrderBy(d => !previousIdentifiers.Contains(d.MaterialIdentifier)).Take(count - idCount).ForEach(d => d.OverwriteDetail(this));
+                count -= count - idCount;
             }
 
-            AddAllDetails(identifiers.ConvertAll<ReservationDetail>(m => new ReservationDetail(this, m)));
-
+            AddAllDetails(identifiers.OrderBy(i => !previousIdentifiers.Contains(i)).Take(count).Select(i => new ReservationDetail(this, i)).ToList());
         }
 
         public List<ReservationDetail> GetOverridableIdentifiers(Material material)
@@ -77,35 +81,31 @@ namespace IIM.Models.Domain
         public String DetailToString()
         {
             var details = "";
-            Details.ForEach(i => details += i.MaterialIdentifier.Material.Name + " ");
+            Dictionary<Material, int> overview = new Dictionary<Material, int>();
+            Details.ForEach(d =>
+            {
+                if (overview.ContainsKey(d.MaterialIdentifier.Material)) {
+                    overview[d.MaterialIdentifier.Material] += 1;
+                }
+                else {
+                    overview[d.MaterialIdentifier.Material] = 1;
+                }
+            });
+            overview.Keys.ForEach(k => details += k.Name + " : " + overview[k] + "\n" );
             return details;
         }
 
-        public Boolean sendConfirmation()
+
+        public string ReservationBody()
         {
-            try {
-                MailMessage mail = new MailMessage("donotreply.iim@gmail.com", User.Email);
-                SmtpClient client = new SmtpClient();
-                client.Port = 25;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
-                client.Host = "smtp.google.com";
-                mail.Subject = "Bevestiging van uw reservatie.";
-                mail.Body = String.Format("Beste %s %s%n%nHierbij krijgt u een bevestiging van uw reservatie.%nOphalen : %s%nTerugbrengen : %s%n%nGereserveerde items: %s",
+            return
+                string.Format(
+                    "Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
                     User.FirstName,
                     User.LastName,
                     StartDate.ToShortDateString(),
                     EndDate.ToShortDateString(),
                     this.DetailToString());
-                client.Send(mail);
-                return true;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            
         }
     }
 }

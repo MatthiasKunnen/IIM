@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using IIM.Models.DAL;
-using Ninject.Infrastructure.Language;
 
 namespace IIM.Models.Domain
 {
@@ -18,6 +16,21 @@ namespace IIM.Models.Domain
         public string Name { get; private set; }
         public decimal Price { get; private set; }
         public virtual List<TargetGroup> TargetGroups { get; private set; }
-        
+
+        public IEnumerable<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate)
+        {
+            return Identifiers.Where(i => i.IsAvailable(startDate, endDate,Type.Student));
+        }
+
+        public int GetAvailableIdentifierCount(DateTime startDate, DateTime endDate, Type userType)
+        {
+                return Identifiers.Count(i => i.IsAvailable(startDate, endDate, userType));
+        }
+
+
+        internal IEnumerable<Reservation> GetReservationRange(DateTime startDate, DateTime endDate)
+        {
+            return Identifiers.SelectMany(i => i.GetDetailRange(startDate, endDate).Select(d => d.Reservation));
+        }
     }
 }

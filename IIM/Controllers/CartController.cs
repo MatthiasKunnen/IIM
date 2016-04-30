@@ -28,17 +28,15 @@ namespace IIM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(ApplicationUser user, int id)
         {
-            TempData["error"] = "Het item kon niet uit de verlanglijstje verwijderd worden.";
-            var materialsInCart = user.WishList?.Materials;
-            if (materialsInCart != null)
+            var materialToDelete = user.GetMaterialFromCart(id);
+            if (user.RemoveMaterialFromCart(materialToDelete))
             {
-                var materialToDelete = materialsInCart.First(m => m.Id == id);
-                if (materialsInCart.Remove(materialToDelete))
-                {
-                    _userRepository.SaveChanges();
-                    TempData["success"] = $"{materialToDelete.Name} werd verwijderd uit de verlanglijstje.";
-                    TempData.Remove("error");
-                }
+                _userRepository.SaveChanges();
+                TempData["success"] = $"{materialToDelete.Name} werd verwijderd uit uw verlanglijst.";
+            }
+            else
+            {
+                TempData["error"] = "Het item kon niet uit uw verlanglijst verwijderd worden.";
             }
             return RedirectToAction("Index");
         }
@@ -47,12 +45,16 @@ namespace IIM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(ApplicationUser user, int id)
         {
-            TempData["error"] = "Het materiaal kon niet toegevoegd worden.";
             var material = _materialRepository.FindById(id);
-            (user.WishList ?? user.CreateWishList()).AddMaterial(material);
-            _userRepository.SaveChanges();
-            TempData.Remove("error");
-            TempData["success"] = $"\"{material.Name}\" werd toegevoegd aan uw verlanglijstje.";
+            if (user.AddMaterialToCart(material))
+            {
+                _userRepository.SaveChanges();
+                TempData["success"] = $"\"{material.Name}\" werd toegevoegd aan uw verlanglijst.";
+            }
+            else
+            {
+                TempData["error"] = "Het materiaal kon niet toegevoegd worden aan uw verlanglijst.";
+            }
             return RedirectToAction("Index", "Inventory");
         }
 
@@ -60,11 +62,11 @@ namespace IIM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Clear(ApplicationUser user)
         {
-            TempData["error"] = "Uw verlanglijstje kon niet leeggemaakt worden.";
+            TempData["error"] = "Uw verlanglijst kon niet leeggemaakt worden.";
             user.ClearWishList();
             _userRepository.SaveChanges();
             TempData.Remove("error");
-            TempData["success"] = "Uw verlanglijstje werd geleegd.";
+            TempData["success"] = "Uw verlanglijst werd geleegd.";
             return RedirectToAction("Index", "Cart");
         }
     }

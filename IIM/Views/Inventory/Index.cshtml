@@ -1,75 +1,44 @@
 ﻿@using IIM.ViewModels
-@using IIM.Models.Domain
-@model IEnumerable<MaterialViewModel>
+@model InventoryViewModel
 
 @{
     ViewBag.Title = "Inventaris";
     ViewBag.Active = "Inventory";
 }
 
-<h2>Materialen</h2><br />
-@using (Html.BeginForm("Index", "Inventory", FormMethod.Get, new { @class = "form-inline search-function" }))
+@section Scripts{
+    <script src="~/Scripts/CustomScripts/Hijax.js"></script>
+}
+
+<h2>Materialen</h2>
+@using (Html.BeginForm("Index", "Inventory", FormMethod.Get, new { @class = "form-inline search-function hijax", data_hijax_id = "0" }))
 {
-    @CreateSearchControl("SearchName", "Zoeken op naam")
-    @CreateSearchControl("searchCurricular", "Zoeken op leergebied")
-    @CreateSearchControl("searchFirm", "Zoeken op firma")
-    @CreateSearchControl("searchTargetGroup", "Zoeken op doelgroep")
+    @CreateSearchControl("SearchName", "naam")
+    @CreateSearchControl("searchCurricular", "leergebied", Model.CurricularModels, Model.CurricularSelectedValue.Name)
+    @CreateSearchControl("searchTargetGroup", "doelgroep", Model.TargetGroupModels, Model.TargetGroupSelectedValue.Name)
     <input type="submit" class="btn btn-default" value="Zoek" />
 }
 
-@helper CreateSearchControl(string id, string placeholder)
+@helper CreateSearchControl(string id, string placeholder, IEnumerable<SearchableItemModel> input = null, string defaultValue = null)
 {
     <div class="form-group">
-        <label class="sr-only" for="@id">@placeholder</label>
-        <input type="text" class="form-control" name="@id" id="@id" placeholder="@placeholder">
+        <label class="sr-only" for="@id">Zoeken op @placeholder</label>
+        @if (input == null)
+        {
+            <input type="text" class="form-control" name="@id" id="@id" placeholder="Zoeken op @placeholder">
+        }
+        else
+        {
+            <select id="@id" name="@id" class="form-control">
+                <option value="" @(defaultValue == null ? "selected" : "")>@($"--Selecteer een {placeholder}--")</option>
+                @foreach (var item in input)
+                {
+                    <option value="@item.Name" @(item.Name.Equals(defaultValue) ? "selected" : "")>@item.Name</option>
+                }
+            </select>
+        }
     </div>
 }
-
-    @if (Model != null && Model.Any())
-    {
-        <div class="clearfix">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Image)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th>Acties</th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            <p class="imgCenter"><img src="@Url.Content(item.PhotoUrl)" class="img-rounded  " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" /></p>
-                        </td>
-                        <td>
-                            <h4>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</h4>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                          @{Html.RenderPartial("_Button", item);
-                          }
-                        </td>
-                    </tr>
-                                }
-            </table>
-        </div>
-                                }
-                                else
-                                {
-                                    <p>Er zijn geen materialen gevonden.</p>
-                                }
+<div class="hijax-result" data-hijax-id="0">
+    @Html.Partial("MaterialOverview", Model.MaterialViewModels)    
+</div>

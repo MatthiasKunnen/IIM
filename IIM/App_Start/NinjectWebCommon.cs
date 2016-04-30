@@ -64,8 +64,10 @@ namespace IIM.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ICurricularRepository>().To<CurricularRepository>().InRequestScope();
             kernel.Bind<IMaterialRepository>().To<MaterialRepository>().InRequestScope();
             kernel.Bind<IReservationRepository>().To<ReservationRepository>().InRequestScope();
+            kernel.Bind<ITargetGroupRepository>().To<TargetGroupRepository>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             kernel.Bind<IIMContext>().ToSelf().InRequestScope();
         }        

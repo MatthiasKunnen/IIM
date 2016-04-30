@@ -1,4 +1,7 @@
-﻿@model IIM.ViewModels.MaterialViewModel
+﻿@using System.Linq.Expressions
+@using IIM.Helpers
+@using IIM.ViewModels
+@model MaterialViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -11,7 +14,6 @@
             <img src="@Url.Content(Model.PhotoUrl)" class="img-rounded center-block" alt="Foto van @Html.DisplayFor(modelItem => Model.Name)" />
             @using (Html.BeginForm("Index", "Inventory"))
             {
-
                 <button class="back">
                     <span class="glyphicon glyphicon-circle-arrow-left"></span>
                 </button>
@@ -19,78 +21,57 @@
         </div>
         <div class="col-sm-9">
             <dl class="dl-horizontal" id="detail">
-                <dt >
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-
+                @CreateDescription(model => model.Name)
+                @CreateDescription(model => model.ArticleNr)
+                @CreateDescription(model => model.Description)
+                <dt>@Html.DisplayNameFor(model => model.Firm)</dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.ArticleNr)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.ArticleNr)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                @if (Model.Firm != null)
-                {
-                <dt>
-                    @Html.DisplayNameFor(model => model.Firm)
-                </dt>
-
-                <dd>
+                    @(Model.Firm == null ? "Geen firma" : Html.DisplayFor(model => model.Firm.Name).ToString())
                     @Html.DisplayFor(model => model.Firm.Name)
                     <br />
-                    @(Model.Firm.Email.IsEmpty() ? "Geen emailadres beschikbaar" : @Html.DisplayFor(model => model.Firm.Email).ToString())
+                    @(Model.Firm?.Email.IsEmpty() ?? true ? "Geen emailadres beschikbaar" : @Html.DisplayFor(model => model.Firm.Email).ToString())
                     <br />
-                    @(Model.Firm.PhoneNumber.IsEmpty() ? "Geen telefoonnummer beschikbaar" : @Html.DisplayFor(model => model.Firm.PhoneNumber).ToString())
+                    @(Model.Firm?.PhoneNumber.IsEmpty() ?? true ? "Geen telefoonnummer beschikbaar" : @Html.DisplayFor(model => model.Firm.PhoneNumber).ToString())
                     <br />
-                    @(Model.Firm.Website.IsEmpty() ? "Geen website beschikbaar" : @Html.DisplayFor(model => model.Firm.Website).ToString())
+                    @(Model.Firm?.Website.IsEmpty() ?? true ? "Geen website beschikbaar" : @Html.DisplayFor(model => model.Firm.Website).ToString())
                 </dd>
-                }
-@if (Model.Curriculars != null)
-{
-                <dt>
-                    @Html.DisplayNameFor(model => model.Curriculars)
-                </dt>
-                foreach (var item in Model.Curriculars)
-                {
-                    <dd>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </dd>
-                }
-}
-@if (Model.TargetGroups != null)
-{
-                <dt>
-                    @Html.DisplayNameFor(model => model.TargetGroups)
-                </dt>
-                foreach (var item in Model.TargetGroups)
-                {
-                    <dd>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </dd>
-                }
-}
-                <dt>
-                    @Html.DisplayNameFor(model => model.Price)
-                </dt>
+                <dt>@Html.DisplayNameFor(model => model.Curriculars)</dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Price)
+                    @if (Model.Curriculars != null)
+                    {
+                        @Html.Raw(string.Join(", ", Model.Curriculars.Select(item => Html.DisplayFor(modelItem => item.Name))));
+                    }
+                    else
+                    {
+                        @:Geen leergebieden
+                    }
                 </dd>
+                <dt>@Html.DisplayNameFor(model => model.TargetGroups)</dt>
+                <dd>
+                    @if (Model.TargetGroups != null)
+                    {
+                        @Html.Raw(string.Join(", ", Model.TargetGroups.Select(item => Html.DisplayFor(modelItem => item.Name))));
+                    }
+                    else
+                    {
+                        @:Geen doelgroepen
+                    }
+                </dd>
+                @CreateDescription(model => model.Price)
             </dl>
-
-            @{Html.RenderPartial("_Button", Model);}        
-            
+            @Html.Partial("_Button", Model)
         </div>
+    </div>
 </div>
-</div>
+
+@helper CreateDescription(Expression<Func<MaterialViewModel, object>> property)
+{
+    <dt>@Html.DisplayNameFor(property)</dt>
+    <dd>@Html.DisplayFor(property)</dd>
+}
+
+@helper CreateDescription(Expression<Func<MaterialViewModel, decimal>> property)
+{
+    <dt>@Html.DisplayNameFor(property)</dt>
+    <dd>@Html.DisplayFor(property)</dd>
+}
