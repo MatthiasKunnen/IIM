@@ -64,6 +64,12 @@ namespace IIM.Tests.Models.Domain
             Assert.IsFalse(_reservation.Details.Contains(_context.Res1_Detail2));
         }
         
+        [TestMethod]
+        public void GetOverridableIdentifiersTest()
+        {      
+            List<ReservationDetail> list = new List<ReservationDetail> { _context.Res1_Detail1 };
+            Assert.AreEqual(list.Count, _reservation.GetOverridableIdentifiers(_context.Werelbol).Count);
+        }
 
     }
 }
