@@ -73,7 +73,7 @@ namespace IIM.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl, bool tryRegister = true)
         {
             if (!ModelState.IsValid)
             {
@@ -92,6 +92,8 @@ namespace IIM.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    if (!tryRegister)
+                        goto default;
                     var user = await UserManager.FindByEmailAsync(model.Email);
                     if (user == null)
                     {
@@ -121,19 +123,8 @@ namespace IIM.Controllers
                                     return View(model);
                             }
                             var identityCreationResult = UserManager.Create(applicationUser, model.Password);
-                            if (!identityCreationResult.Succeeded)
-                                throw new ApplicationException(identityCreationResult.Errors.ToString());
-                            result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
-                            switch (result)
-                            {
-                                case SignInStatus.Success:
-                                    return RedirectToLocal(returnUrl);
-                                case SignInStatus.LockedOut:
-                                    return View("Lockout");
-                                case SignInStatus.RequiresVerification:
-                                    return RedirectToAction("SendCode",
-                                        new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                            }
+                            if (identityCreationResult.Succeeded) return (await Login(model, returnUrl, false));
+                            ModelState.AddModelError("", identityCreationResult.Errors.ToString());
                         }
                     }
                     goto default;
