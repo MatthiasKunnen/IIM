@@ -267,6 +267,10 @@
     <Compile Include="Migrations\201604171440126_RemovedSuperfluousUserTemp_CartID.Designer.cs">
       <DependentUpon>201604171440126_RemovedSuperfluousUserTemp_CartID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605011817466_ToIdentifyingRelations.cs" />
+    <Compile Include="Migrations\201605011817466_ToIdentifyingRelations.Designer.cs">
+      <DependentUpon>201605011817466_ToIdentifyingRelations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DAL\CurricularRepository.cs" />
     <Compile Include="Models\DAL\IIMInitializer.cs" />
@@ -438,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604171440126_RemovedSuperfluousUserTemp_CartID.resx">
       <DependentUpon>201604171440126_RemovedSuperfluousUserTemp_CartID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605011817466_ToIdentifyingRelations.resx">
+      <DependentUpon>201605011817466_ToIdentifyingRelations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

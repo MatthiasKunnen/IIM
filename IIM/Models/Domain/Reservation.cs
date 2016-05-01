@@ -7,7 +7,8 @@ namespace IIM.Models.Domain
     public class Reservation
     {
         private readonly IReservationManager _reservationManager;
-       
+        private string _userId;
+
         protected Reservation()
         {
         }
@@ -24,10 +25,16 @@ namespace IIM.Models.Domain
 
         public int Id { get; private set; }
 
+        public string UserId
+        {
+            get { return  _userId ?? (_userId = User?.Id); }
+            set { _userId = value; }
+        }
+
         public DateTime CreationDate { get; private set; }
 
         public DateTime StartDate { get; private set; }
-    
+
         public DateTime EndDate { get; private set; }
 
         public ApplicationUser User { get; private set; }
@@ -78,6 +85,11 @@ namespace IIM.Models.Domain
                     DetailToString());
         }
 
-   
+        public void ScheduleDelete()
+        {
+            Details.ForEach(rd => rd.ScheduleDelete());
+            Details.Clear();
+            Details = null;
+        }
     }
 }

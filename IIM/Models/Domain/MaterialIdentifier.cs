@@ -5,8 +5,15 @@ namespace IIM.Models.Domain
 {
     public class MaterialIdentifier
     {
+        private int? _materialId;
 
         public int Id { get; private set; }
+
+        public int MaterialId
+        {
+            get { return _materialId ?? (_materialId = Material.Id).Value; }
+            set { _materialId = value; }
+        }
 
         public string Place { get; private set; }
 

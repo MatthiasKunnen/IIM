@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity.ModelConfiguration;
 using IIM.Models.Domain;
 
 namespace IIM.Models.DAL.Mapper
@@ -12,17 +8,16 @@ namespace IIM.Models.DAL.Mapper
         public CartMapper()
         {
             ToTable("Cart");
-            HasKey(c => c.Id);
+            HasKey(c => new { c.Id, c.UserId });
 
             Property(c => c.CreationDate).IsRequired();
 
             HasMany(c => c.Materials).WithMany().Map(m =>
             {
                 m.ToTable("CartMaterial");
-                m.MapLeftKey("CartId");
+                m.MapLeftKey("CartId", "UserId");
                 m.MapRightKey("MaterialId");
             });
-
         }
     }
 }

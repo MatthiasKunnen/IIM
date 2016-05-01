@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using IIM.Models.Domain;
 
 namespace IIM.Models.DAL.Mapper
 {

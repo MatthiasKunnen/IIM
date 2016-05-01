@@ -8,7 +8,7 @@ namespace IIM.Models.DAL.Mapper
         public MaterialIdentifierMapper()
         {
             ToTable("MaterialIdentifier");
-            HasKey(m => m.Id);
+            HasKey(m => new { m.Id, m.MaterialId });
 
             Property(m => m.Place).IsRequired();
             Property(m => m.Visibility).IsRequired();

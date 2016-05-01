@@ -23,5 +23,12 @@ namespace IIM.Models.Domain
         public virtual Reservation Reservation { get; private set; }
 
         public virtual MaterialIdentifier MaterialIdentifier { get; private set; }
+
+        public void ScheduleDelete()
+        {
+            Reservation = null;
+            MaterialIdentifier.ReservationDetails.Remove(this);
+            MaterialIdentifier = null;
+        }
     }
 }

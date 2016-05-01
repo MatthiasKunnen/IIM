@@ -31,10 +31,8 @@ namespace IIM.Models
 
         public void ClearWishList()
         {
-            if (WishList != null)
-            {
-                IIMContext.Create().Entry(WishList).State = EntityState.Deleted;
-            }
+            WishList?.Clear();
+            WishList = null;
         }
 
         public Reservation CreateReservation(DateTime startDate, DateTime endDate)
@@ -46,7 +44,7 @@ namespace IIM.Models
 
         public bool AddMaterialToCart(Material material)
         {
-            return (WishList ?? (WishList = new Cart())).AddMaterial(material);
+            return (WishList ?? (WishList = new Cart() {UserId = Id})).AddMaterial(material);
         }
 
         public bool RemoveMaterialFromCart(Material material)
@@ -57,6 +55,14 @@ namespace IIM.Models
         public Material GetMaterialFromCart(int id)
         {
             return WishList?.GetMaterial(id);
+        }
+
+        public void ScheduleDelete()
+        {
+            ClearWishList();
+            Reservations?.ForEach(r => r.ScheduleDelete());
+            Reservations?.Clear();
+            Reservations = null;
         }
     }
 }

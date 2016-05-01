@@ -15,7 +15,7 @@ namespace IIM.Models.DAL.Mapper
             Property(m => m.Encoding).IsOptional();
             Property(m => m.Price).IsOptional();
 
-            HasOptional(m => m.Firm).WithMany().Map(m => m.MapKey("FirmId")).WillCascadeOnDelete(false);
+            HasOptional(m => m.Firm).WithMany().Map(m => m.MapKey("FirmId"));
 
             HasMany(m => m.Curriculars).WithMany().Map(m =>
             {

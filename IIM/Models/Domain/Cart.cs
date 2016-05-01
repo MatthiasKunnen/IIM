@@ -8,6 +8,9 @@ namespace IIM.Models.Domain
     {
         private List<Material> _materials;
         public int Id { get; private set; }
+
+        public string UserId { get; set; }
+
         public virtual List<Material> Materials
         {
             get { return _materials ?? (_materials = new List<Material>()); }
@@ -37,13 +40,15 @@ namespace IIM.Models.Domain
             return Materials.First(m => m.Id == id);
         }
 
-        public Boolean AlreadyInCart(int id)
+        public bool AlreadyInCart(int id)
         {
-            if (Materials.FirstOrDefault(m => m.Id.Equals(id)) != null)
-            {
-                return true;
-            }
-            return false;
+            return Materials.FirstOrDefault(m => m.Id.Equals(id)) != null;
+        }
+
+        public void Clear()
+        {
+            Materials.Clear();
+            Materials = null;
         }
 
         public Cart()
