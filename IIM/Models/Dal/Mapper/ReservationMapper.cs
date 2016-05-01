@@ -9,7 +9,7 @@ namespace IIM.Models.DAL.Mapper
         {
             ToTable("Reservation");
 
-            HasKey(r => r.Id);
+            HasKey(r => new { r.Id, r.UserId});
 
             Property(r => r.CreationDate).IsRequired().HasColumnType("datetime");
             Property(r => r.StartDate).IsRequired().HasColumnType("datetime");
