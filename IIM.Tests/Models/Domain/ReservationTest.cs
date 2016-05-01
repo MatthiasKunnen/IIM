@@ -25,9 +25,9 @@ namespace IIM.Tests.Models.Domain
         [TestMethod]
         public void TestReservationConstructor()
         {
-            Assert.AreEqual(new DateTime(2016, 04, 16), _reservation.CreationDate);
-            Assert.AreEqual(new DateTime(2016, 04, 21), _reservation.StartDate);
-            Assert.AreEqual(new DateTime(2016, 04, 25), _reservation.EndDate);
+            Assert.AreEqual(new DateTime(2016, 06, 1), _reservation.CreationDate);
+            Assert.AreEqual(new DateTime(2016, 06, 06), _reservation.StartDate);
+            Assert.AreEqual(new DateTime(2016, 06, 10), _reservation.EndDate);
             Assert.AreEqual(_context.Student, _reservation.User);
         }
 
@@ -67,7 +67,7 @@ namespace IIM.Tests.Models.Domain
         [TestMethod]
         public void GetOverridableIdentifiersTest()
         {      
-            List<ReservationDetail> list = new List<ReservationDetail> { _context.Res1_Detail1 };
+            List<ReservationDetail> list = _reservation.Details.FindAll(d=>d.MaterialIdentifier.Material==_context.Werelbol);
             Assert.AreEqual(list.Count, _reservation.GetOverridableIdentifiers(_context.Werelbol).Count);
         }
 

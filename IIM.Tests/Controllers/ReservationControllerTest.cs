@@ -57,38 +57,16 @@ namespace IIM.Tests.Controllers
             RedirectToRouteResult result = _controller.ChangeReservationRange(_user, rdrv, new System.DateTime(2016,06,27),new System.DateTime(2016,06,29)) as RedirectToRouteResult;
             Assert.AreEqual("Create", result.RouteValues["action"]);
         }
-
-        //[TestMethod]
-        //public void IndexReturnsSearchResultsOnCurricularAndName()
-        //{
-        //    ViewResult result = _controller.Index(_user, "bal", "Lichamelijke opvoeding", "", "") as ViewResult;
-        //    var materials = result.ViewData.Model as IEnumerable<MaterialViewModel>;
-        //    Assert.AreEqual(1, materials.ToList().Count);
-        //}
-
-        //[TestMethod]
-        //public void IndexReturnsSearchResultsOnFirm()
-        //{
-        //    ViewResult result = _controller.Index(_user, "", "", "firma2", "") as ViewResult;
-        //    var materials = result.ViewData.Model as IEnumerable<MaterialViewModel>;
-        //    Assert.AreEqual(1, materials.ToList().Count);
-        //}
-        //[TestMethod]
-        //public void IndexReturnsSearchResultsOnFirmAndTargetgroup()
-        //{
-        //    ViewResult result = _controller.Index(_user, "", "", "firma2", "tweedeGraad") as ViewResult;
-        //    var materials = result.ViewData.Model as IEnumerable<MaterialViewModel>;
-        //    Assert.AreEqual(1, materials.ToList().Count);
-        //}
-
-
-        //[TestMethod]
-        //public void DetailReturnsSelectedMaterial()
-        //{
-        //    ViewResult result = _controller.Detail(_user, 2) as ViewResult;
-        //    var m = (MaterialViewModel)result.ViewData.Model;
-        //    Assert.AreEqual(2, m.Id);
-        //}
-
+        [TestMethod]
+        public void TestCreateReservation()
+        {
+            var aantal = _user.Reservations.Count;
+            ReservationDateRangeViewModel rdrv = new ReservationDateRangeViewModel(new System.DateTime(2016, 06, 26), new System.DateTime(2016, 07, 03), Type.Student);
+            NewReservationMaterialsViewModel nrmvm = new NewReservationMaterialsViewModel(new List<ReservationDetailSelectionViewModel> { _context.reservationDetailSelectionViewModel }, false);
+            RedirectToRouteResult result = _controller.CreateReservation(_user, rdrv, nrmvm) as RedirectToRouteResult;
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual(aantal + 1, _user.Reservations.Count);
+            _reservationRepository.Verify(u => u.SaveChanges(), Times.Once());
+        }
     }
 }

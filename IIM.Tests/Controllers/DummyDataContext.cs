@@ -3,6 +3,7 @@ using IIM.Models.Domain;
 using IIM.Models;
 using System.Collections.Generic;
 using System;
+using IIM.ViewModels.ReservationViewModels;
 
 namespace IIM.Tests.Controllers
 {
@@ -31,8 +32,10 @@ namespace IIM.Tests.Controllers
         public List<Reservation> Reservations { get; set; }
         public ReservationDetail Res1_Detail1 { get; set; }
         public ReservationDetail Res1_Detail2 { get; set; }
+        public ReservationDetail Res1_Detail3 { get; set; }
         public ReservationDetail Res2_Detail1 { get; set; }
         public ReservationDetail Res2_Detail2 { get; set; }
+        public ReservationDetailSelectionViewModel reservationDetailSelectionViewModel { get; set; }
         public DummyDataContext()
         {
             #region Student
@@ -166,30 +169,35 @@ namespace IIM.Tests.Controllers
             #endregion
 
             #region Reservation1
-            Reservation1 = new Reservation(new DateTime(2016, 04, 16), new DateTime(2016, 04, 21), new DateTime(2016, 04, 25), Student);
+            Reservation1 = new Reservation(new DateTime(2016, 06, 1), new DateTime(2016, 06, 06), new DateTime(2016, 06, 10), Student);
             typeof(Reservation).GetProperty("Id").SetValue(Reservation1, 1);
             Res1_Detail1 = new ReservationDetail(Reservation1, WerelbolIdentifier1);
-            typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res1_Detail1, new DateTime(2016, 04, 21));
-            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail1, new DateTime(2016, 04, 16));
-            Res1_Detail2 = new ReservationDetail(Reservation1, BalIdentifier1); //Nog niet teruggebracht
-            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail2, new DateTime(2016, 04, 21));
+            typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res1_Detail1, new DateTime(2016, 06, 10));
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail1, new DateTime(2016, 06, 06));
+            Res1_Detail2 = new ReservationDetail(Reservation1, BalIdentifier1); 
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail2, new DateTime(2016, 06, 06));
+            typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res1_Detail2, new DateTime(2016, 06, 10));
             typeof(Reservation).GetProperty("Details").SetValue(Reservation1, (new ReservationDetail[] { Res1_Detail1, Res1_Detail2 }).ToList());
+            Res1_Detail3 = new ReservationDetail(Reservation1, WerelbolIdentifier2);
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res1_Detail3, new DateTime(2016, 06, 06));
+            typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res1_Detail3, new DateTime(2016, 06, 10));
+            typeof(Reservation).GetProperty("Details").SetValue(Reservation1, (new ReservationDetail[] { Res1_Detail1, Res1_Detail2, Res1_Detail3 }).ToList());
 
 
             typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(WerelbolIdentifier1, (new ReservationDetail[] { Res1_Detail1 }).ToList());
             typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(BalIdentifier1, (new ReservationDetail[] { Res1_Detail2 }).ToList());
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(WerelbolIdentifier2, (new ReservationDetail[] { Res1_Detail3 }).ToList());
 
             #endregion
 
 
             #region Reservation2
-            Reservation2 = new Reservation(new DateTime(2016, 04, 26), new DateTime(2016, 04, 30), new DateTime(2016, 05, 03), Student);
+            Reservation2 = new Reservation(new DateTime(2016, 06, 08), new DateTime(2016, 06, 13), new DateTime(2016, 06,17), Student);
             typeof(Reservation).GetProperty("Id").SetValue(Reservation2, 1);
             Res2_Detail1 = new ReservationDetail(Reservation2, WerelbolIdentifier2);
-            typeof(ReservationDetail).GetProperty("BroughtBackDate").SetValue(Res2_Detail1, new DateTime(2016, 05, 03));
-            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail1, new DateTime(2016, 04, 30));
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail1, new DateTime(2016, 06, 13));
             Res2_Detail2 = new ReservationDetail(Reservation1, BalIdentifier1); //Nog niet teruggebracht
-            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail2, new DateTime(2016, 04, 30));
+            typeof(ReservationDetail).GetProperty("PickUpDate").SetValue(Res2_Detail2, new DateTime(2016, 06, 13));
             typeof(Reservation).GetProperty("Details").SetValue(Reservation2, (new ReservationDetail[] { Res2_Detail1, Res2_Detail2 }).ToList());
 
             typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(WerelbolIdentifier2, (new ReservationDetail[] { Res2_Detail1 }).ToList());
@@ -200,6 +208,9 @@ namespace IIM.Tests.Controllers
             Reservations = (new Reservation[] { Reservation1, Reservation2 }).ToList();
             typeof(ApplicationUser).GetProperty("Reservations").SetValue(Student, Reservations);
 
+
+            reservationDetailSelectionViewModel = new ReservationDetailSelectionViewModel(Scrumboard, 2, 1);
+            
         }
     }
 }
