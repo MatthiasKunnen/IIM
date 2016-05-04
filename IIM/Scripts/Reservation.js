@@ -1,4 +1,5 @@
-﻿$(":button").click(function () {
+﻿
+$(":button").click(function () {
 
 
     //Kijken op welke knop gedrukt werd en dan gepast doorsturen

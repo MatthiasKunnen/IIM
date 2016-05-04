@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Mail;
+using Microsoft.Ajax.Utilities;
 
 namespace IIM.Models.Domain
 {
@@ -91,6 +92,22 @@ namespace IIM.Models.Domain
                     StartDate.ToShortDateString(),
                     EndDate.ToShortDateString(),
                     DetailToString());
+        }
+
+        public bool isCompleted()
+        {
+            var completed = true;
+
+            foreach (var r in Details)
+            {
+                if (!r.BroughtBackDate.HasValue)
+                {
+                    completed = false;
+                }
+            }
+            
+                return completed;
+            
         }
 
    
