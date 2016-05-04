@@ -17,12 +17,13 @@
             <td>@(item.PickUpDate.HasValue ? Html.DisplayFor(modelItem => item.PickUpDate).ToString() : "Nog niet opgehaald.")</td>
             <td>@(item.BroughtBackDate.HasValue ? Html.DisplayFor(modelItem => item.BroughtBackDate).ToString() : "Nog niet teruggebracht.")</td>
             <td>
-                @using (Html.BeginForm("DeleteIdentifier", "Reservation"))
-                {
-                    @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-default">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
+                    @using (Html.BeginForm("DeleteIdentifier", "Reservation"))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    }
                 }
             </td>
       </tr>
