@@ -51,10 +51,23 @@
                     @Html.DisplayFor(modelItem => item.BroughtBackDate)
                 }
             </td>
-            <td>
-                @if (item.PickUpDate.Equals(new DateTime(01,01,01)))
+            <td >
+                @if (item.MaterialIdentifier.isHere())
                 {
-                    using (Html.BeginForm("DeleteIdentifier", "Reservation", new { mat_Id = item.MaterialIdentifier.Id, rId = item.ReservationId }))
+                    <button id="AllHere" class="btn btn-default" title="Aanwezig">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                }
+                else
+                {
+                    <button id="SomethingMissing" class="btn btn-default" title="Nog niet terug">
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                    </button>
+                }
+
+                @if (item.PickUpDate.Equals(new DateTime(01, 01, 01)))
+                {
+                    using (Html.BeginForm("DeleteIdentifier", "Reservation", new {mat_Id = item.MaterialIdentifier.Id, rId = item.ReservationId}))
                     {
                         @Html.AntiForgeryToken()
                         <button type="submit" class="btn btn-default">
@@ -62,7 +75,7 @@
                         </button>
                     }
                 }
-                
+
             </td>
       </tr>
     }

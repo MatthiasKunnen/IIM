@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using Microsoft.Ajax.Utilities;
 
@@ -8,7 +9,7 @@ namespace IIM.Models.Domain
     public class Reservation
     {
         private readonly IReservationManager _reservationManager;
-       
+
         protected Reservation()
         {
         }
@@ -28,7 +29,7 @@ namespace IIM.Models.Domain
         public DateTime CreationDate { get; private set; }
 
         public DateTime StartDate { get; private set; }
-    
+
         public DateTime EndDate { get; private set; }
 
         public ApplicationUser User { get; private set; }
@@ -94,7 +95,7 @@ namespace IIM.Models.Domain
                     DetailToString());
         }
 
-        public bool isCompleted()
+        public bool IsCompleted()
         {
             var completed = true;
 
@@ -105,11 +106,30 @@ namespace IIM.Models.Domain
                     completed = false;
                 }
             }
-            
-                return completed;
-            
+
+            return completed;
+
         }
 
-   
+        public bool IsEverythingHere()
+        {
+            var everythingHere = true;
+
+            foreach (var detail in Details)
+            {
+                var previousRes =
+                    detail.MaterialIdentifier.ReservationDetails
+                        .LastOrDefault(r => (r.Reservation.StartDate < DateTime.Today)&& (r.PickUpDate != new DateTime(01, 01, 01)));
+
+                if (previousRes == null) continue;
+                if (previousRes.BroughtBackDate == null)
+                {
+                    everythingHere = false;
+                }
+            }
+
+            return everythingHere;
+
+        }
     }
 }

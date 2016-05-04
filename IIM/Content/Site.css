@@ -147,3 +147,23 @@ a:hover{
     text-align: center;
 }
 
+form {
+    display: inline !important;
+}
+
+#AllHere {
+    background-color: white;
+    border: 1px solid green;
+    color: green;
+}
+
+#SomethingMissing {
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+}
+
+div > #SomethingMissing, div > #AllHere {
+       width: 150px;
+    
+}

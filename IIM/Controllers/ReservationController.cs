@@ -29,7 +29,7 @@ namespace IIM.Controllers
 
         public ActionResult Index(ApplicationUser user)
         {
-            return View(user.Reservations.Where(r =>!r.isCompleted()).OrderBy(r=> r.StartDate).Select(r => new ReservationViewModel(r)));
+            return View(user.Reservations.Where(r =>!r.IsCompleted()).OrderBy(r=> r.StartDate).Select(r => new ReservationViewModel(r)));
         }
 
         public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)

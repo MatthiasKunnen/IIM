@@ -25,7 +25,8 @@ namespace IIM.ViewModels.ReservationViewModels
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [GreaterThan("StartDate")]
         public DateTime EndDate { get; private set; }
-        public string Status { get; private set; }
+        public bool Status { get; private set; }
+        public bool EverythingHere { get; private set; }
 
         public List<ReservationDetailViewModel> Details { get; set; }
 
@@ -36,7 +37,8 @@ namespace IIM.ViewModels.ReservationViewModels
             StartDate = r.StartDate;
             EndDate = r.EndDate;
             Details = r.Details.Select(d => new ReservationDetailViewModel(d)).ToList();
-            Status = r.isCompleted().ToString();
+            Status = r.IsCompleted();
+            EverythingHere = r.IsEverythingHere();
         }
     }
 
