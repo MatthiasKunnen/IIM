@@ -61,7 +61,7 @@ namespace IIM.Models.Domain
             return _reservationManager.GetOverridableIdentifiers(Details, material);
         }
 
-        public String DetailToString()
+        public string DetailToString()
         {
             var details = "";
             Details.ForEach(i => details += i.MaterialIdentifier.Material.Name + " ");
