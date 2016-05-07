@@ -16,7 +16,7 @@ namespace IIM.Models.Domain
 
         public virtual List<ReservationDetail> ReservationDetails { get; private set; }
 
-        public bool isHere()
+        public bool IsHere()
         {
             var here = true;
             var lastRes = ReservationDetails.LastOrDefault(r => r.PickUpDate.HasValue);

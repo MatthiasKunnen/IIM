@@ -113,22 +113,16 @@ namespace IIM.Models.Domain
 
         public bool IsEverythingHere()
         {
-            var everythingHere = true;
 
             foreach (var detail in Details)
             {
-                var previousRes =
-                    detail.MaterialIdentifier.ReservationDetails
-                        .LastOrDefault(r => (r.Reservation.StartDate < DateTime.Today)&& (r.PickUpDate != new DateTime(01, 01, 01)));
-
-                if (previousRes == null) continue;
-                if (previousRes.BroughtBackDate == null)
+                if (!detail.MaterialIdentifier.IsHere())
                 {
-                    everythingHere = false;
+                    return false;
                 }
             }
 
-            return everythingHere;
+            return true;
 
         }
     }
