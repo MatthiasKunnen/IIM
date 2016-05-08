@@ -10,7 +10,7 @@
 <h2>Details @Model.Name</h2>
 <div class="col-md-12 container material">
     <div>
-        <div class="col-sm-3  pull-left">
+        <div class="col-sm-4  pull-left">
             <img src="@Url.Content(Model.PhotoUrl)" class="img-rounded center-block" alt="Foto van @Html.DisplayFor(modelItem => Model.Name)" />
             @using (Html.BeginForm("Index", "Inventory"))
             {
@@ -19,7 +19,7 @@
                 </button>
             }
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-8" style="margin-bottom:5%">
             <dl class="dl-horizontal" id="detail">
                 @CreateDescription(model => model.Name)
                 @CreateDescription(model => model.ArticleNr)
@@ -61,9 +61,33 @@
             </dl>
             @Html.Partial("_Button", Model)
         </div>
+
+        @if (!ViewBag.IsStudent)
+        {
+        <div class="col-sm-12">
+            <table class="reservatieDetails">
+
+                <tr>
+                    <th>Aantal items <br />gereserveerd</th>
+                    <th>Aantal items <br />beschikbaar</th>
+                    <th>@Html.DisplayNameFor(model => model.Periods)</th>
+                    <th>Gereserveerd door</th>
+                </tr>
+                @foreach (var item in Model.Periods)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AmountAvailable)</td>
+                        <td>@Html.DisplayFor(modelItem => item.StartReservation) Tot @Html.DisplayFor(modelItem => item.EndReservation)</td>
+                        <td>@(String.Format("{0} {1}", item.User.FirstName, item.User.LastName))</td>
+                        <td><a href='@string.Format("mailto:{0}", item.User.Email)'>Mail de persoon.</a></td>
+                    </tr>
+                }
+            </table>
+        </div>
+        }
     </div>
 </div>
-
 @helper CreateDescription(Expression<Func<MaterialViewModel, object>> property)
 {
     <dt>@Html.DisplayNameFor(property)</dt>

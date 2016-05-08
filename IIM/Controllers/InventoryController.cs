@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web.Mvc;
 using IIM.Models;
 using Type = IIM.Models.Domain.Type;
+using IIM.ViewModels.ReservationViewModels;
 
 namespace IIM.Controllers
 {
@@ -16,12 +17,13 @@ namespace IIM.Controllers
         private readonly ICurricularRepository _curricularRepository;
         private readonly IMaterialRepository _materialRepository;
         private readonly ITargetGroupRepository _targetGroupRepository;
-
-        public InventoryController(ICurricularRepository curricularRepository, IMaterialRepository materialRepository, ITargetGroupRepository targetGroupRepository)
+        private readonly IReservationRepository _reservationRepository;
+        public InventoryController(ICurricularRepository curricularRepository, IMaterialRepository materialRepository, ITargetGroupRepository targetGroupRepository, IReservationRepository reservationRepository)
         {
             _curricularRepository = curricularRepository;
             _materialRepository = materialRepository;
             _targetGroupRepository = targetGroupRepository;
+            _reservationRepository = reservationRepository;
         }
 
         public ActionResult Index(ApplicationUser user, string searchName, string searchCurricular, string searchTargetGroup)
@@ -50,7 +52,6 @@ namespace IIM.Controllers
             filterList.ForEach(f => list = list.Where(f));
 
             ViewBag.WishList = user?.WishList;
-
             var materialViewModels = list.ToList().Select(m => new MaterialViewModel(m)).OrderBy(mvm => mvm.Name);
 
             return Request.IsAjaxRequest()
@@ -80,8 +81,32 @@ namespace IIM.Controllers
             var material = _materialRepository.FindById(id.Value);
             if (material == null)
                 return HttpNotFound();
+
             ViewBag.WishList = user?.WishList;
-            return View(new MaterialViewModel(material));
+            ViewBag.IsStudent = user?.Type == Type.Student;
+
+            #region ReservationDetailsOfMaterial
+            List<MaterialReservationDetailsView> periods = new List<MaterialReservationDetailsView>();
+            List<Reservation> hulpLijst = new List<Reservation>();
+            material.Identifiers.ToList().ForEach(i => {
+                foreach (var reservatieDetail in i.ReservationDetails)
+                {
+                    if (!hulpLijst.Any(r => r.Id == reservatieDetail.Reservation.Id))
+                    {
+                        if (reservatieDetail.Reservation.StartDate >= DateTime.Now)
+                        {
+                            hulpLijst.Add(reservatieDetail.Reservation);
+                            periods.Add(new MaterialReservationDetailsView(reservatieDetail,
+                                reservatieDetail.Reservation.Details.Where(d => d.MaterialIdentifier.Material == material).Count(),
+                                _reservationRepository));
+                        }
+                    }
+
+                }
+            });
+            #endregion
+
+            return View(new MaterialViewModel(material,periods));
         }
     }
 }

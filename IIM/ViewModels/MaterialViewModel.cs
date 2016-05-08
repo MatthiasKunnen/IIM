@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Web.Mvc;
 using IIM.App_Start;
+using IIM.Models;
+using IIM.ViewModels.ReservationViewModels;
 
 namespace IIM.ViewModels
 {
@@ -37,7 +39,13 @@ namespace IIM.ViewModels
         public decimal Price { get; set; }
         [Display(Name = "Doelgroepen")]
         public List<TargetGroup> TargetGroups { get; set; }
+        [Display(Name = "Periode")]
+        public List<MaterialReservationDetailsView> Periods { get; set; }
 
+        public MaterialViewModel(Material m, List<MaterialReservationDetailsView> periods) : this(m)
+        {
+            Periods = periods;
+        }
         public MaterialViewModel(Material m)
         {
             ArticleNr = m.ArticleNr;
@@ -56,7 +64,6 @@ namespace IIM.ViewModels
 
     public class InventoryViewModel
     {
-
         public IEnumerable<SearchableItemModel> CurricularModels { get; set; }
         public SearchableItemModel CurricularSelectedValue { get; set; }
         public IEnumerable<MaterialViewModel> MaterialViewModels { get; set; }
@@ -88,5 +95,28 @@ namespace IIM.ViewModels
             Id = id;
             Name = name;
         }
+    }
+
+    public class MaterialReservationDetailsView
+    {
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
+        public DateTime StartReservation { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
+        public DateTime EndReservation { get; set; }
+        public ApplicationUser User { get; set; }
+        public int Amount { get; set; }
+        public int AmountAvailable { get; set; }
+
+
+        public MaterialReservationDetailsView(ReservationDetail r, int amount, IReservationRepository reservationRepository)
+        {
+            this.StartReservation = r.Reservation.StartDate;
+            this.EndReservation = r.Reservation.EndDate;
+            this.User =r.Reservation.User;
+            this.Amount = amount;
+            this.AmountAvailable = reservationRepository.GetAmountOfAvailableIdentifiers(r.Reservation.StartDate,
+                            r.Reservation.EndDate, r.MaterialIdentifier.Material);
+        }
+
     }
 }

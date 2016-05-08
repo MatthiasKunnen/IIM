@@ -111,3 +111,32 @@ span.glyphicon-circle-arrow-left {
     .reservatie a {
         color: whitesmoke;
     }
+
+.reservation-details {
+    width: 100%;
+}
+
+    .reservation-details tr:first-child th {
+        text-align: center;
+    }
+
+    .reservation-details tr td {
+        padding: 3%;
+        text-align: center;
+    }
+
+        .reservation-details tr td:first-child {
+            max-width: 3%;
+            text-align: center;
+            padding: 0;
+        }
+
+    .reservation-details tr:nth-child(even) {
+        background: #F6F6F6;
+    }
+
+    .reservation-details tr td:nth-child(3) {
+        min-width: 70%;
+        padding: 2%;
+        text-align: center;
+    }
