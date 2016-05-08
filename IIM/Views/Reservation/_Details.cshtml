@@ -30,7 +30,7 @@
                     </button>
                 }
 
-                @if (item.PickUpDate.Equals(new DateTime(01, 01, 01)))
+                @if (item.PickUpDate.Equals(null))
                 {
                     using (Html.BeginForm("DeleteIdentifier", "Reservation", new {mat_Id = item.MaterialIdentifier.Id, rId = item.ReservationId}))
 

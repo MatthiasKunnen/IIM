@@ -1,5 +1,4 @@
-﻿
-$(":button").click(function () {
+﻿$(":button").click(function () {
 
 
     //Kijken op welke knop gedrukt werd en dan gepast doorsturen
@@ -27,9 +26,5 @@ function expand_reservation(resId) {
        } else {
         $(res_span).attr("class", "glyphicon glyphicon-chevron-up");
     }
-}
-
-function delete_reservation(redId) {
-    
 }
 

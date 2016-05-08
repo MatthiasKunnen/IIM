@@ -49,7 +49,7 @@ foreach (var item in Model)
              <button id="@string.Format("btnExpand{0}", item.Id)" type="submit" class="btn btn-default">
                  <span class="glyphicon glyphicon-chevron-down"></span>
              </button>
-             @if (item.StartDate > DateTime.Today)
+             @if (item.StartDate.Equals(null))
              {
                  using (Html.BeginForm("Delete", "Reservation", new {id = item.Id}))
                  {

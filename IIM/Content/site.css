@@ -115,8 +115,45 @@ span.glyphicon-circle-arrow-left {
     margin-bottom: 1%;
     padding: 2% 0 2% 0;
     text-align: center;
+    border: solid 1px #777;
 }
+
+.reservatie:nth-child(odd) {
+    color: black;
+    line-height: 1.4em;
+    background-color:gainsboro;
+    margin-bottom:1%;
+    padding:2% 0 2% 0;
+    text-align : center;
+    border: solid 1px gainsboro;
+ }
 
     .reservatie a {
         color: whitesmoke;
     }
+
+ form {
+     display: inline !important;
+ }
+
+#AllHere {
+    background-color: white;
+    border: 1px solid green;
+    color: green;
+}
+ 
+ #SomethingMissing {
+     background-color: white;
+     border: 1px solid red;
+     color: red;
+ }
+ 
+ div > #SomethingMissing, div > #AllHere {
+        width: 150px;
+     
+ }
+
+ .ReservatieDetail {
+     background-color: whitesmoke;
+     color: black;
+ }

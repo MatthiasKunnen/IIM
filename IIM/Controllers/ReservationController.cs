@@ -102,7 +102,7 @@ namespace IIM.Controllers
             {
                 user.DeleteReservationMaterial(res, mat_iden);
                 _userRepository.SaveChanges();
-                TempData["success"] = "De reservatie werd verwijderd.";
+                TempData["success"] = "Het Materiaal werd verwijderd.";
                 TempData.Remove("error");
 
             }
