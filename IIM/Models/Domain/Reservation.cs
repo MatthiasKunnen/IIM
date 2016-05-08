@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using Microsoft.Ajax.Utilities;
 
 namespace IIM.Models.Domain
 {
@@ -60,6 +61,43 @@ namespace IIM.Models.Domain
             return _reservationManager.GetOverridableIdentifiers(Details, material);
         }
 
+        public string DetailToString()
+        {
+            var details = "";
+            Details.ForEach(i => details += i.MaterialIdentifier.Material.Name + " ");
+            return details;
+        }
+        public bool IsCompleted()
+        {
+            var completed = true;
+
+            foreach (var r in Details)
+            {
+                if (!r.BroughtBackDate.HasValue)
+                {
+                    completed = false;
+                }
+            }
+
+            return completed;
+
+        }
+
+        public bool IsEverythingHere()
+        {
+
+            foreach (var detail in Details)
+            {
+                if (!detail.MaterialIdentifier.IsHere())
+                {
+                    return false;
+                }
+            }
+
+            return true;
+
+        }
         public string ReservationBody => $"Beste {User.FirstName} {User.LastName}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {StartDate.ToShortDateString()}\nTerugbrengen : {EndDate.ToShortDateString()}\n\nGereserveerde items: \n{string.Join("\n ", Details.GroupBy(rd => rd.MaterialIdentifier.Material).Select(n => $"{n.Key.Name}: {n.Count()}"))}\n\nBedankt voor het gebruikmaken van onze service.";
+
     }
 }

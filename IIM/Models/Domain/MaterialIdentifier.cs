@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IIM.Models.Domain
 {
@@ -16,5 +17,18 @@ namespace IIM.Models.Domain
 
         public virtual List<ReservationDetail> ReservationDetails { get; private set; }
 
+        public bool IsHere()
+        {
+            var here = true;
+            var lastRes = ReservationDetails.LastOrDefault(r => r.PickUpDate.HasValue);
+
+            if (lastRes == null) return here;
+            if (!lastRes.BroughtBackDate.HasValue)
+            {
+                here = false;
+            }
+
+            return here;
+        }
     }
 }

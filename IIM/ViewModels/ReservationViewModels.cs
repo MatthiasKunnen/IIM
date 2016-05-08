@@ -25,6 +25,8 @@ namespace IIM.ViewModels.ReservationViewModels
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [GreaterThan("StartDate")]
         public DateTime EndDate { get; set; }
+        public bool Status { get; private set; }
+        public bool EverythingHere { get; private set; }
 
         public List<ReservationDetailViewModel> Details { get; set; }
 
@@ -35,6 +37,8 @@ namespace IIM.ViewModels.ReservationViewModels
             StartDate = r.StartDate;
             EndDate = r.EndDate;
             Details = r.Details.Select(d => new ReservationDetailViewModel(d)).ToList();
+            Status = r.IsCompleted();
+            EverythingHere = r.IsEverythingHere();
         }
     }
 
@@ -47,11 +51,15 @@ namespace IIM.ViewModels.ReservationViewModels
         [Display(Name = "Afhaaldatum")]
         public DateTime? PickUpDate { get; set; }
         public MaterialViewModel Material { get; set; }
+        public MaterialIdentifier MaterialIdentifier { get; set; }
+        public int ReservationId { get; set; }
         public ReservationDetailViewModel(ReservationDetail detail)
         {
             if (detail.BroughtBackDate.HasValue) BroughtBackDate = detail.BroughtBackDate.Value;
             if (detail.PickUpDate.HasValue) PickUpDate = detail.PickUpDate.Value;
             Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+            MaterialIdentifier = detail.MaterialIdentifier;
+            ReservationId = detail.Reservation.Id;
         }
     }
 

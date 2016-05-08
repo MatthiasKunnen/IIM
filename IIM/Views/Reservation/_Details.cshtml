@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationDetailViewModel>
 
-<table class="reservatie table">
+<table class="reservation-details table">
     <tr>
         <th class="text-center">Foto</th>
         <th class="text-center">@Html.DisplayNameFor(model => model.Material.Name)</th>
@@ -16,6 +16,33 @@
             <td>@Html.DisplayFor(modelItem => item.Material.Name)</td>
             <td>@(item.PickUpDate.HasValue ? Html.DisplayFor(modelItem => item.PickUpDate).ToString() : "Nog niet opgehaald.")</td>
             <td>@(item.BroughtBackDate.HasValue ? Html.DisplayFor(modelItem => item.BroughtBackDate).ToString() : "Nog niet teruggebracht.")</td>
+            <td >
+                
+                @if (item.MaterialIdentifier.IsHere())
+                {
+                    <button id="all-here" class="btn btn-default" title="Aanwezig">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                }
+                else
+                {
+                    <button id="something-missing" class="btn btn-default" title="Nog niet terug">
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                    </button>
+                }
+
+                @if (item.PickUpDate.Equals(null))
+                {
+                    using (Html.BeginForm("DeleteIdentifier", "Reservation", new {mat_Id = item.MaterialIdentifier.Id, rId = item.ReservationId}))
+
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    }
+                }
+            </td>
         </tr>
     }
 </table>

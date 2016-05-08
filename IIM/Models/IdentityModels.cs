@@ -7,6 +7,7 @@ using IIM.Models.Domain;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Linq;
 
 namespace IIM.Models
 {
@@ -27,6 +28,21 @@ namespace IIM.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public void DeleteReservation(Reservation reservation)
+        {
+            
+            Reservations.Remove(reservation);
+            IIMContext.Create().Entry(reservation).State = EntityState.Deleted;
+        }
+
+        public void DeleteReservationMaterial(Reservation res, MaterialIdentifier mat)
+        {
+            
+            ReservationDetail resDetail = res.Details.First(r => r.MaterialIdentifier == mat);
+            Reservations.First(r => r.Id == res.Id).Details.Remove(resDetail);
+            IIMContext.Create().Entry(resDetail).State = EntityState.Deleted;
         }
 
         public void ClearWishList()

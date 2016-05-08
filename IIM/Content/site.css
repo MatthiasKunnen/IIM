@@ -99,21 +99,70 @@ span.glyphicon-circle-arrow-left {
         opacity: 0.6;
     }
 
-.reservatie {
+.reservation-head {
+    color: whitesmoke;
+    line-height: 1.4em;
+    background-color: #222;
+    margin-bottom: 1%;
+    padding: 2% 0 2% 0;
+    text-align: center;
+}
+
+.reservatie:nth-child(even) {
     color: whitesmoke;
     line-height: 1.4em;
     background-color: #333;
     margin-bottom: 1%;
     padding: 2% 0 2% 0;
     text-align: center;
+    border: solid 1px #777;
 }
 
-    .reservatie a {
-        color: whitesmoke;
-    }
+.reservatie:nth-child(odd) {
+    color: black;
+    line-height: 1.4em;
+    background-color: gainsboro;
+    margin-bottom: 1%;
+    padding: 2% 0 2% 0;
+    text-align: center;
+    border: solid 1px gainsboro;
+}
+
+.reservatie a {
+    color: whitesmoke;
+}
+
+form {
+    display: inline !important;
+}
+
+#all-here {
+    background-color: white;
+    border: 1px solid green;
+    color: green;
+}
+
+#something-missing {
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+}
+
+#late {
+    background-color: white;
+    border: 1px solid orange;
+    color: orange;
+}
+
+div > #SomethingMissing, div > #AllHere, div > #Late {
+    width: 150px;
+}
+
 
 .reservation-details {
     width: 100%;
+    background-color: whitesmoke;
+    color: black;
 }
 
     .reservation-details tr:first-child th {

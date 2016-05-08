@@ -25,7 +25,7 @@ namespace IIM.Models.DAL
 
         public Reservation FindById(int id)
         {
-            throw new NotImplementedException();
+            return _reservationSet.Find(id);
         }
 
         public IQueryable<Reservation> FindByDate(DateTime Start, DateTime End)
