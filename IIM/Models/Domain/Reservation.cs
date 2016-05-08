@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using Microsoft.Ajax.Utilities;
+using WebGrease.Css.Extensions;
 
 namespace IIM.Models.Domain
 {
@@ -54,6 +53,22 @@ namespace IIM.Models.Domain
         public void RemoveAllDetails(List<ReservationDetail> details)
         {
             details.ForEach(d => details.Remove(d));
+        }
+
+        public void AddMaterial(Material material, int count)
+        {
+            List<MaterialIdentifier> identifiers = material.GetAvailableIdentifiers(StartDate, EndDate).ToList();
+            int idCount = identifiers.Count();
+            IEnumerable<MaterialIdentifier> previousIdentifiers = User.GetPreviousIdentifierRange(StartDate.Subtract(TimeSpan.FromDays(7)), EndDate.AddDays(7), material);
+            if (idCount < count)
+            {
+                IEnumerable<ReservationDetail> overridableDetails = material.GetReservationRange(StartDate, EndDate).SelectMany(r => r.GetOverridableIdentifiers(material));
+                overridableDetails = overridableDetails.OrderByDescending(d => d.Reservation.CreationDate);
+                overridableDetails.OrderBy(d => !previousIdentifiers.Contains(d.MaterialIdentifier)).Take(count - idCount).ForEach(d => d.OverwriteDetail(this));
+                count -= count - idCount;
+            }
+
+            AddAllDetails(identifiers.OrderBy(i => !previousIdentifiers.Contains(i)).Take(count).Select(i => new ReservationDetail(this, i)).ToList());
         }
 
         public List<ReservationDetail> GetOverridableIdentifiers(Material material)

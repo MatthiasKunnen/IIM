@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Verlanglijstje";
     ViewBag.Active = "Cart";
-    
+
 }
 
 <h2>@ViewBag.Title</h2>
@@ -41,7 +41,7 @@
                     <p class="imgCenter"><img src="@Url.Content(item.PhotoUrl)" class="img-rounded " style="max-width: 150px; max-height: 100px;" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" /></p>
                 </td>
                 <td>
-                    @Html.ActionLink(@Html.DisplayFor(modelItem => item.Name).ToString(), "Detail", "Inventory", new { id = item.Id }, null)
+                    @Html.ActionLink(@Html.DisplayFor(modelItem => item.Name).ToString(), "Detail", "Inventory", new { id = item.Id }, new { target = "_blank" })
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)

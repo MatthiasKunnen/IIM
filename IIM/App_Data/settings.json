@@ -2,7 +2,20 @@
     "ImageStorageUrl": "https://iim.blob.core.windows.net/images",
     "UserTypes": {
         "Student": {
-            "ReservationStartRestrictions": null,
+            "ReservationStartRestrictions": {
+                "Restrictions": [
+                    {
+                        "DaysOfWeek": [ "Monday" ],
+                        "TimeStart": "2016-04-19T08:00:00",
+                        "TimeEnd": "2016-04-19T10:00:00",
+                        "Dates": null,
+                        "Type": "Allow"
+                    }
+                ],
+                "DefaultRestrictionType": "Deny",
+                "DefaultDay": "Monday",
+                "DefaultTime": "2016-04-19T08:00:00"
+            },
             "ReservationEndRestrictions": {
                 "Restrictions": [
                     {
@@ -13,7 +26,39 @@
                         "Type": "Deny"
                     }
                 ],
-                "DefaultRestrictionType": "Allow"
+                "DefaultRestrictionType": "Allow",
+                "DefaultDay": "Friday",
+                "DefaultTime": "2016-04-19T16:00:00"
+            }
+        },
+        "Staff": {
+            "ReservationStartRestrictions": {
+                "Restrictions": [
+                    {
+                        "DaysOfWeek": [ "Saturday", "Sunday" ],
+                        "TimeStart": null,
+                        "TimeEnd": null,
+                        "Dates": null,
+                        "Type": "Deny"
+                    }
+                ],
+                "DefaultRestrictionType": "Allow",
+                "DefaultDay": "Monday",
+                "DefaultTime": "2016-04-19T08:00:00"
+            },
+            "ReservationEndRestrictions": {
+                "Restrictions": [
+                    {
+                        "DaysOfWeek": [ "Saturday", "Sunday" ],
+                        "TimeStart": null,
+                        "TimeEnd": null,
+                        "Dates": null,
+                        "Type": "Deny"
+                    }
+                ],
+                "DefaultRestrictionType": "Allow",
+                "DefaultDay": "Friday",
+                "DefaultTime": "2016-04-19T16:00:00"
             }
         }
     },

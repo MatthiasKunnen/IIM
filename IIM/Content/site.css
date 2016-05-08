@@ -189,3 +189,23 @@ div > #SomethingMissing, div > #AllHere, div > #Late {
         padding: 2%;
         text-align: center;
     }
+
+.popup {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    left: 30px;
+    z-index: 1050;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 15px;
+    overflow: auto;
+}
+
+.popup-close {
+    float: right;
+    margin-top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}

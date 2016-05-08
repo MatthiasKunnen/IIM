@@ -29,14 +29,14 @@
       <FileName>ViewModels\ReservationViewModels.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="ReservationMaterials" />
       <Property Name="ReservationDateRange" />
+      <Property Name="ReservationMaterials" />
     </ShowAsAssociation>
   </Class>
   <Class Name="IIM.ViewModels.ReservationViewModels.NewReservationMaterialsViewModel">
     <Position X="3" Y="4" Width="3" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ReservationViewModels.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -46,12 +46,12 @@
   <Class Name="IIM.ViewModels.ReservationViewModels.ReservationDateRangeViewModel">
     <Position X="7.25" Y="4" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAQAAEAAAAA=</HashCode>
+      <HashCode>AACAAAAgAAAEAAAQAAAAAAAhAAAACCAAAAQAAEEAAAA=</HashCode>
       <FileName>ViewModels\ReservationViewModels.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IIM.ViewModels.ReservationViewModels.ReservationDetailSelectionViewModel">
-    <Position X="3" Y="5.75" Width="3" />
+    <Position X="3" Y="6" Width="3" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>ViewModels\ReservationViewModels.cs</FileName>
@@ -60,7 +60,7 @@
   <Class Name="IIM.ViewModels.MaterialViewModel">
     <Position X="21.25" Y="1.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAQAgAAAAgAAIAAQAAAACBBAAAIAAAAAAAAA=</HashCode>
+      <HashCode>AAQCAAAAAQAgAAAAgAAIAAQAgAACBAAAAIAAAAAAAAA=</HashCode>
       <FileName>ViewModels\MaterialViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>

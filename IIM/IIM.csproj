@@ -231,6 +231,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HoGentLoginManager.cs" />
     <Compile Include="Helpers\MailService.cs" />
     <Compile Include="Infrastucture\ApplicationUserModelBinder.cs" />
@@ -404,6 +405,7 @@
     <Content Include="Views\Reservation\ShowDetails.cshtml" />
     <Content Include="Views\Reservation\ReservationDateRangePartial.cshtml" />
     <Content Include="Views\Reservation\Create.cshtml" />
+    <Content Include="Views\Reservation\ReservationMaterialPickerPartial.cshtml" />
     <Content Include="Views\Inventory\MaterialOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>

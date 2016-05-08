@@ -53,11 +53,25 @@ namespace IIM.Models
             }
         }
 
-        public Reservation CreateReservation(DateTime startDate, DateTime endDate)
+
+        public Cart CreateWishList()
+        {
+            return (WishList = WishList ?? new Cart());
+        }
+
+        public void CreateReservation(DateTime startDate, DateTime endDate, Dictionary<Material,int> requestedMaterials)
         {
             var res = new Reservation(DateTime.Now, startDate, endDate, this);
+            foreach(var material in requestedMaterials.Keys)
+            {
+                res.AddMaterial(material, requestedMaterials[material]);
+            }
             Reservations.Add(res);
-            return res;
+        }
+
+        public IEnumerable<MaterialIdentifier> GetPreviousIdentifierRange(DateTime startDate, DateTime enddate, Material material)
+        {
+            return Reservations.Where(r => r.StartDate < enddate && r.EndDate > startDate).SelectMany(res => res.Details.Where(d => d.MaterialIdentifier.Material.Equals(material)).Select(d => d.MaterialIdentifier));
         }
 
         public bool AddMaterialToCart(Material material)
@@ -73,6 +87,7 @@ namespace IIM.Models
         public Material GetMaterialFromCart(int id)
         {
             return WishList?.GetMaterial(id);
+
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
+using IIM.Helpers;
 using IIM.Models.Domain;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -34,12 +35,12 @@ namespace IIM.App_Start
 
         public static RangeRestriction GetEndDateRangeRestriction(Type type)
         {
-            return ReservationRestrictions[type]?.ReservationEndTimeRestrictions;
+            return ReservationRestrictions.GetValueOrDefault(type, null)?.ReservationEndTimeRestrictions; 
         }
 
         public static RangeRestriction GetStartDateRangeRestriction(Type type)
         {
-            return ReservationRestrictions[type]?.ReservationStartTimeRestrictions;
+            return ReservationRestrictions.GetValueOrDefault(type, null)?.ReservationStartTimeRestrictions;
         }
 
         public static SmtpCredential GetSmtpCredential(string email)
@@ -187,6 +188,10 @@ namespace IIM.App_Start
         }
 
         public DateTimeRestriction.RestrictionType DefaultRestrictionType { get; set; }
+
+        public DayOfWeek DefaultDay { get; set; }
+
+        public DateTime DefaultTime { get; set; }
 
         public bool IsDateValid(DateTime date)
         {

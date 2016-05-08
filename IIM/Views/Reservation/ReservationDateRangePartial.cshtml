@@ -1,12 +1,22 @@
 ﻿@model IIM.ViewModels.ReservationViewModels.ReservationDateRangeViewModel
 @using (Html.BeginForm("ChangeReservationRange", "Reservation", FormMethod.Post, new { @class = "form-inline", id = "dateRangeForm" }))
 {
-    <label class="sr-only" for="startDate">Startdatum:</label>
-    <input type="datetime" class="form-control" id="startDate" name="startDate" placeholder="Startdatum" value="@Model.StartDate" />
+    @CreateDateField("startDate", "Startdatum", Model.StartDate, Model.StartDateHasError, Model.StartDateError)
     if (Model.DateFieldAmount >= 2)
     {
-        <label class="sr-only" for="endDate">Einddatum:</label>
-        <input type="datetime" class="form-control" id="endDate" name="endDate" placeholder="Einddatum"  value="@Model.EndDate"/>
+        @CreateDateField("endDate", "Einddatum", Model.EndDate, Model.EndDateHasError, Model.EndDateError)
     }
     <input type="submit" class="btn btn-default" value="Vernieuw filter" />
+}
+
+@helper CreateDateField(string id, string placeholder, object value, bool hasError, string error)
+{
+    <div class="form-group@(hasError ? " has-error has-feedback" :  "")">
+        <label class="sr-only" for="@id">@id:</label>
+        <input type="datetime" class="form-control" id="@id" name="@id" placeholder="@placeholder" value="@value"/>
+        @if (hasError)
+        {
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        }
+    </div>
 }

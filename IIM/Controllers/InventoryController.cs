@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web.Mvc;
 using IIM.Models;
 using Type = IIM.Models.Domain.Type;
-using IIM.ViewModels.ReservationViewModels;
 
 namespace IIM.Controllers
 {
@@ -76,37 +75,32 @@ namespace IIM.Controllers
         {
             if (!id.HasValue)
             {
-                return RedirectToAction("Index");
+                return Request.IsAjaxRequest() ? null : RedirectToAction("Index");
             }
             var material = _materialRepository.FindById(id.Value);
             if (material == null)
                 return HttpNotFound();
 
             ViewBag.WishList = user?.WishList;
+            
             ViewBag.IsStudent = user?.Type == Type.Student;
 
-            #region ReservationDetailsOfMaterial
-            List<MaterialReservationDetailsView> periods = new List<MaterialReservationDetailsView>();
-            List<Reservation> hulpLijst = new List<Reservation>();
+            var periods = new List<MaterialReservationDetailsView>();
+            var hulpLijst = new List<Reservation>();
             material.Identifiers.ToList().ForEach(i => {
-                foreach (var reservatieDetail in i.ReservationDetails)
+                foreach (var reservatieDetail in i.ReservationDetails.Where(reservatieDetail => hulpLijst.All(r => r.Id != reservatieDetail.Reservation.Id))
+                    .Where(reservatieDetail => reservatieDetail.Reservation.StartDate >= DateTime.Now))
                 {
-                    if (!hulpLijst.Any(r => r.Id == reservatieDetail.Reservation.Id))
-                    {
-                        if (reservatieDetail.Reservation.StartDate >= DateTime.Now)
-                        {
-                            hulpLijst.Add(reservatieDetail.Reservation);
-                            periods.Add(new MaterialReservationDetailsView(reservatieDetail,
-                                reservatieDetail.Reservation.Details.Where(d => d.MaterialIdentifier.Material == material).Count(),
-                                _reservationRepository));
-                        }
-                    }
-
+                    hulpLijst.Add(reservatieDetail.Reservation);
+                    periods.Add(new MaterialReservationDetailsView(reservatieDetail,
+                        reservatieDetail.Reservation.Details.Count(d => d.MaterialIdentifier.Material == material),
+                        _reservationRepository));
                 }
             });
-            #endregion
 
-            return View(new MaterialViewModel(material,periods));
+            ViewBag.ShowReturnButton = !Request.IsAjaxRequest();
+            var mvm = new MaterialViewModel(material, periods);
+            return Request.IsAjaxRequest() ? (ActionResult) PartialView(mvm) : View(mvm);
         }
     }
 }

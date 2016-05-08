@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.WebPages;
 using Type = IIM.Models.Domain.Type;
 
 namespace IIM.ViewModels.ReservationViewModels
@@ -104,33 +105,61 @@ namespace IIM.ViewModels.ReservationViewModels
 
     public class ReservationDateRangeViewModel
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        private Type _userType;
+        private bool _endDateHasError;
+        private bool _startDateHasError;
+
         public int DateFieldAmount { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime EndDate { get; set; }
+
+        public string EndDateError { get; set; }
+
+        public bool EndDateHasError
+        {
+            get { return _endDateHasError || (!EndDateError?.IsEmpty() ?? false); }
+            set { _endDateHasError = value; }
+        }
+
+        [DataType(DataType.DateTime)]
+        public DateTime StartDate { get; set; }
+
+        public string StartDateError { get; set; }
+
+        public bool StartDateHasError
+        {
+            get { return _startDateHasError || (!StartDateError?.IsEmpty() ?? false); }
+            set { _startDateHasError = value; }
+        }
+
+        public Type UserType
+        {
+            get { return _userType; }
+            set
+            {
+                switch (value)
+                {
+                    case Type.Staff:
+                        DateFieldAmount = 2;
+                        break;
+                    case Type.Student:
+                        DateFieldAmount = 1;
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(Type));
+                }
+                _userType = value;
+            }
+        }
+
         public ReservationDateRangeViewModel(DateTime startDate, DateTime endDate, Type userType)
         {
             StartDate = startDate;
             EndDate = endDate;
-            SetType(userType);
+            UserType = userType;
         }
         public ReservationDateRangeViewModel()
         {
-
-        }
-
-        public void SetType(Type userType)
-        {
-            switch (userType)
-            {
-                case Type.Staff:
-                    DateFieldAmount = 2;
-                    break;
-                case Type.Student:
-                    DateFieldAmount = 1;
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException(nameof(userType), (int)userType, typeof(Type));
-            }
         }
     }
 
@@ -147,6 +176,11 @@ namespace IIM.ViewModels.ReservationViewModels
             Material = new MaterialViewModel(material);
             MaxAmount = maxAmount;
             RequestedAmount = requestedAmount;
+        }
+
+        public ReservationDetailSelectionViewModel()
+        {
+
         }
     }
 

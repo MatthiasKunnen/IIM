@@ -18,7 +18,7 @@
                     <td class="text-center">
                         <img src="@Url.Content(item.PhotoUrl)" class="img-rounded" alt="Foto van @Html.DisplayFor(modelItem => item.Name)" />
                     </td>
-                    <td>@Html.ActionLink(item.Name, "Detail", new { id = item.Id })</td>
+                    <td>@Html.ActionLink(item.Name, "Detail", new { id = item.Id }, new { target = "_blank" })</td>
                     <td>@Html.DisplayFor(modelItem => item.Description)</td>
                     <td>@Html.DisplayFor(modelItem => item.Price)</td>
                     <td>@Html.Partial("_Button", item)</td>

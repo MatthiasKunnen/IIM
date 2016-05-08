@@ -6,14 +6,15 @@ namespace IIM.Models.Domain
 {
     public class DateTimeRestriction
     {
+        public List<DateTime> Dates { get; set; }
+
+        public RestrictionType Type { get; set; }
 
         public List<DayOfWeek> DaysOfWeek { get; set; }
 
         public DateTime? TimeStart { get; set; }
 
         public DateTime? TimeEnd { get; set; }
-
-        public List<DateTime> Dates { get; set; }
 
         public DateTimeRestriction(List<DayOfWeek> daysOfWeek, DateTime timeStart, DateTime timeEnd, List<DateTime> dates, RestrictionType restrictionType)
         {
@@ -27,8 +28,6 @@ namespace IIM.Models.Domain
         public DateTimeRestriction()
         {
         }
-
-        public RestrictionType Type { get; set; }
 
         /// <summary>
         /// Check if a date is valid according to this restriction.

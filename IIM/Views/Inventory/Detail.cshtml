@@ -1,5 +1,4 @@
 ﻿@using System.Linq.Expressions
-@using IIM.Helpers
 @using IIM.ViewModels
 @model MaterialViewModel
 
@@ -12,11 +11,13 @@
     <div>
         <div class="col-sm-4  pull-left">
             <img src="@Url.Content(Model.PhotoUrl)" class="img-rounded center-block" alt="Foto van @Html.DisplayFor(modelItem => Model.Name)" />
-            @using (Html.BeginForm("Index", "Inventory"))
-            {
-                <button class="back">
-                    <span class="glyphicon glyphicon-circle-arrow-left"></span>
-                </button>
+            @if (ViewBag.ShowReturnButton ?? true){
+                using (Html.BeginForm("Index", "Inventory"))
+                {
+                    <button class="back">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                    </button>
+                }
             }
         </div>
         <div class="col-sm-8" style="margin-bottom:5%">
@@ -67,8 +68,8 @@
             <table class="reservation-details">
 
                 <tr>
-                    <th>Aantal items <br />gereserveerd</th>
-                    <th>Aantal items <br />beschikbaar</th>
+                    <th>Aantal items gereserveerd</th>
+                    <th>Aantal items beschikbaar</th>
                     <th>@Html.DisplayNameFor(model => model.Periods)</th>
                     <th>Gereserveerd door</th>
                 </tr>
@@ -78,8 +79,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Amount)</td>
                         <td>@Html.DisplayFor(modelItem => item.AmountAvailable)</td>
                         <td>@Html.DisplayFor(modelItem => item.StartReservation) Tot @Html.DisplayFor(modelItem => item.EndReservation)</td>
-                        <td>@(String.Format("{0} {1}", item.User.FirstName, item.User.LastName))</td>
-                        <td><a href='@string.Format("mailto:{0}", item.User.Email)'>Mail de persoon.</a></td>
+                        <td>@($"{item.User.FirstName} {item.User.LastName}")(@Html.ActionLink(item.User.Email, $"mailto:{item.User.Email}"))</td>
                     </tr>
                 }
             </table>
