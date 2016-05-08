@@ -3,9 +3,11 @@ using IIM.ViewModels.ReservationViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using IIM.Helpers;
 using IIM.Models;
 using IIM.Models.Domain;
 using WebGrease.Css.Extensions;
@@ -56,7 +58,7 @@ namespace IIM.Controllers
             return RedirectToAction("Create");
         }
 
-        public ActionResult CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationViewModel newReservationModel)
+        public async Task<ActionResult> CreateReservation(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel, NewReservationViewModel newReservationModel)
         {
             var res = user.CreateReservation(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
             foreach (var details in newReservationModel.ReservationMaterials.Materials.Select(material => _reservationRepository.GetAvailableIdentifiers(
@@ -68,9 +70,8 @@ namespace IIM.Controllers
             {
                 res.AddAllDetails(details);
             }
-
+            await MailService.SendMailAsync(res.ReservationBody, "Reservering IIM", user.Email);
             return View("Index");
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 
 namespace IIM.Models.Domain
@@ -7,7 +8,7 @@ namespace IIM.Models.Domain
     public class Reservation
     {
         private readonly IReservationManager _reservationManager;
-       
+
         protected Reservation()
         {
         }
@@ -27,7 +28,7 @@ namespace IIM.Models.Domain
         public DateTime CreationDate { get; private set; }
 
         public DateTime StartDate { get; private set; }
-    
+
         public DateTime EndDate { get; private set; }
 
         public ApplicationUser User { get; private set; }
@@ -59,25 +60,6 @@ namespace IIM.Models.Domain
             return _reservationManager.GetOverridableIdentifiers(Details, material);
         }
 
-        public String DetailToString()
-        {
-            var details = "";
-            Details.ForEach(i => details += i.MaterialIdentifier.Material.Name + " ");
-            return details;
-        }
-
-        public string ReservationBody()
-        {
-            return
-                string.Format(
-                    "Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
-                    User.FirstName,
-                    User.LastName,
-                    StartDate.ToShortDateString(),
-                    EndDate.ToShortDateString(),
-                    DetailToString());
-        }
-
-   
+        public string ReservationBody => $"Beste {User.FirstName} {User.LastName}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {StartDate.ToShortDateString()}\nTerugbrengen : {EndDate.ToShortDateString()}\n\nGereserveerde items: \n{string.Join("\n ", Details.GroupBy(rd => rd.MaterialIdentifier.Material).Select(n => $"{n.Key.Name}: {n.Count()}"))}\n\nBedankt voor het gebruikmaken van onze service.";
     }
 }
