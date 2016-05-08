@@ -53,16 +53,26 @@ namespace IIM.Models
             }
         }
 
-        public Cart CreateWishList()
-        {
-            return (WishList = WishList ?? new Cart());
-        }
-
         public Reservation CreateReservation(DateTime startDate, DateTime endDate)
         {
             var res = new Reservation(DateTime.Now, startDate, endDate, this);
             Reservations.Add(res);
             return res;
+        }
+
+        public bool AddMaterialToCart(Material material)
+        {
+            return (WishList ?? (WishList = new Cart())).AddMaterial(material);
+        }
+
+        public bool RemoveMaterialFromCart(Material material)
+        {
+            return WishList?.RemoveMaterial(material) ?? false;
+        }
+
+        public Material GetMaterialFromCart(int id)
+        {
+            return WishList?.GetMaterial(id);
         }
     }
 }

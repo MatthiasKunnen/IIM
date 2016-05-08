@@ -1,5 +1,4 @@
-﻿@using IIM.Models
-@model IIM.ViewModels.LoginViewModel
+﻿@model IIM.ViewModels.LoginViewModel
 @{
     ViewBag.Title = "Log in";
 }
@@ -11,7 +10,7 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Gebruik een lokaal account om in te loggen</h4>
+                <h4>Gebruik uw HoGent account om in te loggen</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">

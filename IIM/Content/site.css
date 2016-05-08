@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 400px;
 }
 
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Serif:400,700);
@@ -44,32 +44,29 @@ textarea {
     margin-right: 15px;
 }
 
- .material img {
-        max-width: 100%;
-        max-height: 150px;
+    .material img,
+    .material-image {
+        max-width: 150px;
+        max-height: 100px;
     }
 
-.imgCenter {
-    text-align: center;
-}
+    .material h4 {
+        margin-top: 0;
+    }
 
-.material h4 {
-    margin-top: 0;
-}
+    .material > p {
+        margin-top: 10px;
+    }
 
-.material > p {
-    margin-top: 10px;
-}
+    .material > div > *:first-child {
+        padding-left: 0;
+        padding-right: 8px;
+    }
 
-.material > div > *:first-child {
-    padding-left: 0;
-    padding-right: 8px;
-}
-
-.material > div > *:last-child {
-    padding-left: 8px;
-    padding-right: 0;
-}
+    .material > div > *:last-child {
+        padding-left: 8px;
+        padding-right: 0;
+    }
 
 .form-inline, .search-function {
     margin-bottom: 20px;
@@ -114,56 +111,12 @@ span.glyphicon-circle-arrow-left {
 .reservatie:nth-child(even) {
     color: whitesmoke;
     line-height: 1.4em;
-    background-color:#777;
-    margin-bottom:1%;
-    padding:2% 0 2% 0;
-    text-align : center;
-    border: solid 1px #777;
-}
-
-.reservatie:nth-child(odd) {
-    color: black;
-    line-height: 1.4em;
-    background-color:gainsboro;
-    margin-bottom:1%;
-    padding:2% 0 2% 0;
-    text-align : center;
-    border: solid 1px gainsboro;
-}
-
-
-.reservatie a{
-    color:whitesmoke;
-
-}
-
-a:hover{
-    text-decoration:none;
-}
-
-.ReservatieDetail {
-    color: black;
-    background-color: white;
+    background-color: #333;
+    margin-bottom: 1%;
+    padding: 2% 0 2% 0;
     text-align: center;
 }
 
-form {
-    display: inline !important;
-}
-
-#AllHere {
-    background-color: white;
-    border: 1px solid green;
-    color: green;
-}
-
-#SomethingMissing {
-    background-color: white;
-    border: 1px solid red;
-    color: red;
-}
-
-div > #SomethingMissing, div > #AllHere {
-       width: 150px;
-    
-}
+    .reservatie a {
+        color: whitesmoke;
+    }

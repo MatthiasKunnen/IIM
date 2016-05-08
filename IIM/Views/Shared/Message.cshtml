@@ -1,0 +1,11 @@
+﻿@model IIM.ViewModels.MessageViewModel
+@{
+    ViewBag.Title = $"{Model.Title} - IIM";
+}
+
+<h2>@(Model.Title)</h2>
+<dl>
+    <dt>HttpCode</dt>
+    <dd>@Model.HttpCode</dd>
+</dl>
+@Model.Message

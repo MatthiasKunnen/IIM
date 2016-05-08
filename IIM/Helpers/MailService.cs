@@ -2,45 +2,35 @@
 using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
-using EASendMail;
+using IIM.App_Start;
 using SmtpClient = System.Net.Mail.SmtpClient;
 
 namespace IIM.Helpers
 {
-    public class MailService
+    public static class MailService
     {
-        private string OriginAddress { get; set; }
-        private int Port { get; set; }
-        private string Host { get; set; }
-        private SmtpClient Client { get; set; }
-        private string Password { get; set; }
 
-        public MailService(string originAddress, int port, string host, string password)
-        {
-            OriginAddress = originAddress;
-            Port = port;
-            Host = host;
-            Password = password;
-            InitializeSmtp();
-        }
 
-        private void InitializeSmtp()
+
+        private static SmtpClient InitializeSmtp(string email)
         {
-            Client = new SmtpClient
+            var smtpCredential = AppSettings.GetSmtpCredential(email);
+            return new SmtpClient
             {
-                Host = Host,
-                Port = Port,
+                Host = smtpCredential.Host,
+                Port = smtpCredential.Port,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = true,
-                Credentials = new NetworkCredential(OriginAddress, Password),
-                EnableSsl = true
+                Credentials = new NetworkCredential(email, smtpCredential.Password),
+                EnableSsl = smtpCredential.EnableSSL
             };
         }
 
-        public async void SendMailAsync(string body, string subject, string recipientEmail)
+        public static async void SendMailAsync(string body, string subject, string recipientEmail, string originAddress = null)
         {
-            var mail = new MailMessage(OriginAddress, recipientEmail)
+            originAddress = originAddress ?? AppSettings.DefaultEmailOrigin;
+            var client = InitializeSmtp(originAddress);
+            var mail = new MailMessage(originAddress, recipientEmail)
             {
                 Subject = subject,
                 IsBodyHtml = false,
@@ -48,7 +38,7 @@ namespace IIM.Helpers
             };
             try
             {
-                await Client.SendMailAsync(mail);
+                await client.SendMailAsync(mail);
             }
             catch (Exception e)
             {

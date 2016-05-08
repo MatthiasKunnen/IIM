@@ -13,19 +13,19 @@ namespace IIM.ViewModels
     {
         private string _photoUrl;
         [Display(Name = "Artikelnummer")]
-
         public string ArticleNr { get; set; }
         [Display(Name = "Opleidingsonderdelen")]
         public List<Curricular> Curriculars { get; set; }
         [Display(Name = "Beschrijving")]
         public string Description { get; set; }
         public int Id { get; set; }
-
-        public string Image { get; set; }
+        [Display(Name = "Codering")]
+        public string Encoding { get; set; }
         [Display(Name = "Firma")]
         public Firm Firm { get; set; }
         [Display(Name = "Naam")]
         public string Name { get; set; }
+        [Display(Name = "Foto")]
         public string PhotoUrl
         {
             get { return _photoUrl ?? "~/Content/photo-coming-soon.jpg"; }
@@ -45,12 +45,48 @@ namespace IIM.ViewModels
             Curriculars = m.Curriculars;
             Firm = m.Firm;
             Description = m.Description;
-            Image = m.Encoding;
+            Encoding = m.Encoding;
             Firm = m.Firm;
             Name = m.Name;
             PhotoUrl = $"{AppSettings.ImageStorageUrl}/{m.Id}.{m.Encoding}";
             Price = m.Price;
             TargetGroups = m.TargetGroups;
+        }
+    }
+
+    public class InventoryViewModel
+    {
+
+        public IEnumerable<SearchableItemModel> CurricularModels { get; set; }
+        public SearchableItemModel CurricularSelectedValue { get; set; }
+        public IEnumerable<MaterialViewModel> MaterialViewModels { get; set; }
+        public IEnumerable<SearchableItemModel> TargetGroupModels { get; set; }
+        public SearchableItemModel TargetGroupSelectedValue { get; set; }
+
+        public InventoryViewModel()
+        {
+            
+        }
+
+        public InventoryViewModel(IEnumerable<SearchableItemModel> curricularModels, SearchableItemModel curricularSelectedValue, IEnumerable<MaterialViewModel> materialViewModels, IEnumerable<SearchableItemModel> targetGroupModels, SearchableItemModel targetGroupSelectedValue)
+        {
+            CurricularModels = curricularModels;
+            CurricularSelectedValue = curricularSelectedValue;
+            MaterialViewModels = materialViewModels;
+            TargetGroupModels = targetGroupModels;
+            TargetGroupSelectedValue = targetGroupSelectedValue;
+        }
+    }
+
+    public class SearchableItemModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public SearchableItemModel(int id, string name)
+        {
+            Id = id;
+            Name = name;
         }
     }
 }

@@ -1,24 +1,29 @@
 {
     "ImageStorageUrl": "https://iim.blob.core.windows.net/images",
-  "UserTypes": {
-    "Student": {
-      "ReservationStartRestrictions": null,
-      "ReservationEndRestrictions": {
-        "Restrictions": [
-          {
-            "DaysOfWeek": [ "Monday" ],
-            "TimeStart": "2016-04-19T08:00:00",
-            "TimeEnd": "2016-04-19T10:00:00",
-            "Dates": null,
-            "Type": "Deny"
-          }
-        ],
-        "DefaultRestrictionType": "Allow"
-      }
-    }
-  },
-  "OriginAddress": "donotreply.iim@gmail.com",
-  "Password": "Pieteriscool",
-  "Port": 587,
-  "Host": "smtp.gmail.com"   
+    "UserTypes": {
+        "Student": {
+            "ReservationStartRestrictions": null,
+            "ReservationEndRestrictions": {
+                "Restrictions": [
+                    {
+                        "DaysOfWeek": [ "Monday" ],
+                        "TimeStart": "2016-04-19T08:00:00",
+                        "TimeEnd": "2016-04-19T10:00:00",
+                        "Dates": null,
+                        "Type": "Deny"
+                    }
+                ],
+                "DefaultRestrictionType": "Allow"
+            }
+        }
+    },
+    "Emails": {
+        "donotreply.iim@gmail.com": {
+            "Password": "Pieteriscool",
+            "Port": 587,
+            "Host": "smtp.gmail.com",
+            "EnableSSL": "true"
+        }
+    },
+    "DefaultEmailOrigin": "donotreply.iim@gmail.com"
 }

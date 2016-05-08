@@ -13,18 +13,18 @@ namespace IIM.ViewModels.ReservationViewModels
 {
     public class ReservationViewModel
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         [Display(Name = "Aanmaakdatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
-        public DateTime CreationDate { get; private set; }
+        public DateTime CreationDate { get; set; }
         [Display(Name = "Ophaaldatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [LessThan("EndDate")]
-        public DateTime StartDate { get; private set; }
+        public DateTime StartDate { get; set; }
         [Display(Name = "Terugbrengdatum")]
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [GreaterThan("StartDate")]
-        public DateTime EndDate { get; private set; }
+        public DateTime EndDate { get; set; }
         public bool Status { get; private set; }
         public bool EverythingHere { get; private set; }
 
@@ -46,23 +46,22 @@ namespace IIM.ViewModels.ReservationViewModels
     {
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [Display(Name = "Terugbrengdatum")]
-        public DateTime BroughtBackDate { get; private set; }
+        public DateTime? BroughtBackDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}")]
         [Display(Name = "Afhaaldatum")]
-        public DateTime PickUpDate { get; private set; }
-        public MaterialViewModel Material { get; private set; }
-        public MaterialIdentifier MaterialIdentifier { get; private set; }
-        public int ReservationId { get; private set; }
+        public DateTime? PickUpDate { get; set; }
+        public MaterialViewModel Material { get; set; }
+        public MaterialIdentifier MaterialIdentifier { get; set; }
+        public int ReservationId { get; set; }
         public ReservationDetailViewModel(ReservationDetail detail)
         {
-            if (detail.BroughtBackDate != null) this.BroughtBackDate = detail.BroughtBackDate.Value;
-            if (detail.PickUpDate != null) this.PickUpDate = detail.PickUpDate.Value;
-            this.Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
-            this.MaterialIdentifier = detail.MaterialIdentifier;
-            this.ReservationId = detail.Reservation.Id;
+            if (detail.BroughtBackDate.HasValue) BroughtBackDate = detail.BroughtBackDate.Value;
+            if (detail.PickUpDate.HasValue) PickUpDate = detail.PickUpDate.Value;
+            Material = new MaterialViewModel(detail.MaterialIdentifier.Material);
+            MaterialIdentifier = detail.MaterialIdentifier;
+            ReservationId = detail.Reservation.Id;
         }
     }
-
 
     public class NewReservationViewModel
     {
@@ -137,11 +136,12 @@ namespace IIM.ViewModels.ReservationViewModels
 
     public class ReservationDetailSelectionViewModel
     {
-        public int MaxAmount { get; private set; }
-        [Display(Name = "Aantal")]
+        [Display(Name = "Maximaal aantal")]
+        public int MaxAmount { get; set; }
+        [Display(Name = "Gewenst aantal")]
         public int RequestedAmount { get; set; }
         [Display()]
-        public MaterialViewModel Material { get; private set; }
+        public MaterialViewModel Material { get; set; }
         public ReservationDetailSelectionViewModel(Material material, int maxAmount, int requestedAmount)
         {
             Material = new MaterialViewModel(material);

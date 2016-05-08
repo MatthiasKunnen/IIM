@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Net.Mail;
-using System.Web.Configuration;
 using System.Web.Hosting;
 using IIM.Models.Domain;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using WebGrease.Css.Extensions;
 using Type = IIM.Models.Domain.Type;
 
 namespace IIM.App_Start
@@ -21,6 +16,8 @@ namespace IIM.App_Start
         private static bool _isLoaded;
         private static string _imageStorageUrl;
         private static Dictionary<Type, TypeSetting> _reservationRestrictions;
+        private static Dictionary<string, SmtpCredential> _smtpCredentials;
+        private static string _defaultEmailOrigin;
 
         public static string ImageStorageUrl
         {
@@ -44,6 +41,18 @@ namespace IIM.App_Start
             return ReservationRestrictions[type]?.ReservationStartTimeRestrictions;
         }
 
+        public static SmtpCredential GetSmtpCredential(string email)
+        {
+            InitialLoad();
+            return _smtpCredentials[email];
+        }
+
+        public static string DefaultEmailOrigin
+        {
+            get { InitialLoad(); return _defaultEmailOrigin; }
+            private set { _defaultEmailOrigin = value; }
+        }
+
         static AppSettings()
         {
             Initialize();
@@ -53,6 +62,7 @@ namespace IIM.App_Start
         private static void Initialize()
         {
             ReservationRestrictions = new Dictionary<Type, TypeSetting>();
+            _smtpCredentials = new Dictionary<string, SmtpCredential>();
         }
 
         public static T DeserializeObject<T>(string data)
@@ -115,6 +125,8 @@ namespace IIM.App_Start
             if (mirror == null) return;
             ImageStorageUrl = mirror.MirroredImageStorageUrl;
             ReservationRestrictions = mirror.TypeSettings;
+            _smtpCredentials = mirror.SmtpCredentials;
+            DefaultEmailOrigin = mirror.DefaultEmailOrigin;
         }
 
         private static void Save()
@@ -127,7 +139,9 @@ namespace IIM.App_Start
             return new SettingsMirror()
             {
                 MirroredImageStorageUrl = ImageStorageUrl,
-                TypeSettings = ReservationRestrictions
+                TypeSettings = ReservationRestrictions,
+                SmtpCredentials = _smtpCredentials,
+                DefaultEmailOrigin = DefaultEmailOrigin
             };
         }
     }
@@ -139,9 +153,15 @@ namespace IIM.App_Start
         [JsonProperty("UserTypes")]
         public Dictionary<Type, TypeSetting> TypeSettings { get; set; }
 
+        [JsonProperty("Emails")]
+        public Dictionary<string, SmtpCredential> SmtpCredentials { get; set; }
+
+        public string DefaultEmailOrigin { get; set; }
+
         public SettingsMirror()
         {
             TypeSettings = new Dictionary<Type, TypeSetting>();
+            SmtpCredentials = new Dictionary<string, SmtpCredential>();
         }
     }
 
@@ -165,16 +185,15 @@ namespace IIM.App_Start
         public DateTimeRestriction.RestrictionType DefaultRestrictionType { get; set; }
     }
 
-    public class MailSettings
+    public class SmtpCredential
     {
-        [JsonProperty("Originaddress")]
-        public string OriginAddress { get; set; }
         [JsonProperty("Password")]
         public string Password { get; set; }
         [JsonProperty("Port")]
         public int Port { get; set; }
         [JsonProperty("Host")]
         public string Host { get; set; }
-
+        [JsonProperty("EnableSSL")]
+        public bool EnableSSL { get; set; }
     }
 }
