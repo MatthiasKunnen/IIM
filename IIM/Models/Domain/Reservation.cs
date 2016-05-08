@@ -67,19 +67,6 @@ namespace IIM.Models.Domain
             Details.ForEach(i => details += i.MaterialIdentifier.Material.Name + " ");
             return details;
         }
-
-        public string ReservationBody()
-        {
-            return
-                string.Format(
-                    "Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
-                    User.FirstName,
-                    User.LastName,
-                    StartDate.ToShortDateString(),
-                    EndDate.ToShortDateString(),
-                    DetailToString());
-        }
-
         public bool IsCompleted()
         {
             var completed = true;
@@ -110,5 +97,7 @@ namespace IIM.Models.Domain
             return true;
 
         }
+        public string ReservationBody => $"Beste {User.FirstName} {User.LastName}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {StartDate.ToShortDateString()}\nTerugbrengen : {EndDate.ToShortDateString()}\n\nGereserveerde items: \n{string.Join("\n ", Details.GroupBy(rd => rd.MaterialIdentifier.Material).Select(n => $"{n.Key.Name}: {n.Count()}"))}\n\nBedankt voor het gebruikmaken van onze service.";
+
     }
 }

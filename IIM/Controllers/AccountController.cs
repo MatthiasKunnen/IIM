@@ -73,7 +73,7 @@ namespace IIM.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl, bool tryRegister = true)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -92,16 +92,14 @@ namespace IIM.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
-                    if (!tryRegister)
-                        goto default;
-                    var user = await UserManager.FindByEmailAsync(model.Email);
+                    var user = await UserManager.FindByNameAsync(model.Email);
                     if (user == null)
                     {
                         var hogentUser = HoGentLoginManager.Login(model.Email, model.Password).Result;
                         if (hogentUser.HasValue)
                         {
                             var hogentIdentity = hogentUser.Value;
-                            var applicationUser = new ApplicationUser()
+                            user = new ApplicationUser()
                             {
                                 Base64Photo = hogentIdentity.Base64Foto,
                                 Email = hogentIdentity.Email,
@@ -113,18 +111,22 @@ namespace IIM.Controllers
                             switch (hogentIdentity.Type.ToLower())
                             {
                                 case "personeel":
-                                    applicationUser.Type = Type.Staff;
+                                    user.Type = Type.Staff;
                                     break;
                                 case "student":
-                                    applicationUser.Type = Type.Student;
+                                    user.Type = Type.Student;
                                     break;
                                 default:
                                     ModelState.AddModelError("", "De aanmeldingsgegevens zijn correct maar het type van uw account is niet bekend. Gelieve contact op te nemen met de ontwerpers van deze applicatie");
                                     return View(model);
                             }
-                            var identityCreationResult = UserManager.Create(applicationUser, model.Password);
-                            if (identityCreationResult.Succeeded) return (await Login(model, returnUrl, false));
-                            ModelState.AddModelError("", identityCreationResult.Errors.ToString());
+                            var identityCreationResult = UserManager.Create(user);
+                            if (identityCreationResult.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(user, false, model.RememberMe);
+                                return RedirectToLocal(returnUrl);
+                            }
+                            ModelState.AddModelError("", string.Join(", ", identityCreationResult.Errors));
                         }
                     }
                     goto default;
