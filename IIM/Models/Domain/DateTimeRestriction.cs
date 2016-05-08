@@ -1,26 +1,19 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace IIM.Models.Domain
 {
     public class DateTimeRestriction
     {
-        public List<DayOfWeek> DaysOfWeek { get; set; }
-        public DateTime TimeStart { get; set; }
-        public DateTime TimeEnd { get; set; }
-        public List<DateTime> Dates { get; private set; }
-        public RestrictionType Type { get; set; }
 
-        public DateTimeRestriction()
-        {
-            
-        }
+        public List<DayOfWeek> DaysOfWeek { get; set; }
+
+        public DateTime? TimeStart { get; set; }
+
+        public DateTime? TimeEnd { get; set; }
+
+        public List<DateTime> Dates { get; set; }
 
         public DateTimeRestriction(List<DayOfWeek> daysOfWeek, DateTime timeStart, DateTime timeEnd, List<DateTime> dates, RestrictionType restrictionType)
         {
@@ -31,11 +24,26 @@ namespace IIM.Models.Domain
             Type = restrictionType;
         }
 
+        public DateTimeRestriction()
+        {
+        }
+
+        public RestrictionType Type { get; set; }
+
+        /// <summary>
+        /// Check if a date is valid according to this restriction.
+        /// </summary>
+        /// <param name="dateTime">The date to check.</param>
+        /// <returns>True if the date is valid, False if the date is not valid and null if the restriction does not apply to the given date.</returns>
         public bool? IsValid(DateTime dateTime)
         {
-            return Dates.All(d => dateTime.Date == d.Date) && DaysOfWeek.Contains(dateTime.DayOfWeek) &&
-                   (TimeStart.TimeOfDay <= dateTime.TimeOfDay && TimeEnd.TimeOfDay >= dateTime.TimeOfDay)
-                ? (bool?) (Type == RestrictionType.Allow)
+            if (Dates == null && DaysOfWeek == null && (TimeStart == null || TimeEnd == null))
+                return null;
+            return (Dates?.Contains(dateTime.Date) ?? true)
+                    && (DaysOfWeek?.Contains(dateTime.DayOfWeek) ?? true)
+                    && ((TimeStart == null || TimeEnd == null) 
+                        || (TimeStart.Value.TimeOfDay <= dateTime.TimeOfDay && TimeEnd.Value.TimeOfDay >= dateTime.TimeOfDay))
+                ? (bool?)(Type == RestrictionType.Allow)
                 : null; //Restriction is not applicable
         }
 

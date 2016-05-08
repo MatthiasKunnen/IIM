@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace IIM.Tests
+namespace IIM.Tests.AppSettings
 {
     [TestClass]
     public class AppSettingsTest
@@ -89,13 +89,13 @@ namespace IIM.Tests
         [TestMethod]
         public void AppSettingsSerializeTest()
         {
-            Assert.AreEqual(_settingMirrorSerialized, AppSettings.SerializeObject(_settingsMirror));
+            Assert.AreEqual(_settingMirrorSerialized, App_Start.AppSettings.SerializeObject(_settingsMirror));
         }
 
         [TestMethod]
         public void AppSettingsDeserializeTest()
         {
-            var deserialized = AppSettings.DeserializeObject<SettingsMirror>(_settingMirrorSerialized);
+            var deserialized = App_Start.AppSettings.DeserializeObject<SettingsMirror>(_settingMirrorSerialized);
             Assert.AreEqual(_settingsMirror.MirroredImageStorageUrl, deserialized.MirroredImageStorageUrl);
             Assert.AreEqual(_settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions.Count,
                 deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions.Count);

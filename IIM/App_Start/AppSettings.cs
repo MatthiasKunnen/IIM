@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.Hosting;
 using IIM.Models.Domain;
 using Newtonsoft.Json;
@@ -75,11 +76,11 @@ namespace IIM.App_Start
             return JsonConvert.SerializeObject(obj, JsonConverters);
         }
 
-        private static void LoadPath()
+        public static void LoadPath(string data = null)
         {
             if (_filePath == null)
             {
-                _filePath = HostingEnvironment.MapPath("~/App_Data/settings.json");
+                _filePath = data ?? HostingEnvironment.MapPath("~/App_Data/settings.json");
                 if (_filePath == null) throw new ArgumentNullException(nameof(_filePath), "MapPath failed.");
             }
         }
@@ -145,6 +146,7 @@ namespace IIM.App_Start
             };
         }
     }
+
     public class SettingsMirror
     {
         [JsonProperty("ImageStorageUrl")]
@@ -177,12 +179,27 @@ namespace IIM.App_Start
     public class RangeRestriction
     {
         private List<DateTimeRestriction> _restrictions;
+
         public List<DateTimeRestriction> Restrictions
         {
             get { return _restrictions ?? (_restrictions = new List<DateTimeRestriction>()); }
             set { _restrictions = value; }
         }
+
         public DateTimeRestriction.RestrictionType DefaultRestrictionType { get; set; }
+
+        public bool IsDateValid(DateTime date)
+        {
+            var result = DefaultRestrictionType == DateTimeRestriction.RestrictionType.Allow;
+            foreach (var isValid in Restrictions.Select(restriction => restriction.IsValid(date)).Where(isValid => isValid.HasValue))
+            {
+                if (isValid.Value && DefaultRestrictionType == DateTimeRestriction.RestrictionType.Deny)
+                    return true;
+                if (!isValid.Value && DefaultRestrictionType == DateTimeRestriction.RestrictionType.Allow)
+                    return false;
+            }
+            return result;
+        }
     }
 
     public class SmtpCredential

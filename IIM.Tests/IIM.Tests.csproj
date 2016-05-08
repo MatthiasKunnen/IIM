@@ -89,9 +89,9 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSettingsTest.cs" />
-    <Compile Include="Controllers\DummyDataContext.cs" />
-    <Compile Include="Controllers\InventoryControllerTest.cs" />
+    <Compile Include="AppSettings\AppSettingsTest.cs" />
+    <Compile Include="AppSettings\DateTimeRestrictionTest.cs" />
+    <Compile Include="AppSettings\RangeRestrictionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
