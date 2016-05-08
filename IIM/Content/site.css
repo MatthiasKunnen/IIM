@@ -99,13 +99,13 @@ span.glyphicon-circle-arrow-left {
         opacity: 0.6;
     }
 
-.ReservatieHead{
+.reservation-head {
     color: whitesmoke;
     line-height: 1.4em;
-    background-color:#222;
-    margin-bottom:1%;
-    padding:2% 0 2% 0;
-    text-align : center;
+    background-color: #222;
+    margin-bottom: 1%;
+    padding: 2% 0 2% 0;
+    text-align: center;
 }
 
 .reservatie:nth-child(even) {
@@ -121,73 +121,70 @@ span.glyphicon-circle-arrow-left {
 .reservatie:nth-child(odd) {
     color: black;
     line-height: 1.4em;
-    background-color:gainsboro;
-    margin-bottom:1%;
-    padding:2% 0 2% 0;
-    text-align : center;
+    background-color: gainsboro;
+    margin-bottom: 1%;
+    padding: 2% 0 2% 0;
+    text-align: center;
     border: solid 1px gainsboro;
- }
+}
 
-    .reservatie a {
-        color: whitesmoke;
-    }
+.reservatie a {
+    color: whitesmoke;
+}
 
 form {
-     display: inline !important;
- }
+    display: inline !important;
+}
 
-#AllHere {
+#all-here {
     background-color: white;
     border: 1px solid green;
     color: green;
 }
- 
- #SomethingMissing {
-     background-color: white;
-     border: 1px solid red;
-     color: red;
- }
 
-  #Late {
-     background-color: white;
-     border: 1px solid orange;
-     color: orange;
- }
- 
- div > #SomethingMissing, div > #AllHere, div > #Late {
-        width: 150px;
-     
- }
+#something-missing {
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+}
 
- .ReservatieDetail {
-     background-color: whitesmoke;
-     color: black;
- }
+#late {
+    background-color: white;
+    border: 1px solid orange;
+    color: orange;
+}
+
+div > #SomethingMissing, div > #AllHere, div > #Late {
+    width: 150px;
+}
+
 
 .reservation-details {
     width: 100%;
+    background-color: whitesmoke;
+    color: black;
 }
 
-.reservation-details tr:first-child th {
+    .reservation-details tr:first-child th {
         text-align: center;
     }
 
-.reservation-details tr td {
+    .reservation-details tr td {
         padding: 3%;
         text-align: center;
     }
 
-.reservation-details tr td:first-child {
+        .reservation-details tr td:first-child {
             max-width: 3%;
             text-align: center;
             padding: 0;
         }
 
-.reservation-details tr:nth-child(even) {
+    .reservation-details tr:nth-child(even) {
         background: #F6F6F6;
     }
 
-.reservation-details tr td:nth-child(3) {
+    .reservation-details tr td:nth-child(3) {
         min-width: 70%;
         padding: 2%;
         text-align: center;

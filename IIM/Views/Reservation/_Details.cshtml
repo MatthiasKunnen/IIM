@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationDetailViewModel>
 
-<table class="ReservatieDetail table">
+<table class="reservation-details table">
     <tr>
         <th class="text-center">Foto</th>
         <th class="text-center">@Html.DisplayNameFor(model => model.Material.Name)</th>
@@ -20,13 +20,13 @@
                 
                 @if (item.MaterialIdentifier.IsHere())
                 {
-                    <button id="AllHere" class="btn btn-default" title="Aanwezig">
+                    <button id="all-here" class="btn btn-default" title="Aanwezig">
                         <span class="glyphicon glyphicon-ok"></span>
                     </button>
                 }
                 else
                 {
-                    <button id="SomethingMissing" class="btn btn-default" title="Nog niet terug">
+                    <button id="something-missing" class="btn btn-default" title="Nog niet terug">
                         <span class="glyphicon glyphicon-warning-sign"></span>
                     </button>
                 }

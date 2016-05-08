@@ -8,7 +8,7 @@
 
 @if (Model != null && Model.Any())
 {
-    <div class="row ReservatieHead">
+    <div class="row reservation-head">
         <div class="col-sm-3">@Html.DisplayNameFor(model => model.CreationDate)</div>
         <div class="col-sm-3">@Html.DisplayNameFor(model => model.StartDate)</div>
         <div class="col-sm-3">@Html.DisplayNameFor(model => model.EndDate)</div>
@@ -35,7 +35,7 @@ foreach (var item in Model)
              {
                  if (item.EverythingHere)
                   {
-                      <button id="AllHere" class="btn btn-default" title="Alles aanwezig">
+                      <button id="all-here" class="btn btn-default" title="Alles aanwezig">
                           <span class="glyphicon glyphicon-ok"> Alles aanwezig</span>
                       </button>
                  }
@@ -43,13 +43,13 @@ foreach (var item in Model)
                  {
                      if (item.StartDate < DateTime.Today)
                      {
-                        <button id="Late" class="btn btn-default" title="Te laat">
+                        <button id="late" class="btn btn-default" title="Te laat">
                             <span class="glyphicon glyphicon-warning-sign"> Te laat</span>
                         </button>
                      }
                      else
                      {
-                        <button id="SomethingMissing" class="btn btn-default" title="Er ontbreken materialen">
+                        <button id="something-missing" class="btn btn-default" title="Er ontbreken materialen">
                             <span class="glyphicon glyphicon-warning-sign"> Onvolledig</span>
                         </button>
                      }
