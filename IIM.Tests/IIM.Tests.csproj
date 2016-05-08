@@ -92,7 +92,9 @@
     <Compile Include="AppSettings\AppSettingsTest.cs" />
     <Compile Include="AppSettings\DateTimeRestrictionTest.cs" />
     <Compile Include="AppSettings\RangeRestrictionTest.cs" />
+    <Compile Include="Domain\UserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

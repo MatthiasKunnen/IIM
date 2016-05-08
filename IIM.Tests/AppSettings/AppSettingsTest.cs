@@ -5,6 +5,7 @@ using IIM.Models.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Type = IIM.Models.Domain.Type;
 
 namespace IIM.Tests.AppSettings
 {
@@ -24,7 +25,7 @@ namespace IIM.Tests.AppSettings
                 DaysOfWeek = new List<DayOfWeek>() { DayOfWeek.Monday },
                 TimeStart = new DateTime(2016, 4, 19, 8, 0, 0),
                 TimeEnd = new DateTime(2016, 4, 19, 10, 0, 0),
-                Type = Models.Domain.DateTimeRestriction.RestrictionType.Deny
+                Type = DateTimeRestriction.RestrictionType.Deny
             };
             _typeSetting = new TypeSetting()
             {
@@ -39,9 +40,9 @@ namespace IIM.Tests.AppSettings
             _settingsMirror = new SettingsMirror()
             {
                 MirroredImageStorageUrl = "Test",
-                TypeSettings = new Dictionary<Models.Domain.Type, TypeSetting>()
+                TypeSettings = new Dictionary<Type, TypeSetting>()
                 {
-                    {Models.Domain.Type.Student, _typeSetting}
+                    {Type.Student, _typeSetting}
                 }
             };
             _settingMirrorSerialized = JsonConvert.SerializeObject(_settingsMirror, new StringEnumConverter());
@@ -79,11 +80,11 @@ namespace IIM.Tests.AppSettings
             var deserialized = JsonConvert.DeserializeObject<SettingsMirror>(serialized, new StringEnumConverter());
             Assert.AreEqual(_settingsMirror.MirroredImageStorageUrl, deserialized.MirroredImageStorageUrl);
             Assert.AreEqual(
-                _settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0],
-                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0]);
+                _settingsMirror.TypeSettings[Type.Student].ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0],
+                deserialized.TypeSettings[Type.Student].ReservationEndTimeRestrictions.Restrictions[0].DaysOfWeek[0]);
             Assert.AreEqual(
-                _settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].TimeStart,
-                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions[0].TimeStart);
+                _settingsMirror.TypeSettings[Type.Student].ReservationEndTimeRestrictions.Restrictions[0].TimeStart,
+                deserialized.TypeSettings[Type.Student].ReservationEndTimeRestrictions.Restrictions[0].TimeStart);
         }
 
         [TestMethod]
@@ -97,8 +98,8 @@ namespace IIM.Tests.AppSettings
         {
             var deserialized = App_Start.AppSettings.DeserializeObject<SettingsMirror>(_settingMirrorSerialized);
             Assert.AreEqual(_settingsMirror.MirroredImageStorageUrl, deserialized.MirroredImageStorageUrl);
-            Assert.AreEqual(_settingsMirror.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions.Count,
-                deserialized.TypeSettings[Models.Domain.Type.Student].ReservationEndTimeRestrictions.Restrictions.Count);
+            Assert.AreEqual(_settingsMirror.TypeSettings[Type.Student].ReservationEndTimeRestrictions.Restrictions.Count,
+                deserialized.TypeSettings[Type.Student].ReservationEndTimeRestrictions.Restrictions.Count);
         }
     }
 }
