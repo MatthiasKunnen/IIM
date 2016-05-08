@@ -97,7 +97,7 @@ namespace IIM.Models.Domain
             return true;
 
         }
-        public string ReservationBody => $"Beste {User.FirstName} {User.LastName}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {StartDate.ToShortDateString()}\nTerugbrengen : {EndDate.ToShortDateString()}\n\nGereserveerde items: \n{string.Join("\n ", Details.GroupBy(rd => rd.MaterialIdentifier.Material).Select(n => $"{n.Key.Name}: {n.Count()}"))}\n\nBedankt voor het gebruikmaken van onze service.";
+        public string ReservationBody => $"Beste {User.FirstName} {User.LastName}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {StartDate.ToShortDateString()}\nTerugbrengen : {EndDate.ToShortDateString()}\n\nGereserveerde items: \n{string.Join("\n", Details.GroupBy(rd => rd.MaterialIdentifier.Material).Select(n => $"{n.Key.Name}: {n.Count()}"))}\n\nBedankt voor het gebruikmaken van onze service.";
 
     }
 }

@@ -40,28 +40,27 @@ namespace IIM.Tests.Domain
         [TestMethod]
         public void ReservationBodyTestShort()
         {
-            var exp = string.Format(
-                    "Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
-                    "Pieter",
-                    "Post",
-                    DateTime.Today.ToShortDateString(),
-                    DateTime.Today.AddDays(10).ToShortDateString(),
-                    "bal ");
-            var res = _context.res2.ReservationBody();
+            var exp = $"Beste Pieter Post\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {DateTime.Today.ToShortDateString()}\nTerugbrengen : {DateTime.Today.AddDays(10).ToShortDateString()}\n\nGereserveerde items: \nbal: 1\n\nBedankt voor het gebruikmaken van onze service.";
+
+
+            var res = _context.res2.ReservationBody;
             Assert.AreEqual(exp,res);
         }
 
         [TestMethod]
         public void ReservationBodyTestLong()
         {
-            var exp = string.Format(
+            var exp = $"Beste Jan Test\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {DateTime.Today.AddDays(11).ToShortDateString()}\nTerugbrengen : {DateTime.Today.AddDays(15).ToShortDateString()}\n\nGereserveerde items: \nbal: 1\nscrumboard: 2\nhamer: 2\n\nBedankt voor het gebruikmaken van onze service.";
+
+
+            string.Format(
                     "Beste {0} {1}\n\nHierbij een bevestiging van uw reservatie.\nOphalen : {2}\nTerugbrengen : {3}\n\nGereserveerde items: {4}\n\nMet vriendelijke groet\nIIM",
                     "Jan",
                     "Test",
                     DateTime.Today.AddDays(11).ToShortDateString(),
                     DateTime.Today.AddDays(15).ToShortDateString(),
                     "bal scrumboard scrumboard hamer hamer ");
-            var res = _context.res1.ReservationBody();
+            var res = _context.res1.ReservationBody;
             Assert.AreEqual(exp, res);
         }
 
@@ -89,8 +88,47 @@ namespace IIM.Tests.Domain
             Assert.AreEqual(_context.res3.IsEverythingHere(),true);
         }
 
+        [TestMethod]
+        public void IsEverythingHereNoPending()
+        {
+            Assert.AreEqual(_context.res2.IsEverythingHere(), false);
+        }
+
+        [TestMethod]
+        public void IsEverythingHereNo()
+        {
+            Assert.AreEqual(_context.res1.IsEverythingHere(), false);
+        }
 
 
+
+
+    }
+
+    [TestClass]
+    public class MaterialIdentifierTest
+    {
+        private DummyDataContext _context;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _context = new DummyDataContext();
+        }
+
+        [TestMethod]
+        public void IsHereYes()
+        {
+            var id = _context.Hamer.Identifiers.First();
+            Assert.AreEqual(id.IsHere(), true);
+        }
+
+        [TestMethod]
+        public void IsHereNo()
+        {
+            var id = _context.Bal.Identifiers.First();
+            Assert.AreEqual(id.IsHere(), false);
+        }
 
     }
 }

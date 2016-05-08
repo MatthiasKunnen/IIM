@@ -170,6 +170,16 @@ namespace IIM.Tests.Controllers
 
             /*Res3*/
 
+            IList<ReservationDetail> bal1Res = (new ReservationDetail[] { resDet1,resDet6 }).ToList();
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(BalIdentifier1,bal1Res);
+            IList<ReservationDetail> scrum1Res = (new ReservationDetail[] { resDet2 }).ToList();
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(ScrumboardIdentifier1, scrum1Res);
+            IList<ReservationDetail> scrum2Res = (new ReservationDetail[] { resDet3 }).ToList();
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(ScrumboardIdentifier2, scrum2Res);
+            IList<ReservationDetail> hamer1Res = (new ReservationDetail[] { resDet4 }).ToList();
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(HamerIdentifier1, hamer1Res);
+            IList<ReservationDetail> hamer2Res = (new ReservationDetail[] { resDet5,resDet7 }).ToList();
+            typeof(MaterialIdentifier).GetProperty("ReservationDetails").SetValue(HamerIdentifier2, hamer2Res);
 
             Reservations = (new Reservation[] {res1, res2,res3}).ToList().AsQueryable();
 
