@@ -147,8 +147,14 @@ span.glyphicon-circle-arrow-left {
      border: 1px solid red;
      color: red;
  }
+
+  #Late {
+     background-color: white;
+     border: 1px solid orange;
+     color: orange;
+ }
  
- div > #SomethingMissing, div > #AllHere {
+ div > #SomethingMissing, div > #AllHere, div > #Late {
         width: 150px;
      
  }

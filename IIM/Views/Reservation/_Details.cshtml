@@ -17,6 +17,7 @@
             <td>@(item.PickUpDate.HasValue ? Html.DisplayFor(modelItem => item.PickUpDate).ToString() : "Nog niet opgehaald.")</td>
             <td>@(item.BroughtBackDate.HasValue ? Html.DisplayFor(modelItem => item.BroughtBackDate).ToString() : "Nog niet teruggebracht.")</td>
             <td >
+                
                 @if (item.MaterialIdentifier.IsHere())
                 {
                     <button id="AllHere" class="btn btn-default" title="Aanwezig">
