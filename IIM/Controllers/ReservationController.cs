@@ -28,13 +28,12 @@ namespace IIM.Controllers
 
         public ActionResult Index(ApplicationUser user)
         {
-            return View(user.Reservations.Where(r =>!r.IsCompleted()).OrderBy(r=> r.StartDate).Select(r => new ReservationViewModel(r)));
+            return View(user.Reservations.Where(r => !r.IsCompleted()).OrderBy(r => r.StartDate).Select(r => new ReservationViewModel(r)));
         }
 
         public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)
         {
             reservationDateRangeViewModel.UserType = user.Type;
-            CheckDateRangeModel(reservationDateRangeViewModel, reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
             Func<Material, int> func = material =>
                 material.GetAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
                     reservationDateRangeViewModel.EndDate).Count();
@@ -52,6 +51,7 @@ namespace IIM.Controllers
                 reservationDateRangeViewModel.UserType = user.Type;
                 reservationDateRangeViewModel.StartDate = startDate;
                 if (endDate != null) reservationDateRangeViewModel.EndDate = endDate.Value;
+                CheckDateRangeModel(reservationDateRangeViewModel, reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate);
             }
             return RedirectToAction("Create", reservationDateRangeViewModel);
         }
@@ -119,11 +119,12 @@ namespace IIM.Controllers
             return GetNextWeekday(DateTime.Today.AddMinutes(date.TimeOfDay.TotalMinutes), dayOfWeek);
         }
 
-        public void CheckDateRangeModel(ReservationDateRangeViewModel reservationDateRangeViewModel, DateTime? start, DateTime? end)
+        public void CheckDateRangeModel(ReservationDateRangeViewModel reservationDateRangeViewModel, DateTime? start, DateTime? end, bool displayError = true)
         {
             if (start == null || !(AppSettings.GetStartDateRangeRestriction(reservationDateRangeViewModel.UserType)?.IsDateValid(start.Value) ?? true))
             {
-                reservationDateRangeViewModel.StartDateError = "Deze datum is niet geschikt als begindatum van uw reservatie.";
+                if (displayError)
+                    reservationDateRangeViewModel.StartDateError = "Deze datum is niet geschikt als begindatum van uw reservatie.";
                 var defaultStartDateTime = GetDefaultStartDateTime(reservationDateRangeViewModel.UserType);
                 if (defaultStartDateTime != null)
                     reservationDateRangeViewModel.StartDate = (DateTime)defaultStartDateTime;
@@ -136,7 +137,8 @@ namespace IIM.Controllers
 
             if (end == null || !(AppSettings.GetEndDateRangeRestriction(reservationDateRangeViewModel.UserType)?.IsDateValid(end.Value) ?? true))
             {
-                reservationDateRangeViewModel.EndDateError = "Deze datum is niet geschikt als einddatum van uw reservatie.";
+                if (displayError)
+                    reservationDateRangeViewModel.EndDateError = "Deze datum is niet geschikt als einddatum van uw reservatie.";
                 var defaultEndDateTime = GetDefaultEndDateTime(reservationDateRangeViewModel.UserType);
                 if (defaultEndDateTime != null)
                     reservationDateRangeViewModel.EndDate = (DateTime)defaultEndDateTime;
@@ -150,7 +152,7 @@ namespace IIM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(ApplicationUser user,int id)
+        public ActionResult Delete(ApplicationUser user, int id)
         {
             TempData["error"] = "De reservatie kon niet verwijderd worden.";
 
@@ -159,21 +161,21 @@ namespace IIM.Controllers
             {
                 user.DeleteReservation(res);
                 _userRepository.SaveChanges();
-                    TempData["success"] = "De reservatie werd verwijderd.";
-                    TempData.Remove("error");
-                
+                TempData["success"] = "De reservatie werd verwijderd.";
+                TempData.Remove("error");
+
             }
             return RedirectToAction("Index");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteIdentifier(ApplicationUser user,int mat_id, int rid)
+        public ActionResult DeleteIdentifier(ApplicationUser user, int mat_id, int rid)
         {
             TempData["error"] = "De reservatie kon niet verwijderd worden.";
 
             var res = _reservationRepository.FindById(rid);
             var mat_iden = res.Details.First(r => r.MaterialIdentifier.Id == mat_id).MaterialIdentifier;
-            if (res != null && mat_iden!=null)
+            if (res != null && mat_iden != null)
             {
                 user.DeleteReservationMaterial(res, mat_iden);
                 _userRepository.SaveChanges();

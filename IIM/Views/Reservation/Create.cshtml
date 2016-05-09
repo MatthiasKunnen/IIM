@@ -5,10 +5,13 @@
 }
 
 <h2>Reserveer je materialen</h2>
-@Html.Partial("ReservationDateRangePartial", Model.ReservationDateRange)
+<div>
+    @Html.Partial("ReservationDateRangePartial", Model.ReservationDateRange)
+</div>
+<div style="margin-top: 20px;">
 
-@Html.Partial("ReservationMaterialPickerPartial", Model.ReservationMaterials)
-
+    @Html.Partial("ReservationMaterialPickerPartial", Model.ReservationMaterials)
+</div>
 
 @section Scripts{
     <script src="~/Scripts/CustomScripts/Hijax.js"></script>

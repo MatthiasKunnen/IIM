@@ -20,11 +20,8 @@ namespace IIM.Models.Domain
             {
                 return false;
             }
-            else
-            {
-                Materials.Add(material);
-                return true;
-            }
+            Materials.Add(material);
+            return true;
         }
 
         public bool RemoveMaterial(Material material)
@@ -37,13 +34,9 @@ namespace IIM.Models.Domain
             return Materials.First(m => m.Id == id);
         }
 
-        public Boolean AlreadyInCart(int id)
+        public bool AlreadyInCart(int id)
         {
-            if (Materials.FirstOrDefault(m => m.Id.Equals(id)) != null)
-            {
-                return true;
-            }
-            return false;
+            return Materials.Any(m => m.Id == id);
         }
 
         public Cart()
