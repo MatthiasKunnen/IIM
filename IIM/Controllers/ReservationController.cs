@@ -34,6 +34,7 @@ namespace IIM.Controllers
         public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)
         {
             reservationDateRangeViewModel.UserType = user.Type;
+            CheckDateRangeModel(reservationDateRangeViewModel, reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate, false);
             Func<Material, int> func = material =>
                 material.GetAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
                     reservationDateRangeViewModel.EndDate).Count();
