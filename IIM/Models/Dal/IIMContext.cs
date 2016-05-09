@@ -13,7 +13,7 @@ namespace IIM.Models.DAL
 {
     public class IIMContext : IdentityDbContext<ApplicationUser>
     {
-        public IIMContext() : base("IIM")
+        public IIMContext() : base("Data Source=tcp:iim.database.windows.net,1433;Initial Catalog=IIM453;User Id=iim_server_admin@iim;Password=d$X!sS!L9IQ$$PxLHFYzuye2^f4#6HzyyEQojgB;MultipleActiveResultSets=True;")
         {
         }
         public DbSet<Curricular> Curriculars { get; set; }
