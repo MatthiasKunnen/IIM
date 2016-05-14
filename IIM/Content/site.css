@@ -132,33 +132,6 @@ span.glyphicon-circle-arrow-left {
     color: whitesmoke;
 }
 
-form {
-    display: inline !important;
-}
-
-#all-here {
-    background-color: white;
-    border: 1px solid green;
-    color: green;
-}
-
-#something-missing {
-    background-color: white;
-    border: 1px solid red;
-    color: red;
-}
-
-#late {
-    background-color: white;
-    border: 1px solid orange;
-    color: orange;
-}
-
-div > #SomethingMissing, div > #AllHere, div > #Late {
-    width: 150px;
-}
-
-
 .reservation-details {
     width: 100%;
     background-color: whitesmoke;
@@ -190,6 +163,24 @@ div > #SomethingMissing, div > #AllHere, div > #Late {
         text-align: center;
     }
 
+.all-here {
+    background-color: white;
+    border: 1px solid green;
+    color: green;
+}
+
+.something-missing {
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+}
+
+.late {
+    background-color: white;
+    border: 1px solid orange;
+    color: orange;
+}
+
 .popup {
     position: fixed;
     top: 30px;
@@ -208,4 +199,12 @@ div > #SomethingMissing, div > #AllHere, div > #Late {
     margin-top: 10px;
     font-size: 20px;
     cursor: pointer;
+}
+
+.acties {
+    text-align: right;
+}
+
+.acties > * {
+    display: inline-block;
 }

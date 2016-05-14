@@ -1,0 +1,56 @@
+﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationViewModel>
+@foreach (var item in Model)
+{
+    <div class="row reservatie">
+        <div class="col-sm-3">@Html.DisplayFor(model => item.CreationDate)</div>
+        <div class="col-sm-3">@Html.DisplayFor(model => item.StartDate)</div>
+        <div class="col-sm-3">@Html.DisplayFor(model => item.EndDate)</div>
+        <div class="col-sm-3 acties">
+            @if ((item.StartDate > DateTime.Today && item.StartDate < DateTime.Today.AddDays(7)) || item.StartDate < DateTime.Today)
+            {
+                if (item.EverythingHere)
+                {
+                    <button class="btn btn-default all-here" title="Alles aanwezig">
+                        <span class="glyphicon glyphicon-ok"> Alles aanwezig</span>
+                    </button>
+                }
+                else
+                {
+                    if (item.StartDate < DateTime.Today)
+                    {
+                        <button class="btn btn-default late" title="Te laat">
+                            <span class="glyphicon glyphicon-warning-sign"> Te laat</span>
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-default something-missing" title="Er ontbreken materialen">
+                            <span class="glyphicon glyphicon-warning-sign"> Onvolledig</span>
+                        </button>
+                    }
+                }
+            }
+
+            @{
+                var resDetail = $"reservation-detail-{item.Id}";
+            }
+
+            @if (item.StartDate > DateTime.Today)
+            {
+                using (Html.BeginForm("Delete", "Reservation", new { id = item.Id }, FormMethod.Post, new { @class = "hijax", data_hijax_id = 0 }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                }
+            }
+            <button class="btn btn-default" data-toggle="collapse" data-target="#@resDetail">
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+        </div>
+        <div id="@resDetail" class="collapse" style="margin-top: 5%;">
+            @Html.Partial("_Details", item.Details, new ViewDataDictionary { { "id", item.Id } })
+        </div>
+    </div>
+}

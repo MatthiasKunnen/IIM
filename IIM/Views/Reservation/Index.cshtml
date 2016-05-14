@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<IIM.ViewModels.ReservationViewModels.ReservationViewModel>
 
-@section Scripts{
-    <script src="~/Scripts/CustomScripts/Reservation.js"></script>
-}
-
 @{
     ViewBag.Title = "Mijn Reservaties";
 }
@@ -19,71 +15,13 @@
         <div class="col-sm-3"></div>
     </div>
 
-foreach (var item in Model)
- {
-     <div class="row reservatie">
-
-         <div class="col-sm-3">
-             @Html.DisplayFor(modelItem => item.CreationDate)
-         </div>
-         <div class="col-sm-3">
-             @Html.DisplayFor(modelItem => item.StartDate)
-         </div>
-         <div class="col-sm-3">
-             @Html.DisplayFor(modelItem => item.EndDate)
-         </div>
-
-
-         <div class="col-sm-3 acties">
-             @if ((item.StartDate > DateTime.Today && item.StartDate < DateTime.Today.AddDays(7))|| item.StartDate < DateTime.Today )
-             {
-                 if (item.EverythingHere)
-                  {
-                      <button id="all-here" class="btn btn-default" title="Alles aanwezig">
-                          <span class="glyphicon glyphicon-ok"> Alles aanwezig</span>
-                      </button>
-                 }
-                 else
-                 {
-                     if (item.StartDate < DateTime.Today)
-                     {
-                        <button id="late" class="btn btn-default" title="Te laat">
-                            <span class="glyphicon glyphicon-warning-sign"> Te laat</span>
-                        </button>
-                     }
-                     else
-                     {
-                        <button id="something-missing" class="btn btn-default" title="Er ontbreken materialen">
-                            <span class="glyphicon glyphicon-warning-sign"> Onvolledig</span>
-                        </button>
-                     }
-
-                 }
-             }
-
-             <button id="@string.Format("btnExpand{0}", item.Id)" type="submit" class="btn btn-default">
-                 <span class="glyphicon glyphicon-chevron-down"></span>
-             </button>
-             @if (item.StartDate > DateTime.Today)
-             {
-                 using (Html.BeginForm("Delete", "Reservation", new {id = item.Id}))
-                 {
-                     @Html.AntiForgeryToken()
-                     <button id="@string.Format("btnDelete{0}", item.Id)" type="submit" class="btn btn-default">
-                         <span class="glyphicon glyphicon-trash"></span>
-                     </button>
-                 }
-             }
-
-         </div>
-
-         <div id="@string.Format("resDetail{0}", item.Id)" class="collapse" style="margin-top: 5%;">
-             @{ Html.RenderPartial("_Details",
-                    item.Details, new ViewDataDictionary {{"id", item.Id}}); }
-
-         </div>
-     </div>
- }
+    <div class="hijax-result" data-hijax-id="0">
+        @Html.Partial("Reservations", Model) 
+    </div>
+    
+    @section Scripts{
+        <script src="~/Scripts/CustomScripts/Hijax.js"></script>
+    }
 }
 else
 {

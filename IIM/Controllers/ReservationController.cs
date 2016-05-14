@@ -28,7 +28,11 @@ namespace IIM.Controllers
 
         public ActionResult Index(ApplicationUser user)
         {
-            return View(user.Reservations.Where(r => !r.IsCompleted()).OrderBy(r => r.StartDate).Select(r => new ReservationViewModel(r)));
+            var reservations =
+                user.Reservations.Where(r => !r.IsCompleted())
+                    .OrderBy(r => r.StartDate)
+                    .Select(r => new ReservationViewModel(r));
+            return Request.IsAjaxRequest() ? (ActionResult) PartialView("Reservations", reservations) : View(reservations);
         }
 
         public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)

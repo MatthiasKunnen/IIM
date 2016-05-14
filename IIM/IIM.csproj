@@ -359,7 +359,6 @@
     <None Include="Properties\PublishProfiles\IIM.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CustomScripts\Hijax.js" />
-    <Content Include="Scripts\CustomScripts\Reservation.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -407,6 +406,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="ViewModels\ViewModels.cd" />
     <Content Include="Views\Account\RealUserName.cshtml" />
+    <Content Include="Views\Reservation\Reservations.cshtml" />
     <None Include="Views\Shared\Message.cshtml" />
     <Content Include="Views\Reservation\Index.cshtml" />
     <Content Include="Views\Reservation\_Details.cshtml" />
