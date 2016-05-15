@@ -24,14 +24,11 @@ namespace IIM.Models.Domain
 
         public virtual MaterialIdentifier MaterialIdentifier { get; private set;}
 
-        public ReservationDetail OverwriteDetail(Reservation r)
+        public void OverwriteDetail(Reservation r)
         {
             Reservation.RemoveDetail(this);
             Reservation = r;
             r.AddDetail(this);
-
-            return this;
         }
-        
     }
 }

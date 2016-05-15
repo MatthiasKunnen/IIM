@@ -31,7 +31,7 @@ namespace IIM.Models.Domain
 
         public DateTime EndDate { get; private set; }
 
-        public ApplicationUser User { get; private set; }
+        public virtual ApplicationUser User { get; private set; }
 
         public virtual List<ReservationDetail> Details { get; set; }
 
@@ -57,7 +57,7 @@ namespace IIM.Models.Domain
 
         public void AddMaterial(Material material, int count)
         {
-            List<MaterialIdentifier> identifiers = material.GetAvailableIdentifiers(StartDate, EndDate).ToList();
+            List<MaterialIdentifier> identifiers = material.GetAvailableIdentifiers(StartDate, EndDate, User.Type).ToList();
             int idCount = identifiers.Count();
             IEnumerable<MaterialIdentifier> previousIdentifiers = User.GetPreviousIdentifierRange(StartDate.Subtract(TimeSpan.FromDays(7)), EndDate.AddDays(7), material);
             if (idCount < count)

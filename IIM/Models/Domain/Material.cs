@@ -17,16 +17,15 @@ namespace IIM.Models.Domain
         public decimal Price { get; private set; }
         public virtual List<TargetGroup> TargetGroups { get; private set; }
 
-        public IEnumerable<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate)
+        public int GetAvailableIdentifiersCount(DateTime startDate, DateTime endDate, Type userType)
         {
-            return Identifiers.Where(i => i.IsAvailable(startDate, endDate,Type.Student));
+            return Identifiers.Count(i => i.IsAvailable(startDate, endDate, userType) || i.IsOverridable(startDate, endDate, userType));
         }
 
-        public int GetAvailableIdentifierCount(DateTime startDate, DateTime endDate, Type userType)
+        public IEnumerable<MaterialIdentifier> GetAvailableIdentifiers(DateTime startDate, DateTime endDate, Type userType)
         {
-                return Identifiers.Count(i => i.IsAvailable(startDate, endDate, userType));
+            return Identifiers.Where(i => i.IsAvailable(startDate, endDate, userType));
         }
-
 
         internal IEnumerable<Reservation> GetReservationRange(DateTime startDate, DateTime endDate)
         {

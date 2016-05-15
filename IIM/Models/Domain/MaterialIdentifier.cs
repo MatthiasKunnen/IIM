@@ -15,11 +15,14 @@ namespace IIM.Models.Domain
 
         public bool IsAvailable(DateTime startDate, DateTime endDate, Type userType)
         {
-            return !ReservationDetails.Any(
-                             r =>
-                                 r.Reservation.StartDate < endDate && 
-                                 r.Reservation.EndDate > startDate &&
-                                 r.Reservation.User.Type >= userType); 
+            return Visibility != Visibility.Administrator && //Not an admin only identifier
+                   (userType != Type.Student || Visibility != Visibility.Docent) && //Not a staff object being lend out by a student
+                   !ReservationDetails.Any(rd => rd.Reservation.StartDate <= endDate && rd.Reservation.EndDate >= endDate); //Not already reserved
+        }
+
+        public bool IsOverridable(DateTime startDate, DateTime endDate, Type userType)
+        {
+            return TypeManagerFactory.CreateTypeManager(userType).IsOverridable(ReservationDetails, startDate, endDate);
         }
 
         public IEnumerable<ReservationDetail> GetDetailRange(DateTime endDate, DateTime startDate)

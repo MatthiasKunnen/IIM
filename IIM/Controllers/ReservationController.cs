@@ -32,17 +32,17 @@ namespace IIM.Controllers
                 user.Reservations.Where(r => !r.IsCompleted())
                     .OrderBy(r => r.StartDate)
                     .Select(r => new ReservationViewModel(r));
-            return Request.IsAjaxRequest() ? (ActionResult) PartialView("Reservations", reservations) : View(reservations);
+            return Request.IsAjaxRequest() ? (ActionResult)PartialView("Reservations", reservations) : View(reservations);
         }
 
         public ActionResult Create(ApplicationUser user, ReservationDateRangeViewModel reservationDateRangeViewModel)
         {
             reservationDateRangeViewModel.UserType = user.Type;
             CheckDateRangeModel(reservationDateRangeViewModel, reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate, false);
-            Func<Material, int> func = material =>
-                material.GetAvailableIdentifiers(reservationDateRangeViewModel.StartDate,
-                    reservationDateRangeViewModel.EndDate).Count();
-            var materials = user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(m, func.Invoke(m), 0));
+            var materials = user.WishList.Materials.Select(m => new ReservationDetailSelectionViewModel(
+                m,
+                m.GetAvailableIdentifiersCount(reservationDateRangeViewModel.StartDate, reservationDateRangeViewModel.EndDate, user.Type),
+                0));
             var materialsPicker = new NewReservationMaterialsViewModel(materials, false);
             var wrapper = new NewReservationViewModel(reservationDateRangeViewModel, materialsPicker);
             return View(wrapper);

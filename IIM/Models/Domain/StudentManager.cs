@@ -10,5 +10,10 @@ namespace IIM.Models.Domain
         {
             return reservationDetails.Where(d => d.MaterialIdentifier.Material.Equals(material)).ToList();
         }
+
+        public bool IsOverridable(List<ReservationDetail> reservationDetails, DateTime startDate, DateTime endDate)
+        {
+            return false;
+        }
     }
 }
